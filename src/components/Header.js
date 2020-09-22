@@ -1,13 +1,14 @@
 import React from 'react';
 import '../assets/css/Header.css';
+import { Container } from 'reactstrap';
 
 function Header() {
     return (
         <div classNames="header">
             <Navbar dark expand="md" className="header__navbar">
-                <div className="container header__container">
+                <Container className="header__container">
 
-                </div>
+                </Container>
             </Navbar>
         </div>
     )
