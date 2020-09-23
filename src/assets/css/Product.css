@@ -1,0 +1,11 @@
+.product {
+    max-width: 300px;
+    font-size: smaller;
+    font-weight: 500;
+}
+.product__original__price {
+    text-decoration: line-through;
+}
+.taka__icon {
+    max-width: 15px;
+}

@@ -1,0 +1,24 @@
+.home__jumbotron {
+    padding: 5px;
+    background-color: aliceblue;
+}
+.home__jumbotron__container {
+    max-width: inherit;
+}
+
+.home__jumbotron__container__row {
+    justify-content: center;
+}
+
+.home__jumbotron__container__row__banner {
+}
+
+.home__jumbotron__container__row > img {
+    max-width: inherit;
+    max-height: 200px;
+    height: 200px;
+}
+
+.home__main__products {
+    justify-content: center;
+}
