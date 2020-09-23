@@ -1,0 +1,20 @@
+.category {
+    background-color: aliceblue;
+    margin: 0px;
+}
+.category__col {
+    justify-content: center;
+    align-items: center;
+}
+.category__col__icon {
+    justify-content: center;
+}
+
+
+.category__col__name {
+    justify-content: center;
+}
+
+.category__col__name > span {
+    font-weight: 800;
+}
