@@ -13,12 +13,10 @@ function Product({ id, image, title, price, discountPrice, rating, number }) {
                     <CardTitle>{title}</CardTitle>
                     <Row>
                         <Col sm={{size: 6}} className="product__original__price">
-                            <Icon classnName=""><img className="taka__icon" src="taka.svg" /></Icon>
-                            {price}
+                        ৳{price}
                         </Col>
                         <Col sm={{size: 6}}>
-                            <Icon classnName=""><img className="taka__icon" src="taka.svg" /></Icon>
-                            {discountPrice}
+                        ৳{discountPrice}
                         </Col>
                         </Row>
                 </CardBody>
