@@ -1,0 +1,29 @@
+.adminhome {
+  /* background-color: #1F2833; */
+  background-color: #2f4454; 
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.adminhome__container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  max-width: inherit;
+}
+
+.adminhome__card {
+  background-color: white;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.adminhome__chart {
+  background-color: white;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.adminhome__chart__body {
+  padding: 20px;
+}
