@@ -8,7 +8,7 @@ import Filter from './Filter';
 function Home() {
 	return (
 		<div className='home'>
-			<hr className='home__divider' />
+			
 			<Jumbotron className="home__jumbotron">
                 <Container className="home__jumbotron__container">
                     <Row className="home__jumbotron__container__row">

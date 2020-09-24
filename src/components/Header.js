@@ -64,6 +64,7 @@ function Header() {
                 </InputGroup>
             </Row>
             <Category />
+            <hr className='header__divider' />
         </div >
 
     )

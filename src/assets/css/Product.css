@@ -2,6 +2,7 @@
     font-size: smaller;
     font-weight: 500;
     max-width: 250px;
+    height: 315px;
     margin: 10px;
     padding: 0px;
 }
@@ -9,7 +10,7 @@
 .product__card {
 }
 .product__card__image {
-    max-height: 150px;
+    height: 150px;
     object-fit: contain;
     margin-bottom: 15px;
     padding-top: 5px;
@@ -24,7 +25,7 @@
 }
 
 .product__card__body {
-    max-height: 150px;
+    height: 150px;
 }
 .product__card__title {
     font-weight: 600;

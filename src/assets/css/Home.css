@@ -1,11 +1,7 @@
 .home {
     background-color: aliceblue;
 }
-.home__divider {
-    background-color:  #1B1924;
-    height: 5px;
-    margin: 0px;
-}
+
 .home__jumbotron {
     padding: 5px;
     background-color: aliceblue;
