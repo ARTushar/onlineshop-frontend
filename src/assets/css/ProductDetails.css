@@ -1,0 +1,134 @@
+.productDetails {
+	background-color: aliceblue;
+}
+
+.productDetails__container {
+	max-width: inherit;
+}
+
+.productDetails__toprow {
+	background-color: white;
+	margin: 20px 0px 20px 0px;
+}
+
+.productDetails__toprow__imagebox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.productDetails__toprow__image {
+	max-width: 400px;
+	object-fit: contain;
+	margin: 10px;
+}
+
+.productDetails__toprow__titlebox {
+	border: #dddddd solid 1px;
+	padding-left: 30px;
+	padding-top: 10px;
+}
+
+.productDetails__toprow__titlebox__title {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.productDetails__toprow__titlebox_pricerow {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.productDetails__toprow__titlebox_originalprice {
+	text-decoration: line-through;
+	font-size: 20px;
+	color: gray;
+}
+
+.productDetails__toprow__titlebox_discountprice {
+	margin-left: 30px;
+	font-size: 30px;
+	color: #f46a4e;
+}
+
+.productDetails__toprow__titlebox_rating {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 20px;
+}
+
+.productDetails__toprow__titlebox_quantityrow {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.productDetails__toprow__titlebox_wishrow {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.productDetails__toprow__titlebox_buyrow {
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+
+.productDetails__toprow__titlebox_quantityrow__btngrp {
+	margin-left: 30px;
+	background-color: lightgray !important;
+}
+
+.productDetails__toprow__titlebox_buttoncart {
+	margin-right: 30px;
+}
+
+.productDetails__toprow__titlebox_buttonbuy {
+}
+
+.productDetails__toprow__titlebox_buttonwish {
+}
+
+.productDetails__toprow__titlebox_category {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 20px;
+}
+
+.productDetails__description {
+}
+
+.productDetails__description__container {
+	max-width: inherit;
+	margin-top: 20px;
+	background-color: white;
+	border: #dddddd solid 1px;
+	padding-bottom: 20px;
+}
+
+.productDetails__QA {
+}
+
+.productDetails__QA__container {
+	max-width: inherit;
+	background-color: white;
+	margin-top: 20px;
+	border: #dddddd solid 1px;
+}
+
+.productDetails__review {
+}
+
+.productDetails__review__container {
+	max-width: inherit;
+	margin-top: 20px;
+	background-color: white;
+	border: #dddddd solid 1px;
+}
+
+.productDetails__description {
+}
+
+.productDetails__description {
+}
+
+.productDetails__description {
+}
