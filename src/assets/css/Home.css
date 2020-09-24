@@ -1,3 +1,11 @@
+.home {
+    background-color: aliceblue;
+}
+.home__divider {
+    background-color:  #1B1924;
+    height: 5px;
+    margin: 0px;
+}
 .home__jumbotron {
     padding: 5px;
     background-color: aliceblue;
@@ -17,6 +25,9 @@
     max-width: inherit;
     max-height: 200px;
     height: 200px;
+}
+.home__container {
+    max-width: inherit;
 }
 
 .home__main__products {

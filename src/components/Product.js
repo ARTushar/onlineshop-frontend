@@ -1,24 +1,31 @@
 import React from 'react';
-import {Card, CardBody, CardImg, CardSubtitle,Row, Col, CardTitle } from 'reactstrap';
+import {Card, CardBody, CardImg, CardSubtitle,Row, Col, CardTitle, Button, Container } from 'reactstrap';
 import '../assets/css/Product.css';
 import Icon from '@material-ui/core/Icon';
 
 
 function Product({ id, image, title, price, discountPrice, rating, number }) {
     return (
-        <Col xs={{ size: 5 }} md={{ size: 4 }} xl={{size: 3}} className="product">
+        <Col xs={{ size: 5 }} md={{ size: 4 }} xl={{ size: 3 }} className="product shadow rounded">
             <Card className="product__card">
-                <CardImg top width="100%" src={image} className="product__card__image"/>
-                <CardBody>
-                    <CardTitle>{title}</CardTitle>
-                    <Row>
-                        <Col sm={{size: 6}} className="product__original__price">
-                        ৳{price}
+                <CardImg top width="100%" src={image} className="product__card__image" />
+                <CardBody className="product__card__body">
+                    <CardTitle className="product__card__title">{title}</CardTitle>
+                    <Row className="">
+                        <Col sm={{ size: 6 }} className="product__card__original__price">
+                            <strong>৳{price}</strong>
                         </Col>
-                        <Col sm={{size: 6}}>
-                        ৳{discountPrice}
+                        <Col sm={{ size: 6 }} className="product__card__price">
+                            <strong>৳{discountPrice}</strong>
                         </Col>
-                        </Row>
+                        <Col className="product__card__rating">
+                        {Array(rating)
+                        .fill()
+                        .map((_, i) => (
+                            <p>🌟</p>
+                        ))}
+                        </Col>
+                    </Row>
                 </CardBody>
             </Card>
         </Col>

@@ -1,11 +1,53 @@
 .product {
-    max-width: 300px;
     font-size: smaller;
     font-weight: 500;
+    max-width: 250px;
+    margin: 10px;
+    padding: 0px;
 }
-.product__original__price {
+
+.product__card {
+}
+.product__card__image {
+    max-height: 150px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    padding-top: 5px;
+}
+.product__card__original__price {
     text-decoration: line-through;
+    color: gray
 }
-.taka__icon {
-    max-width: 15px;
+
+.product__card__price {
+    color: #F46A4E
+}
+
+.product__card__body {
+    max-height: 150px;
+}
+.product__card__title {
+    font-weight: 600;
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.product__card__rating {
+    margin-top: 10px;
+    display: flex;
+}
+
+.product__card__button {
+    padding: 5px;
+    margin: 0px;
+    font-size: smaller;
+}
+
+.card:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
