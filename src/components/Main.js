@@ -13,6 +13,8 @@ import ProductDetails from './ProductDetails';
 import LoginRegister from './LoginRegister';
 
 import AdminHome from './AdminHome';
+import AdminOrders from './AdminOrders';
+import AdminProducts from './AdminProducts';
 import AdminHeader from './AdminHeader';
 import AdminFooter from './AdminFooter';
 
@@ -69,9 +71,24 @@ function Main(props) {
 							<LoginRegister type='register' />
 						</UserContext.Provider>
 					</Route>
-					<Route path='/admin'>
+					<Route exact path='/admin'>
 						<AdminHeader />
 						<AdminHome />
+						<AdminFooter />
+					</Route>
+					<Route exact path='/admin/home'>
+						<AdminHeader />
+						<AdminHome />
+						<AdminFooter />
+					</Route>
+					<Route exact path='/admin/orders'>
+						<AdminHeader />
+						<AdminOrders />
+						<AdminFooter />
+					</Route>
+					<Route exact path='/admin/products'>
+						<AdminHeader />
+						<AdminProducts />
 						<AdminFooter />
 					</Route>
 					<Redirect to='/home' />

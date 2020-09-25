@@ -1,5 +1,11 @@
 import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import {
+	Container,
+	Row,
+	Col,
+	UncontrolledCollapse,
+	NavbarToggler,
+} from 'reactstrap';
 import '../assets/css/AdminHome.css';
 import '../assets/css/AdminSidebar.css';
 import AdminSidebar from './AdminSidebar';
@@ -12,9 +18,8 @@ import SpeedIcon from '@material-ui/icons/Speed';
 
 import { Chart } from 'react-charts';
 
-
 function AdminHome() {
-  const data = React.useMemo(
+	const data = React.useMemo(
 		() => [
 			{
 				label: 'Series 1',
@@ -46,34 +51,51 @@ function AdminHome() {
 			{ type: 'linear', position: 'left' },
 		],
 		[]
-  );
+	);
 
-  const axes2 = React.useMemo(
+	const axes2 = React.useMemo(
 		() => [
 			{ primary: true, type: 'ordinal', position: 'bottom' },
 			{ type: 'linear', position: 'left' },
 		],
 		[]
-  );
-  
-  const series = React.useMemo(
+	);
+
+	const series = React.useMemo(
 		() => ({
 			type: 'bar',
 		}),
 		[]
 	);
-  
+
 	return (
 		<div className='adminhome'>
 			{/* <!-- Sidenav --> */}
 			<Container className='adminhome__container'>
+				<NavbarToggler
+					id='sidebartoggler'
+					className='d-sm-block d-md-none'
+					style={{
+						border: '2px',
+						color: 'primary',
+						outline: 'none',
+						backgroundColor: 'gray',
+					}}
+				/>
 				<Row>
-					<Col md='2' id='sidebar-wrapper'>
-						<AdminSidebar></AdminSidebar>
+					<Col md='2'>
+						<UncontrolledCollapse
+							navbar
+							toggler='#sidebartoggler'
+							defaultOpen={true}
+						>
+							<AdminSidebar></AdminSidebar>
+						</UncontrolledCollapse>
 					</Col>
-					<Col md='10' id='page-content-wrapper'>
+
+					<Col md='10'>
 						<div class='row'>
-							<div class='col-xl-3 col-md-6'>
+							<div class='col-xl-3 col-lg-4 col-md-6'>
 								<div class='card card-stats adminhome__card'>
 									{/* <!-- Card body --> */}
 									<div class='card-body'>
@@ -99,7 +121,7 @@ function AdminHome() {
 									</div>
 								</div>
 							</div>
-							<div class='col-xl-3 col-md-6'>
+							<div class='col-xl-3 col-lg-4 col-md-6'>
 								<div class='card card-stats adminhome__card'>
 									{/* <!-- Card body --> */}
 									<div class='card-body'>
@@ -125,7 +147,7 @@ function AdminHome() {
 									</div>
 								</div>
 							</div>
-							<div class='col-xl-3 col-md-6'>
+							<div class='col-xl-3 col-lg-4 col-md-6'>
 								<div class='card card-stats adminhome__card'>
 									{/* <!-- Card body --> */}
 									<div class='card-body'>
@@ -151,7 +173,7 @@ function AdminHome() {
 									</div>
 								</div>
 							</div>
-							<div class='col-xl-3 col-md-6'>
+							<div class='col-xl-3 col-lg-4 col-md-6'>
 								<div class='card card-stats adminhome__card'>
 									{/* <!-- Card body --> */}
 									<div class='card-body'>
