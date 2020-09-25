@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import '../assets/css/Header.css';
-import { UncontrolledCollapse, Container, NavbarBrand, Navbar, NavItem, Nav, UncontrolledDropdown, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarToggler, Button, Row, InputGroup, Input, InputGroupAddon } from 'reactstrap';
+import {
+	UncontrolledCollapse,
+	Container,
+	NavbarBrand,
+	Navbar,
+	NavItem,
+	Nav,
+	NavbarToggler,
+	Row,
+	InputGroup,
+	Input,
+	InputGroupAddon,
+} from 'reactstrap';
 import { Link, NavLink } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -9,9 +21,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import Category from './Category';
 
 function Header() {
-    const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
-    const toggle = () => setIsOpen(!isOpen);
+	const toggle = () => setIsOpen(!isOpen);
 
     return (
         <div className="header">
