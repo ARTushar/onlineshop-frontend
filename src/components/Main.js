@@ -11,6 +11,11 @@ import Cart from './Cart';
 import Purchase from './Purchase';
 import ProductDetails from './ProductDetails';
 import LoginRegister from './LoginRegister';
+
+import AdminHome from './AdminHome';
+import AdminHeader from './AdminHeader';
+import AdminFooter from './AdminFooter';
+
 import { actions } from 'react-redux-form';
 import { UserContext } from '../Context/context';
 
@@ -24,50 +29,55 @@ function Main(props) {
     console.log(location.pathname)
 
     return (
-        <div className="main">
-            <Switch>
-                <Route path="/home">
-                    <Header />
-                    <Home />
-                    <Footer />
-                </Route>
-                <Route path="/productdetails">
-                    <Header />
-                    <ProductDetails />
-                    <Footer />
-                </Route>
-                <Route path="/cart" >
-                    <Header />
-                    <Cart />
-                    <Footer />
-                </Route>
-                <Route path="/purchase">
-                    <Header />
-                    <Purchase />
-                    <Footer />
-                </Route>
-                <Route path="/profile">
-                    <Header />
-                    <Profile />
-                    <Footer />
-                </Route>
-                <Route path="/videos">
-                    <Header />
-                    <Videos />
-                    <Footer />
-                </Route>
-                <Route exact path="/login">
-                    <LoginRegister type="login"/>
-                </Route>
-                <Route exact path="/register">
-                    <UserContext.Provider value={props.resetSignUpForm}>
-                        <LoginRegister type="register" />
-                    </UserContext.Provider>
-                </Route>
-                <Redirect to="/home" />
-            </Switch>
-        </div>
-    )
+			<div className='main'>
+				<Switch>
+					<Route path='/home'>
+						<Header />
+						<Home />
+						<Footer />
+					</Route>
+					<Route path='/productdetails'>
+						<Header />
+						<ProductDetails />
+						<Footer />
+					</Route>
+					<Route path='/cart'>
+						<Header />
+						<Cart />
+						<Footer />
+					</Route>
+					<Route path='/purchase'>
+						<Header />
+						<Purchase />
+						<Footer />
+					</Route>
+					<Route path='/profile'>
+						<Header />
+						<Profile />
+						<Footer />
+					</Route>
+					<Route path='/videos'>
+						<Header />
+						<Videos />
+						<Footer />
+					</Route>
+					<Route exact path='/login'>
+						<LoginRegister type='login' />
+					</Route>
+					<Route exact path='/register'>
+						<UserContext.Provider value={props.resetSignUpForm}>
+							<LoginRegister type='register' />
+						</UserContext.Provider>
+					</Route>
+					<Route path='/admin'>
+						<AdminHeader />
+						<AdminHome />
+						<AdminFooter />
+					</Route>
+					<Redirect to='/home' />
+				</Switch>
+			</div>
+		);
 };
 
 export default withRouter(connect(null, mapDispatchToProps)(Main));
