@@ -1,32 +1,73 @@
 import React from 'react';
 import '../assets/css/Main.css';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Home from './Home';
 import Header from './Header';
 import Footer from './Footer';
 import Videos from './Videos';
-import UserProfile from './UserProfile';
+import Profile from './Profile';
 import Cart from './Cart';
 import Purchase from './Purchase';
 import ProductDetails from './ProductDetails';
+import LoginRegister from './LoginRegister';
+import { actions } from 'react-redux-form';
+import { UserContext } from '../Context/context';
 
-function Main() {
+
+const mapDispatchToProps = (dispatch) => ({
+  resetSignUpForm: () => { dispatch(actions.reset('user'))}
+});
+
+function Main(props) {
+    const location = useLocation();
+    console.log(location.pathname)
+
     return (
         <div className="main">
-            <Header />
             <Switch>
-                <Route path="/home" component={() => <Home />}/>
-                <Route path="/productdetails" component={()=> <ProductDetails />}/>
-                <Route path="/cart" component={()=> <Cart />} />
-                <Route path="/purchase" component={()=> <Purchase />} />
-                <Route path="/userprofile" component={()=> <UserProfile />} />
-                <Route path="/videos" component={()=> <Videos />} />
+                <Route path="/home">
+                    <Header />
+                    <Home />
+                    <Footer />
+                </Route>
+                <Route path="/productdetails">
+                    <Header />
+                    <ProductDetails />
+                    <Footer />
+                </Route>
+                <Route path="/cart" >
+                    <Header />
+                    <Cart />
+                    <Footer />
+                </Route>
+                <Route path="/purchase">
+                    <Header />
+                    <Purchase />
+                    <Footer />
+                </Route>
+                <Route path="/profile">
+                    <Header />
+                    <Profile />
+                    <Footer />
+                </Route>
+                <Route path="/videos">
+                    <Header />
+                    <Videos />
+                    <Footer />
+                </Route>
+                <Route exact path="/login">
+                    <LoginRegister type="login"/>
+                </Route>
+                <Route exact path="/register">
+                    <UserContext.Provider value={props.resetSignUpForm}>
+                        <LoginRegister type="register" />
+                    </UserContext.Provider>
+                </Route>
                 <Redirect to="/home" />
-                
             </Switch>
-            <Footer />
         </div>
     )
 };
 
-export default Main;
+export default withRouter(connect(null, mapDispatchToProps)(Main));

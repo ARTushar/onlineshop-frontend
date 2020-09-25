@@ -34,7 +34,7 @@ function Header() {
                         </Nav>
                         <Nav navbar className="header__navbar__nav__right">
                             <NavItem className=" header__navbar__container__profile">
-                                <NavLink className="nav-link" to="/userprofile">
+                                <NavLink className="nav-link" to="/profile">
                                     <AccountCircleIcon fontSize="medium" />
                                 </NavLink>
                             </NavItem>

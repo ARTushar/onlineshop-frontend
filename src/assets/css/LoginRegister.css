@@ -1,0 +1,29 @@
+.loginregister {
+    background-color: #172b4d!important;
+    min-height: 100vh;
+    color: white;
+}
+
+.loginregister__container {
+    max-width: inherit;
+    /* background: linear-gradient(87deg,#11cdef,#1171ef)!important; */
+    /* height: 30vh; */
+}
+
+.loginregister__logo {
+    justify-content: center;
+}
+.loginregister__logo__img {
+    max-width: 100px;
+}
+.loginregister__title {
+    justify-content: center;
+    padding-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.loginregister__login{
+    justify-content: center;
+    padding: 10px;
+}
