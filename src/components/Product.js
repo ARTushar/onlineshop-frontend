@@ -13,7 +13,7 @@ function Product({ id, image, title, price, discountPrice, rating, number }) {
 				xl={{ size: 3 }}
 				className='product shadow rounded'
 			>
-				<Link to='/productdetails'>
+				<Link to='/productdetails' style={{ textDecoration: "inherit", color: 'inherit'}}>
 					<Card className='product__card'>
 						<CardImg
 							top
