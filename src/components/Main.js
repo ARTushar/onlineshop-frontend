@@ -11,6 +11,7 @@ import Cart from './Cart';
 import Purchase from './Purchase';
 import ProductDetails from './ProductDetails';
 import LoginRegister from './LoginRegister';
+import Search from './Search';
 import { actions } from 'react-redux-form';
 import { UserContext } from '../Context/context';
 
@@ -63,6 +64,11 @@ function Main(props) {
                     <UserContext.Provider value={props.resetSignUpForm}>
                         <LoginRegister type="register" />
                     </UserContext.Provider>
+                </Route>
+                <Route path="/search">
+                    <Header />
+                    <Search />
+                    <Footer />
                 </Route>
                 <Redirect to="/home" />
             </Switch>
