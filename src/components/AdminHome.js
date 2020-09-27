@@ -5,6 +5,8 @@ import {
 	Col,
 	UncontrolledCollapse,
 	NavbarToggler,
+	ButtonToggle,
+	Button
 } from 'reactstrap';
 import '../assets/css/AdminHome.css';
 import '../assets/css/AdminSidebar.css';
@@ -15,6 +17,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import DirectionsIcon from '@material-ui/icons/Directions';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import SpeedIcon from '@material-ui/icons/Speed';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import { Chart } from 'react-charts';
 
@@ -72,7 +75,7 @@ function AdminHome() {
 		<div className='adminhome'>
 			{/* <!-- Sidenav --> */}
 			<Container className='adminhome__container'>
-				<NavbarToggler
+				{/* <NavbarToggler
 					id='sidebartoggler'
 					className='d-sm-block d-md-none'
 					style={{
@@ -81,7 +84,10 @@ function AdminHome() {
 						outline: 'none',
 						backgroundColor: 'gray',
 					}}
-				/>
+				/> */}
+				<ButtonToggle id='sidebartoggler'>
+					<MenuIcon ></MenuIcon>
+				</ButtonToggle>
 				<Row>
 					<Col md='2'>
 						<UncontrolledCollapse
@@ -93,7 +99,7 @@ function AdminHome() {
 						</UncontrolledCollapse>
 					</Col>
 
-					<Col md='10'>
+					<Col>
 						<div class='row'>
 							<div class='col-xl-3 col-lg-4 col-md-6'>
 								<div class='card card-stats adminhome__card'>

@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, ButtonGroup, Button } from 'reactstrap';
 import '../assets/css/ProductDetails.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-function ProductDetails() {
+function ProductDetails({selectedProduct}) {
+	console.log('Inside product details. selected : ' + selectedProduct)
 	return (
 		<div className='productDetails'>
 			<Container className='productDetails__container'>
 				<Row className='productDetails__toprow'>
 					<Col md='4' className='productDetails__toprow__imagebox'>
 						<img
-							src='images/products/handBag.jpg'
+							src={selectedProduct && selectedProduct.image}
 							className='productDetails__toprow__image'
 							alt='product image'
 						></img>
@@ -19,12 +20,11 @@ function ProductDetails() {
 						<Container>
 							<Row>
 								<h4 className='productDetails__toprow__titlebox__title'>
-									Lamaze Peek-A-Boo Forest, Fun Interactive Baby Book with
-									Inspiring Rhymes and Stories
+									{selectedProduct && selectedProduct.title}
 								</h4>
 							</Row>
 							<Row className='productDetails__toprow__titlebox_rating'>
-								{Array(4)
+								{Array(selectedProduct && selectedProduct.rating)
 									.fill()
 									.map((_, i) => (
 										<p>🌟</p>
@@ -33,10 +33,13 @@ function ProductDetails() {
 							<Row className='productDetails__toprow__titlebox_pricerow'>
 								<Col className='productDetails__toprow__titlebox_price'>
 									<strong className='productDetails__toprow__titlebox_originalprice'>
-										৳200
+										৳{selectedProduct && selectedProduct.price}
 									</strong>
 									<strong className='productDetails__toprow__titlebox_discountprice'>
-										৳180
+										৳
+										{selectedProduct &&
+											selectedProduct.price -
+												selectedProduct.price * selectedProduct.discount * 0.01}
 									</strong>
 								</Col>
 								<Col className='productDetails__toprow__titlebox_discountprice'></Col>
@@ -80,7 +83,7 @@ function ProductDetails() {
 							</Row>
 							<Row>
 								<text className='productDetails__toprow__titlebox_category'>
-									Category: Bags
+									Category: {selectedProduct && selectedProduct.category}
 								</text>
 							</Row>
 						</Container>

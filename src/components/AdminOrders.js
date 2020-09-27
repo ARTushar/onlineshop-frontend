@@ -6,27 +6,24 @@ import {
 	UncontrolledCollapse,
   NavbarToggler,
   Button,
-  ButtonGroup
+	ButtonGroup,
+	ButtonToggle
 } from 'reactstrap';
 import '../assets/css/AdminOrders.css';
 import '../assets/css/AdminSidebar.css';
 import AdminSidebar from './AdminSidebar';
+import { ORDERS } from '../shared/orders';
+
+import MenuIcon from '@material-ui/icons/Menu';
 
 function AdminOrders() {
 	return (
 		<div className='adminorders'>
 			{/* <!-- Sidenav --> */}
 			<Container className='adminorders__container'>
-				<NavbarToggler
-					id='sidebartoggler'
-					className='d-sm-block d-md-none'
-					style={{
-						border: '2px',
-						color: 'primary',
-						outline: 'none',
-						backgroundColor: 'gray',
-					}}
-				/>
+				<ButtonToggle id='sidebartoggler'>
+					<MenuIcon></MenuIcon>
+				</ButtonToggle>
 				<Row>
 					<Col md='2'>
 						<UncontrolledCollapse
@@ -55,48 +52,31 @@ function AdminOrders() {
 												<th scope='col'>ORDER#</th>
 												<th scope='col'>CUSTOMER</th>
 												<th scope='col'>SHIP TO</th>
-												<th scope='col'>AMOUNT</th>
-												<th scope='col'>PAYMENT METHOD</th>
+												<th scope='col'>TOTAL AMOUNT</th>
 												<th scope='col'>STATUS</th>
+												<th scope='col'>PAYMENT METHOD</th>
 												<th scope='col'>PAYED AMOUNT</th>
-												<th scope='col'>TRACKING NUMBER</th>
 												<th scope='col'>ACTIONS</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<th scope='row'>1</th>
-												<td>Mark</td>
-												<td>Otto</td>
-												<td>@mdo</td>
-												<td>Otto</td>
-												<td>@mdo</td>
-												<td>@mdo</td>
-												<td>Otto</td>
-												<td>@mdo</td>
-											</tr>
-											<tr>
-												<th scope='row'>2</th>
-												<td>Jacob</td>
-												<td>Thornton</td>
-												<td>@fat</td>
-												<td>Otto</td>
-												<td>@mdo</td>
-												<td>@mdo</td>
-												<td>Otto</td>
-												<td>@mdo</td>
-											</tr>
-											<tr>
-												<th scope='row'>3</th>
-												<td>Larry</td>
-												<td>the Bird</td>
-												<td>@twitter</td>
-												<td>Otto</td>
-												<td>@mdo</td>
-												<td>@mdo</td>
-												<td>Otto</td>
-												<td>@mdo</td>
-											</tr>
+											{ORDERS.map((order) => {
+												return (
+													<tr>
+														<th scope='row'>{order.serial_no}</th>
+														<td>{order.user}</td>
+														<td>{order.shipping_address}</td>
+														<td>{order.total_cost}</td>
+														<td>{order.status}</td>
+														<td>{order.payment_method}</td>
+														<td>{order.payed_amount}</td>
+														<td>
+															<Button>view</Button>
+															<Button>cancel</Button>
+														</td>
+													</tr>
+												);
+											})}
 										</tbody>
 										<caption>showing 3 of 20 entries</caption>
 									</table>

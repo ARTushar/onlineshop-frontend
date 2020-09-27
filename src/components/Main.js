@@ -21,14 +21,37 @@ import AdminFooter from './AdminFooter';
 import { actions } from 'react-redux-form';
 import { UserContext } from '../Context/context';
 
+import { fetchProductDetails } from '../redux/actionCreators';
 
 const mapDispatchToProps = (dispatch) => ({
-  resetSignUpForm: () => { dispatch(actions.reset('user'))}
+	resetSignUpForm: () => { dispatch(actions.reset('user'))},
+	fetchProductDetails: (productId) => { dispatch(fetchProductDetails(productId)) }
 });
+
+const mapStateToProps = (state) => {
+	return {
+		products: state.products.products,
+		selectedProduct: state.products.selectedProduct,
+	};
+};
 
 function Main(props) {
     const location = useLocation();
-    console.log(location.pathname)
+		console.log(location.pathname);
+
+		const ProductDetailsWithID = ({match}) => {
+			console.log('in main productDetailsWithId. id: ' + match.params.productId);
+			console.log('before state : ' + props.selectedProduct);
+			props.fetchProductDetails(parseInt(match.params.productId, 10));
+			console.log('after state : ' + props.selectedProduct);
+			return (
+				<React.Fragment>
+					<Header />
+					<ProductDetails selectedProduct={props.selectedProduct} />
+					<Footer />
+				</React.Fragment>
+			);
+		}
 
     return (
 			<div className='main'>
@@ -38,11 +61,7 @@ function Main(props) {
 						<Home />
 						<Footer />
 					</Route>
-					<Route path='/productdetails'>
-						<Header />
-						<ProductDetails />
-						<Footer />
-					</Route>
+					<Route path='/productdetails/:productId' component={ProductDetailsWithID} />
 					<Route path='/cart'>
 						<Header />
 						<Cart />
@@ -97,4 +116,4 @@ function Main(props) {
 		);
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
