@@ -1,9 +1,19 @@
 import React from 'react';
-import {Card, CardBody, CardImg, CardSubtitle,Row, Col, CardTitle, Button, Container, CardLink } from 'reactstrap';
+import {
+	Card,
+	CardBody,
+	CardImg,
+	CardSubtitle,
+	Row,
+	Col,
+	CardTitle,
+	Button,
+	Container,
+	CardLink,
+} from 'reactstrap';
 import '../assets/css/Product.css';
 import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
-
 
 function Product({ id, image, title, price, discountPrice, rating, number }) {
     return (
@@ -44,8 +54,8 @@ function Product({ id, image, title, price, discountPrice, rating, number }) {
 						</CardBody>
 					</Card>
 				</Link>
-			</Col>
-		);
+		</Col>
+	);
 }
 
 export default Product;

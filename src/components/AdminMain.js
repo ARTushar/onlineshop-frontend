@@ -9,10 +9,7 @@ function AdminMain() {
 	return (
 		<div className='main'>
 			<AdminHeader />
-			<Switch>
-				<Route path='/admin/home' component={() => <AdminHome />} />
-				<Redirect to='/admin/home' />
-			</Switch>
+			<AdminHome />
 			<AdminFooter />
 		</div>
 	);

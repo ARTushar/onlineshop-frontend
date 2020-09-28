@@ -1,0 +1,20 @@
+.adminorders {
+  background-color: aliceblue;
+  /* background-color: #adb5bd;  */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.adminorders__container {
+  max-width: inherit;
+}
+
+.adminorders__table__container {
+  max-width: inherit;
+  background-color: white;
+  margin-top: 20px;
+}
+
+.adminorders__table__container__row {
+  padding: 10px;
+}
