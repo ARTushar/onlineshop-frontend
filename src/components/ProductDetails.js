@@ -93,15 +93,25 @@ function ProductDetails({selectedProduct}) {
 				<Row className='productDetails__description'>
 					<Col>
 						<Container className='productDetails__description__container'>
-							<h4 style={{ marginTop: 10 }}>Description</h4>
+							<h4 style={{ marginTop: 10 }}>
+								{selectedProduct && selectedProduct.description.header}
+							</h4>
 							<hr></hr>
-							<h6>Product features</h6>
-							<text>
-								Product Type: Backpack(without Doll) For Girl Gender: Women You
-								Get this backpack Bag without Doll. Style: New style Fashion
-								Closure type:Zipper Material: Nylon Lifting parts type: Handling
-								handles + adjustable shoulder strap
-							</text>
+							<h6>Product features:</h6>
+							<ul>
+								{selectedProduct &&
+									selectedProduct.description.features.map((feature) => {
+										return <li>{feature}</li>;
+									})}
+							</ul>
+							<hr></hr>
+							<h6>Product specifications:</h6>
+							<ul>
+								{selectedProduct &&
+									selectedProduct.description.specifications.map((spec) => {
+										return <li>{spec}</li>;
+									})}
+							</ul>
 						</Container>
 					</Col>
 				</Row>
@@ -111,24 +121,22 @@ function ProductDetails({selectedProduct}) {
 						<Container className='productDetails__QA__container'>
 							<h4 style={{ marginTop: 10 }}>Questions about this product</h4>
 							<hr></hr>
-							<Row>
-								<Col xs='2'>Q:</Col>
-								<Col xs='8'>Eta ki large naki mini size?</Col>
-							</Row>
-							<Row>
-								<Col xs='2'>A:</Col>
-								<Col xs='8'>Sorry sir eta out of stock.</Col>
-							</Row>
-							<hr></hr>
-							<Row>
-								<Col xs='2'>Q:</Col>
-								<Col xs='8'>Eta ki large naki mini size?</Col>
-							</Row>
-							<Row>
-								<Col xs='2'>A:</Col>
-								<Col xs='8'>Sorry sir eta out of stock.</Col>
-							</Row>
-							<hr></hr>
+							{selectedProduct &&
+								selectedProduct.questionAns.map((qa) => {
+									return (
+										<React.Fragment>
+											<Row>
+												<Col xs='2'>Q:</Col>
+												<Col xs='8'>{qa.q}</Col>
+											</Row>
+											<Row>
+												<Col xs='2'>A:</Col>
+												<Col xs='8'>{qa.a}</Col>
+											</Row>
+											<hr></hr>
+										</React.Fragment>
+									);
+								})}
 						</Container>
 					</Col>
 				</Row>
@@ -138,40 +146,29 @@ function ProductDetails({selectedProduct}) {
 						<Container className='productDetails__review__container'>
 							<h4 style={{ marginTop: 10 }}>Reviews</h4>
 							<hr></hr>
-							<Row style={{ marginLeft: 5 }}>
-								{Array(4)
-									.fill()
-									.map((_, i) => (
-										<p>🌟</p>
-									))}
-							</Row>
-							<Row>
-								<Col>by Mysha Z.</Col>
-							</Row>
-							<Row>
-								<Col>
-									All was well. Thank you very much for getting the things I
-									wanted.
-								</Col>
-							</Row>
-							<hr></hr>
-							<Row style={{ marginLeft: 5 }}>
-								{Array(4)
-									.fill()
-									.map((_, i) => (
-										<p>🌟</p>
-									))}
-							</Row>
-							<Row>
-								<Col>by Mysha Z.</Col>
-							</Row>
-							<Row>
-								<Col>
-									All was well. Thank you very much for getting the things I
-									wanted.
-								</Col>
-							</Row>
-							<hr></hr>
+							{selectedProduct &&
+								selectedProduct.reviews.map((rev) => {
+									return (
+										<React.Fragment>
+											<Row style={{ marginLeft: 5 }}>
+												{Array(rev.rating)
+													.fill()
+													.map((_, i) => (
+														<p>🌟</p>
+													))}
+											</Row>
+											<Row>
+												<Col>by {rev.user}</Col>
+											</Row>
+											<Row>
+												<Col>
+													{rev.comment}
+												</Col>
+											</Row>
+											<hr></hr>
+										</React.Fragment>
+									);
+								})}
 						</Container>
 					</Col>
 				</Row>

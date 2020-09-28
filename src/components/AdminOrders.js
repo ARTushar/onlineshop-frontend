@@ -16,6 +16,14 @@ import { ORDERS } from '../shared/orders';
 
 import MenuIcon from '@material-ui/icons/Menu';
 
+// import { useTable } from 'react-table';
+
+const OrdersTable = () => {
+	return (
+		<h1></h1>
+	);
+};
+
 function AdminOrders() {
 	return (
 		<div className='adminorders'>
@@ -92,6 +100,9 @@ function AdminOrders() {
 								</ButtonGroup>
 							</Row>
 							<hr></hr>
+							<Row>
+								<OrdersTable />
+							</Row>
 						</Container>
 					</Col>
 				</Row>
