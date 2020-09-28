@@ -12,6 +12,7 @@ import Purchase from './Purchase';
 import ProductDetails from './ProductDetails';
 import LoginRegister from './LoginRegister';
 import Search from './Search';
+import Checkout from './Checkout';
 
 import AdminHome from './AdminHome';
 import AdminOrders from './AdminOrders';
@@ -66,6 +67,11 @@ function Main(props) {
                 <Route path="/cart" >
                     <Header />
                     <Cart />
+                    <Footer />
+                </Route>
+                <Route path="/checkout">
+                    <Header />
+                    <Checkout />
                     <Footer />
                 </Route>
                 <Route path="/purchase">
