@@ -265,7 +265,7 @@ function Checkout() {
                     <Col md={9}>
                       <Control.textarea model=".deliveryNotes" id="deliveryNotes" name="deliveryNotes"
                         className="form-control"
-                        placeholder="The notes written here will be included with the delivered items. 😀"
+                        placeholder="The notes written here will be included  with the ordered items. 😀"
                         style={{
                           fontSize: "small"
                         }}
