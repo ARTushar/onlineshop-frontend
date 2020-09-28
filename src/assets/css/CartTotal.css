@@ -1,0 +1,90 @@
+.carttotal {
+    font-size: small;
+    font-weight: 500;
+    border-radius: 5px;
+    border: 2px solid whitesmoke;
+    box-shadow: 2px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.carttotal__container {
+    max-width: inherit;
+}
+
+.carttotal__heading {
+    font-weight: 600;
+    font-size: medium;
+}
+
+.carttotal__subtotal {
+    margin-top: 10px;
+}
+
+.carttotal__subtotal__cost {
+    text-align: end;
+    color: #f50057;
+}
+.carttotal__shipping {
+    align-items: center;
+    margin-top: 10px;
+}
+.carttotal__shipping__cost {
+    text-align: end;
+
+}
+
+.carttotal__shipping__cost__value {
+    color: #f50057;
+}
+
+.carttotal__shipping__to{
+    text-align: end;
+}
+
+.carttotal__shipping__location {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.carttotal__shipping__location__select {
+    height: 30px;
+    font-size: small;
+    font-weight: 500;
+    margin-top: 5px;
+    padding: 5px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* color: #0abda0; */
+}
+
+.carttotal__shipping__location__option {
+
+}
+
+.carttotal__total {
+    font-size: medium;
+    margin-top: 10px;
+}
+
+.carttotal__total__cost {
+    text-align: end;
+    color: #f50057;
+}
+
+.cart__button {
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: 600;
+}
+
+.cart__button__select  {
+    width: inherit;
+    height: 35px;
+    padding: 5px;
+    font-size: medium;
+    font-weight: 600;
+    background-color: #0b0c10;
+}

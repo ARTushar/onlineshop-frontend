@@ -1,5 +1,7 @@
 .filter {
     font-size: small;
+    z-index: 10;
+    margin-left: 5px;
 }
 
 .filter__container {
@@ -8,11 +10,20 @@
     margin: 0px;
 }
 
+.filter__collapse {
+    position: fixed;
+}
+
 .filter__heading {
     font-size: larger;
     font-weight: 600;
-    margin-bottom: 10px;
-    padding: 10px;
+    padding: 5px;
+    height: 30px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1px;
 }
 
 .filter__price {
@@ -33,6 +44,7 @@
 
 .filter__price__limit {
     width: 100%;
+    max-width: 200px;
     height: 30px;
     font-size: small;
     /* padding: 0px; */

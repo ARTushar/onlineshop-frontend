@@ -1,0 +1,18 @@
+.sort {
+    font: small;
+    display: flex;
+    justify-content: flex-end;
+}
+.sort__rating {
+    margin-left: 15px;
+    justify-content: end;
+}
+
+.sort__rating__dropdownmenu {
+    max-width: inherit;
+    min-width: 150px;
+    background-color: aliceblue;
+    font-weight: 400;
+    left: -100%;
+    z-index: 10;
+}
