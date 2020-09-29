@@ -10,7 +10,6 @@ import {
 	ButtonToggle,
 } from 'reactstrap';
 import '../assets/css/AdminCustomers.css';
-import '../assets/css/AdminSidebar.css';
 import AdminSidebar from './AdminSidebar';
 import AdminDataTable from './AdminDataTable';
 import { CUSTOMERS } from '../shared/users';
