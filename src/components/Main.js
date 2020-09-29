@@ -59,7 +59,6 @@ function Main(props) {
 		}
 
     return (
-<<<<<<< HEAD
         <div className="main">
             <Switch>
                 <Route path="/home">
@@ -107,48 +106,6 @@ function Main(props) {
                     <Footer />
                 </Route>
 				<Route exact path='/admin'>
-=======
-			<div className='main'>
-				<Switch>
-					<Route path='/home'>
-						<Header />
-						<Home />
-						<Footer />
-					</Route>
-					<Route
-						path='/productdetails/:productId'
-						component={ProductDetailsWithID}
-					/>
-					<Route path='/cart'>
-						<Header />
-						<Cart />
-						<Footer />
-					</Route>
-					<Route path='/purchase'>
-						<Header />
-						<Purchase />
-						<Footer />
-					</Route>
-					<Route path='/profile'>
-						<Header />
-						<Profile />
-						<Footer />
-					</Route>
-					<Route path='/videos'>
-						<Header />
-						<Videos />
-						<Footer />
-					</Route>
-					<Route exact path='/login'>
-						<LoginRegister type='login' />
-					</Route>
-					<Route exact path='/register'>
-						<UserContext.Provider value={props.resetSignUpForm}>
-							<LoginRegister type='register' />
-						</UserContext.Provider>
-					</Route>
-					<Route exact path='/admin'>
->>>>>>> branch-raju
 						<AdminHeader />
 						<AdminHome />
 						<AdminFooter />
