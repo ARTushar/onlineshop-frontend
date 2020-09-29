@@ -12,7 +12,6 @@ export const InitialUserState = {
     region: '',
     postalCode: null,
     homeLocation: '',
-    deliveryNotes: '',
     paymentMethod: ''
 };
 
@@ -25,6 +24,6 @@ export const InitialOrderState = {
     region: InitialUserState.region,
     postalCode: InitialUserState.postalCode,
     homeLocation: InitialUserState.homeLocation,
-    deliveryNotes: InitialUserState.deliveryNotes,
+    deliveryNotes: '',
     paymentMethod: InitialUserState.paymentMethod
 }

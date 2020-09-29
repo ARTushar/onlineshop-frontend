@@ -21,15 +21,23 @@ function Search() {
                         </Row>
                         <Row className='search__main__products'>
                             {PRODUCTS.map((product) => {
+                                
                                 return (
-                                    <Product
-                                        id={product.id}
-                                        title={product.title}
-                                        price={product.price}
-                                        discountPrice={product.price - product.price * product.discount * .01}
-                                        rating={product.rating}
-                                        image={product.image}
-                                    />
+                                    <Col
+                                        xs={{ size: 5 }}
+                                        md={{ size: 4 }}
+                                        xl={{ size: 3 }}
+                                        className='search__main__product'
+                                    >
+                                        <Product
+                                            id={product.id}
+                                            title={product.title}
+                                            price={product.price}
+                                            discountPrice={product.price - product.price * product.discount * .01}
+                                            rating={product.rating}
+                                            image={product.image}
+                                        />
+                                    </Col>
                                 );
                             })}
 

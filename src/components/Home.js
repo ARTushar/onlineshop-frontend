@@ -25,6 +25,12 @@ function Home() {
 						<Row className='home__main__products'>
                             {PRODUCTS.map((product) => {
                                 return (
+                                    <Col
+                                    xs={{ size: 5 }}
+                                    md={{ size: 4 }}
+                                    xl={{ size: 3 }}
+                                    className='home__main__product'
+                                  > 
                                     <Product
                                         id={product.id}
                                         title={product.title}
@@ -33,6 +39,7 @@ function Home() {
                                         rating={product.rating}
                                         image={product.image}
                                     />
+                                    </Col>
                                 );
                             })}
 							

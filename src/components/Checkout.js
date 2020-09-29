@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../assets/css/Checkout.css';
 import CallIcon from '@material-ui/icons/Call';
 import PersonIcon from '@material-ui/icons/Person';
@@ -326,7 +327,19 @@ function Checkout() {
                     <Control.radio
                       model=".paymentMethod"
                       component={RadioButton}
-                      />
+                    />
+                  </Row>
+                  <Row className="checkout__button">
+                    <Col xs="12" >
+                      <Link style={{
+                        width: "inherit"
+
+                      }} to='/home'>
+                        <Button className="checkout__button__confirm">
+                          Confirm Order
+                        </Button>
+                      </Link>
+                    </Col>
                   </Row>
                 </Form>
               </CardBody>

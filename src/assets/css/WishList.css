@@ -1,0 +1,36 @@
+.wishList {
+    background-color: aliceblue;
+    /* background: linear-gradient(to left, #8942a8, #ba382f); */
+}
+
+.wishList__col {
+    margin: 0px;
+}
+
+.wishList__container {
+    max-width: inherit;
+}
+
+.wishList__main__products {
+    justify-content: center;
+}
+
+.wishList__product {
+    font-size: smaller;
+    font-weight: 500;
+    max-width: 250px;
+    height: 315px;
+    margin: 10px 10px 30px 10px;
+    padding: 0px;
+    
+
+}
+
+.wishList__remove {
+    justify-content: center;
+}
+
+.wishList__remove__button {
+    text-decoration: none !important;
+    color: inherit;
+}

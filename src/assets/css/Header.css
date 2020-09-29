@@ -1,5 +1,5 @@
 .header {
-    /* background-color: #1B1924; */
+    /* background: linear-gradient(to left, #8942a8, #ba382f); */
     background-color: #0b0c10; 
     font-size: small;
     font-weight: 500;
@@ -64,7 +64,8 @@
  }
 
  .header__divider {
-    background-color:  #1B1924;
+     /* background: inherit; */
+    /* background-color:  #1B1924; */
     height: 5px;
     margin: 0px;
 }

@@ -1,38 +1,42 @@
-.checkout {
+.userinformation {
     margin-top: 5px;
     font-size: small;
     border-radius: 5px;
     font-weight: 500;
+    width: inherit;
+    max-width: 600px;
 }
 
 
-.checkout__container {
+.userinformation__container {
     max-width: inherit;
 }
 
-.checkout__card {
+.userinformation__card {
     background-color: #f7fafc!important;
+    border: 0px;
 }
 
 
-.checkout__card__title {
+.userinformation__card__title {
     margin-bottom: 30px;
     font-size: medium;
     font-weight: 700;
 }
 
 
-.checkout__card__body__container {
+.userinformation__card__body__container {
     max-width: inherit;
 }
 
-.checkout__card__body{
+.userinformation__card__body{
     border: 1px solid rgba(0,0,0,.05);
+
 }
 
 
 
-.checkout__card__body__heading {
+.userinformation__card__body__heading {
     justify-content: center;
     color: #8898aa!important;
     margin-bottom: 20px;
@@ -40,22 +44,22 @@
 
 
 
-.checkout__payment {
+.userinformation__payment {
     padding-left: 20px;
     font-size: smaller;
 }
 
-.checkout__total__payment {
+.userinformation__total__payment {
     color: #f50057;
 }
 
-.checkout__button {
+.userinformation__button {
     margin-top: 10px;
     font-size: medium;
     font-weight: 600;
 }
 
-.checkout__button__confirm  {
+.userinformation__button__confirm  {
     width: inherit;
     height: 35px;
     padding: 5px;
