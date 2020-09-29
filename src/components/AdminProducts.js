@@ -5,14 +5,18 @@ import {
 	Col,
 	UncontrolledCollapse,
 	NavbarToggler,
-	ButtonToggle
+	ButtonToggle, 
+	Button
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
 import '../assets/css/AdminProducts.css';
 import AdminSidebar from './AdminSidebar';
 import AdminDataTable from './AdminDataTable';
 import {PRODUCTS_DETAILS} from '../shared/productDetails';
 
 import MenuIcon from '@material-ui/icons/Menu';
+import AddIcon from '@material-ui/icons/Add';
 
 function AdminProducts() {
 	const productHeaders = [
@@ -52,9 +56,9 @@ function AdminProducts() {
 	];
 
 	return (
-		<div className='admincustomers'>
+		<div className='adminProducts'>
 			{/* <!-- Sidenav --> */}
-			<Container className='admincustomers__container'>
+			<Container className='adminProducts__container'>
 				<ButtonToggle id='sidebartoggler'>
 					<MenuIcon></MenuIcon>
 				</ButtonToggle>
@@ -70,12 +74,18 @@ function AdminProducts() {
 					</Col>
 
 					<Col md='10'>
-						<Container className='admincustomers__table__container'>
-							<Row className='admincustomers__table__container__row'>
+						<Container className='adminProducts__table__container'>
+							<Row className='adminProducts__table__container__row'>
 								<h3>Products</h3>
+								<Col></Col>
+								<Link to='/admin/addproduct'>
+									<Button className='adminProducts__addProduct__button btn btn-success'>
+										<AddIcon></AddIcon> Add New Product
+									</Button>
+								</Link>
 							</Row>
 							<hr></hr>
-							<Row className='admincustomers__table__container__row'>
+							<Row className='adminProducts__table__container__row'>
 								<AdminDataTable
 									columnHeaders={productHeaders}
 									dataTable={PRODUCTS_DETAILS}

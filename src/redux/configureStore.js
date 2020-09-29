@@ -2,7 +2,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { actions, createForms} from 'react-redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import InitialUserState from './forms';
+import InitialUserState, {InitialProductFormState} from './forms';
 import { Products } from './products';
 
 
@@ -11,6 +11,7 @@ const ConfigureStore = () => {
         combineReducers({
             ...createForms({
                 user: InitialUserState,
+                product: InitialProductFormState
             }),
             products: Products 
         }),

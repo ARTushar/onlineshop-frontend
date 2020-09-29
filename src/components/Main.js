@@ -15,6 +15,7 @@ import LoginRegister from './LoginRegister';
 import AdminHome from './AdminHome';
 import AdminOrders from './AdminOrders';
 import AdminProducts from './AdminProducts';
+import AdminAddProduct from './AdminAddProduct';
 import AdminCustomers from './AdminCustomers';
 import AdminCategories from './AdminCategories';
 import AdminHeader from './AdminHeader';
@@ -113,6 +114,11 @@ function Main(props) {
 					<Route exact path='/admin/products'>
 						<AdminHeader />
 						<AdminProducts />
+						<AdminFooter />
+					</Route>
+					<Route exact path='/admin/addproduct'>
+						<AdminHeader />
+						<AdminAddProduct />
 						<AdminFooter />
 					</Route>
 					<Route exact path='/admin/customers'>
