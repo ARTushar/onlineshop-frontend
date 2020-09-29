@@ -17,6 +17,9 @@ import Checkout from './Checkout';
 import AdminHome from './AdminHome';
 import AdminOrders from './AdminOrders';
 import AdminProducts from './AdminProducts';
+import AdminAddProduct from './AdminAddProduct';
+import AdminCustomers from './AdminCustomers';
+import AdminCategories from './AdminCategories';
 import AdminHeader from './AdminHeader';
 import AdminFooter from './AdminFooter';
 
@@ -56,6 +59,7 @@ function Main(props) {
 		}
 
     return (
+<<<<<<< HEAD
         <div className="main">
             <Switch>
                 <Route path="/home">
@@ -103,6 +107,48 @@ function Main(props) {
                     <Footer />
                 </Route>
 				<Route exact path='/admin'>
+=======
+			<div className='main'>
+				<Switch>
+					<Route path='/home'>
+						<Header />
+						<Home />
+						<Footer />
+					</Route>
+					<Route
+						path='/productdetails/:productId'
+						component={ProductDetailsWithID}
+					/>
+					<Route path='/cart'>
+						<Header />
+						<Cart />
+						<Footer />
+					</Route>
+					<Route path='/purchase'>
+						<Header />
+						<Purchase />
+						<Footer />
+					</Route>
+					<Route path='/profile'>
+						<Header />
+						<Profile />
+						<Footer />
+					</Route>
+					<Route path='/videos'>
+						<Header />
+						<Videos />
+						<Footer />
+					</Route>
+					<Route exact path='/login'>
+						<LoginRegister type='login' />
+					</Route>
+					<Route exact path='/register'>
+						<UserContext.Provider value={props.resetSignUpForm}>
+							<LoginRegister type='register' />
+						</UserContext.Provider>
+					</Route>
+					<Route exact path='/admin'>
+>>>>>>> branch-raju
 						<AdminHeader />
 						<AdminHome />
 						<AdminFooter />
@@ -122,10 +168,25 @@ function Main(props) {
 						<AdminProducts />
 						<AdminFooter />
 					</Route>
-                <Redirect to="/home" />
-            </Switch>
-        </div>
-    )
+					<Route exact path='/admin/addproduct'>
+						<AdminHeader />
+						<AdminAddProduct />
+						<AdminFooter />
+					</Route>
+					<Route exact path='/admin/customers'>
+						<AdminHeader />
+						<AdminCustomers />
+						<AdminFooter />
+					</Route>
+					<Route exact path='/admin/categories'>
+						<AdminHeader />
+						<AdminCategories />
+						<AdminFooter />
+					</Route>
+					<Redirect to='/home' />
+				</Switch>
+			</div>
+		);
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

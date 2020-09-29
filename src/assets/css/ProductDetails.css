@@ -18,7 +18,7 @@
 }
 
 .productDetails__toprow__image {
-	max-width: 400px;
+	max-width: 280px;
 	object-fit: contain;
 	margin: 10px;
 }
@@ -40,15 +40,22 @@
 }
 
 .productDetails__toprow__titlebox_originalprice {
+	margin-left: 10px;
 	text-decoration: line-through;
-	font-size: 20px;
+	font-size: 30px;
 	color: gray;
 }
 
+.productDetails__toprow__titlebox__discount {
+	margin-left: 10px;
+	font-size: 20px;
+	color: red;
+}
+
 .productDetails__toprow__titlebox_discountprice {
-	margin-left: 30px;
-	font-size: 30px;
-	color: #f46a4e;
+	margin-left: 10px;
+	font-size: 40px;
+	color: green;
 }
 
 .productDetails__toprow__titlebox_rating {
@@ -90,7 +97,8 @@
 .productDetails__toprow__titlebox_category {
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-size: 20px;
+	font-size: 25px;
+	font-weight: 400;
 }
 
 .productDetails__description {

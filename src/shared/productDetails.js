@@ -8,6 +8,70 @@ export const PRODUCTS_DETAILS = [
 		discount: 10,
 		image: 'images/products/handBag.jpg',
 		category: 'Bag',
+		description: {
+			header:
+				'Product details of PLEXTONE G20 Magnetic Stereo Bass GamingHeadphone for Mobile and Computer',
+			features: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+			specifications: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+		},
+		questionAns: [
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+		],
+		reviews: [
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+		],
 	},
 	{
 		id: 1,
@@ -17,6 +81,70 @@ export const PRODUCTS_DETAILS = [
 		discount: 10,
 		image: 'images/products/bag.jpg',
 		category: 'Bag',
+		description: {
+			header:
+				'Product details of PLEXTONE G20 Magnetic Stereo Bass GamingHeadphone for Mobile and Computer',
+			features: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+			specifications: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+		},
+		questionAns: [
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+		],
+		reviews: [
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+		],
 	},
 	{
 		id: 2,
@@ -26,6 +154,70 @@ export const PRODUCTS_DETAILS = [
 		discount: 10,
 		image: 'images/products/book.jpg',
 		category: 'Bag',
+		description: {
+			header:
+				'Product details of PLEXTONE G20 Magnetic Stereo Bass GamingHeadphone for Mobile and Computer',
+			features: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+			specifications: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+		},
+		questionAns: [
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+		],
+		reviews: [
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+		],
 	},
 	{
 		id: 3,
@@ -36,6 +228,70 @@ export const PRODUCTS_DETAILS = [
 		discount: 10,
 		image: 'images/products/joystick.jpg',
 		category: 'Bag',
+		description: {
+			header:
+				'Product details of PLEXTONE G20 Magnetic Stereo Bass GamingHeadphone for Mobile and Computer',
+			features: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+			specifications: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+		},
+		questionAns: [
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+		],
+		reviews: [
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+		],
 	},
 	{
 		id: 4,
@@ -45,6 +301,70 @@ export const PRODUCTS_DETAILS = [
 		discount: 10,
 		image: 'images/products/VRkit.jpg',
 		category: 'Bag',
+		description: {
+			header:
+				'Product details of PLEXTONE G20 Magnetic Stereo Bass GamingHeadphone for Mobile and Computer',
+			features: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+			specifications: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+		},
+		questionAns: [
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+		],
+		reviews: [
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+		],
 	},
 	{
 		id: 5,
@@ -55,6 +375,70 @@ export const PRODUCTS_DETAILS = [
 		discount: 10,
 		image: 'images/products/laptop.jpg',
 		category: 'Bag',
+		description: {
+			header:
+				'Product details of PLEXTONE G20 Magnetic Stereo Bass GamingHeadphone for Mobile and Computer',
+			features: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+			specifications: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+		},
+		questionAns: [
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+		],
+		reviews: [
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+		],
 	},
 	{
 		id: 6,
@@ -65,5 +449,69 @@ export const PRODUCTS_DETAILS = [
 		image:
 			'https://images-na.ssl-images-amazon.com/images/I/71Swqqe7XAL._AC_SX466_.jpg',
 		category: 'Bag',
+		description: {
+			header:
+				'Product details of PLEXTONE G20 Magnetic Stereo Bass GamingHeadphone for Mobile and Computer',
+			features: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+			specifications: [
+				'Sensitivity (1Hz): - 45',
+				'Microphone Directivity: Full Point',
+				'Frequency response: 50-10000 Hz',
+				'Signal to noise ratio: 55dB',
+				'Headset:',
+				'Frequency response: 20-22000 Hz',
+				'Impedance: 32ohm + 15%',
+				'Microphone sensitivity (1Hz): 102dB (max 1KHz)',
+				'Input power: up to 5 horses',
+				'Drive unit: 10mm, neodymium magnet',
+			],
+		},
+		questionAns: [
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+			{
+				q: 'eta ki red color hobe?',
+				a: 'sorry. eta just ekta color e ase.',
+			},
+		],
+		reviews: [
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				rating: 5,
+				comment: 'onek valo product',
+			},
+		],
 	},
 ];

@@ -1,17 +1,17 @@
-.adminorders {
+.admincustomers {
   background-color: aliceblue;
   /* background-color: #adb5bd;  */
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.adminorders__container {
+.admincustomers__container {
   max-width: inherit;
   padding-top: 20px;
   padding-bottom: 20px;
 }
 
-.adminorders__table__container {
+.admincustomers__table__container {
   background-color: white;
   margin-bottom: 10px;
   padding: 10px;
@@ -19,7 +19,7 @@
   box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
-.adminorders__table__container__row {
+.admincustomers__table__container__row {
   padding: 10px;
 }
 

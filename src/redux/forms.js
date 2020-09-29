@@ -27,3 +27,14 @@ export const InitialOrderState = {
     deliveryNotes: '',
     paymentMethod: InitialUserState.paymentMethod
 }
+export const InitialProductFormState = {
+	code: '',
+	title: '',
+    price: 0,
+    discount: 0,
+    quantity: 0,
+    category: '',
+    subcategory: '',
+    features: [],
+    specifications: [],
+};
