@@ -26,13 +26,13 @@ function AdminSidebar () {
 						</Link>
 					</NavItem>
 					<NavItem>
-						<Link className='nav-link' to='/admin/qa'>
-							Question & Answer
+						<Link className='nav-link' to='/admin/categories'>
+							Categories
 						</Link>
 					</NavItem>
 					<NavItem>
-						<Link className='nav-link' to='/admin/reviews'>
-							Reviews
+						<Link className='nav-link' to='/admin/customers'>
+							Customers
 						</Link>
 					</NavItem>
 				</div>

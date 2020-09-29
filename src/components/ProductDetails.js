@@ -3,8 +3,9 @@ import { Container, Row, Col, ButtonGroup, Button } from 'reactstrap';
 import '../assets/css/ProductDetails.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-function ProductDetails({selectedProduct}) {
-	console.log('Inside product details. selected : ' + selectedProduct)
+function ProductDetails({ selectedProduct }) {
+	const [quantity, setQuantity] = useState(1);
+
 	return (
 		<div className='productDetails'>
 			<Container className='productDetails__container'>
@@ -31,10 +32,15 @@ function ProductDetails({selectedProduct}) {
 									))}
 							</Row>
 							<Row className='productDetails__toprow__titlebox_pricerow'>
-								<Col className='productDetails__toprow__titlebox_price'>
+								<Col sm={12} md={6} lg={4}>
 									<strong className='productDetails__toprow__titlebox_originalprice'>
 										৳{selectedProduct && selectedProduct.price}
 									</strong>
+									<strong className='productDetails__toprow__titlebox__discount'>
+										-{selectedProduct && selectedProduct.discount}%
+									</strong>
+								</Col>
+								<Col sm={12} md={6} lg={4}>
 									<strong className='productDetails__toprow__titlebox_discountprice'>
 										৳
 										{selectedProduct &&
@@ -42,17 +48,30 @@ function ProductDetails({selectedProduct}) {
 												selectedProduct.price * selectedProduct.discount * 0.01}
 									</strong>
 								</Col>
-								<Col className='productDetails__toprow__titlebox_discountprice'></Col>
 							</Row>
 							<Row className='productDetails__toprow__titlebox_quantityrow'>
-								<span>Quantity: </span>
+								<span style={{ fontSize: 20, fontWeight: 400 }}>
+									Quantity:{' '}
+								</span>
 								<ButtonGroup
-									size='sm'
+									size='md'
 									className='productDetails__toprow__titlebox_quantityrow__btngrp'
 								>
-									<Button>-</Button>
-									<Button>1</Button>
-									<Button>+</Button>
+									<Button
+										onClick={() => {
+											quantity - 1 && setQuantity(quantity - 1);
+										}}
+									>
+										-
+									</Button>
+									<Button active={false}>{quantity}</Button>
+									<Button
+										onClick={() => {
+											setQuantity(quantity + 1);
+										}}
+									>
+										+
+									</Button>
 								</ButtonGroup>
 							</Row>
 							<Row className='productDetails__toprow__titlebox_wishrow'>
@@ -161,9 +180,7 @@ function ProductDetails({selectedProduct}) {
 												<Col>by {rev.user}</Col>
 											</Row>
 											<Row>
-												<Col>
-													{rev.comment}
-												</Col>
+												<Col>{rev.comment}</Col>
 											</Row>
 											<hr></hr>
 										</React.Fragment>

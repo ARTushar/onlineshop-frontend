@@ -15,6 +15,8 @@ import LoginRegister from './LoginRegister';
 import AdminHome from './AdminHome';
 import AdminOrders from './AdminOrders';
 import AdminProducts from './AdminProducts';
+import AdminCustomers from './AdminCustomers';
+import AdminCategories from './AdminCategories';
 import AdminHeader from './AdminHeader';
 import AdminFooter from './AdminFooter';
 
@@ -61,7 +63,10 @@ function Main(props) {
 						<Home />
 						<Footer />
 					</Route>
-					<Route path='/productdetails/:productId' component={ProductDetailsWithID} />
+					<Route
+						path='/productdetails/:productId'
+						component={ProductDetailsWithID}
+					/>
 					<Route path='/cart'>
 						<Header />
 						<Cart />
@@ -108,6 +113,16 @@ function Main(props) {
 					<Route exact path='/admin/products'>
 						<AdminHeader />
 						<AdminProducts />
+						<AdminFooter />
+					</Route>
+					<Route exact path='/admin/customers'>
+						<AdminHeader />
+						<AdminCustomers />
+						<AdminFooter />
+					</Route>
+					<Route exact path='/admin/categories'>
+						<AdminHeader />
+						<AdminCategories />
 						<AdminFooter />
 					</Route>
 					<Redirect to='/home' />

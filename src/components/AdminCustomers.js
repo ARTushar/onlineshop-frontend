@@ -9,59 +9,43 @@ import {
 	ButtonGroup,
 	ButtonToggle,
 } from 'reactstrap';
-import '../assets/css/AdminOrders.css';
+import '../assets/css/AdminCustomers.css';
 import '../assets/css/AdminSidebar.css';
 import AdminSidebar from './AdminSidebar';
 import AdminDataTable from './AdminDataTable';
-import { ORDERS } from '../shared/orders';
+import { CUSTOMERS } from '../shared/users';
 
 import MenuIcon from '@material-ui/icons/Menu';
 
-function AdminOrders() {
+function AdminCustomers() {
 	const columnHeaders = [
 		{
-			Header: 'Orders Table',
+			Header: 'Customers Table',
 			columns: [
 				{
-					Header: 'ORDER#',
-					accessor: 'serial_no',
-				},
-				{
 					Header: 'CUSTOMER',
-					accessor: 'user',
+					accessor: 'name',
 				},
 				{
-					Header: 'SHIP TO',
-					accessor: 'shipping_address',
+					Header: 'EMAIL',
+					accessor: 'email',
 				},
 				{
-					Header: 'TOTAL AMOUNT',
-					accessor: 'total_cost',
+					Header: 'MOBILE',
+					accessor: 'mobile',
 				},
 				{
-					Header: 'STATUS',
-					accessor: 'status',
-				},
-				{
-					Header: 'PAYMENT METHOD',
-					accessor: 'payment_method',
-				},
-				{
-					Header: 'PAYED AMOUNT',
-					accessor: 'payed_amount',
-				},
-				{
-					Header: 'ACTIONS',
-					accessor: 'actions',
+					Header: 'ADDRESS',
+					accessor: 'address',
 				},
 			],
 		},
 	];
 
 	return (
-		<div className='adminorders'>
+		<div className='admincustomers'>
 			{/* <!-- Sidenav --> */}
-			<Container className='adminorders__container'>
+			<Container className='admincustomers__container'>
 				<ButtonToggle id='sidebartoggler'>
 					<MenuIcon></MenuIcon>
 				</ButtonToggle>
@@ -77,15 +61,15 @@ function AdminOrders() {
 					</Col>
 
 					<Col md='10'>
-						<Container className='adminorders__table__container'>
-							<Row className='adminorders__table__container__row'>
-								<h3>Orders</h3>
+						<Container className='admincustomers__table__container'>
+							<Row className='admincustomers__table__container__row'>
+								<h3>Customers</h3>
 							</Row>
 							<hr></hr>
-							<Row className='adminorders__table__container__row'>
+							<Row className='admincustomers__table__container__row'>
 								<AdminDataTable
 									columnHeaders={columnHeaders}
-									dataTable={ORDERS}
+									dataTable={CUSTOMERS}
 								/>
 							</Row>
 							<hr></hr>
@@ -97,4 +81,4 @@ function AdminOrders() {
 	);
 }
 
-export default AdminOrders;
+export default AdminCustomers;
