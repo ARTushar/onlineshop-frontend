@@ -11,6 +11,7 @@ import Cart from './Cart';
 import Purchase from './Purchase';
 import ProductDetails from './ProductDetails';
 import LoginRegister from './LoginRegister';
+import Search from './Search';
 
 import AdminHome from './AdminHome';
 import AdminOrders from './AdminOrders';

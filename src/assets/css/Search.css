@@ -1,0 +1,11 @@
+.search {
+    background-color: aliceblue;
+}
+
+.search__container {
+    max-width: inherit;
+}
+
+.search__main__products {
+    justify-content: center;
+}
