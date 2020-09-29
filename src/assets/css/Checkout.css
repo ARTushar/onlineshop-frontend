@@ -152,3 +152,12 @@
     transform: scale(1.05);
     border-color: white;
 }
+
+.checkout__payment {
+    padding-left: 20px;
+    font-size: smaller;
+}
+
+.checkout__total__payment {
+    color: #f50057;
+}

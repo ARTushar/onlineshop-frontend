@@ -18,6 +18,10 @@ import { DISTRICTS } from '../shared/Districts';
 import { Form, Control, Errors, Field } from 'react-redux-form';
 import { UserContext } from '../Context/context';
 
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import isEmail from 'validator/lib/isEmail';
 import Select from 'react-select';
@@ -32,12 +36,23 @@ const validMobile = (val) => (
     val.substring(0, 3) === '+88' ? isMobilePhone(val) :
       (val.substring(0, 2) === '88' ? isMobilePhone("+" + val) :
         isMobilePhone("+88" + val)))
-)
+);
+
+const RadioButton = (props) => (
+  <RadioGroup onChange={val => props.onChange(val)}>
+    <FormControlLabel value="cashOnDelivery" control={<Radio size="small" />} label={<span style={{fontSize: 'small', fontWeight: "500"}}>Cash On Delivery</span>} />
+    <FormControlLabel value="onlinePayment" control={<Radio size="small"/>} label={<span style={{fontSize: 'small', fontWeight: "500"}}>Online Payment</span>} />
+  </RadioGroup>
+);
 
 function Checkout() {
   const resetSignUpForm = React.useContext(UserContext);
-  const districts = [{value: 'noakhali', label: "noakhali"}, {
-    value: 'dhaka', label: "dhaka"}]
+
+  const [totalBill, setTotalBill] = React.useState(400);
+
+  const districts = [{ value: 'noakhali', label: "noakhali" }, {
+    value: 'dhaka', label: "dhaka"
+  }]
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -48,13 +63,13 @@ function Checkout() {
     <div className="checkout">
       <Container className="checkout__container">
         <Row className="checkout__row">
-          <Col md="6" lg={{size: "5", offset: "1"}}  xl={{size: "4", offset: "2"}} className="checkout__information">
+          <Col md="6" xl={{ size: "5", offset: "1" }} className="checkout__information">
             <Card className="checkout__card">
               <CardBody className="checkout__card__body">
                 <CardTitle className="checkout__card__title">
                   <span>Shipping Information</span>
                 </CardTitle>
-                <Form model="user" onSubmit={(values) => this.handleSubmit(values)}>
+                <Form model="order" onSubmit={(values) => this.handleSubmit(values)}>
                   <Row className="form-group">
                     <Label htmlFor="name" md={3}>Name</Label>
                     <Col md={9}>
@@ -108,8 +123,8 @@ function Checkout() {
                   </Row>
                   <CardTitle className="checkout__card__title">
                     <hr />
-                  <span>Shipping Address</span>
-                </CardTitle>
+                    <span>Shipping Address</span>
+                  </CardTitle>
 
                   <Row className="form-group">
                     <Label htmlFor="country" md={3}>Country</Label>
@@ -117,7 +132,7 @@ function Checkout() {
                       <Control.text model=".country" id="country" name="country"
                         className="form-control"
                         disabled
-                        defaultValue={{"value": "Bangladesh", "label": "Bangladesh"}}
+                        defaultValue={{ "value": "Bangladesh", "label": "Bangladesh" }}
                         component={ReduxFormSelect}
                         validators={{
                           required
@@ -146,7 +161,7 @@ function Checkout() {
                         component={ReduxFormSelect}
                         options={districts}
                       />
-                        
+
                       <Errors
                         className="text-danger"
                         model=".district"
@@ -171,7 +186,7 @@ function Checkout() {
                           required
                         }}
                       />
-                        
+
                       <Errors
                         className="text-danger"
                         model=".thana"
@@ -196,7 +211,7 @@ function Checkout() {
                           required
                         }}
                       />
-                        
+
                       <Errors
                         className="text-danger"
                         model=".region"
@@ -222,7 +237,7 @@ function Checkout() {
                           // required
                         }}
                       />
-                        
+
                       <Errors
                         className="text-danger"
                         model=".postalCode"
@@ -242,13 +257,13 @@ function Checkout() {
                         placeholder="Street name/no, house name/no"
                         style={{
                           fontSize: "small",
-                          
+
                         }}
                         validators={{
                           required
                         }}
                       />
-                        
+
                       <Errors
                         className="text-danger"
                         model=".homeLocation"
@@ -259,8 +274,8 @@ function Checkout() {
                       />
                     </Col>
                   </Row>
-                        <hr/>
-                        <Row className="form-group">
+                  <hr />
+                  <Row className="form-group">
                     <Label htmlFor="deliveryNotes" md={3}>Delivery Notes</Label>
                     <Col md={9}>
                       <Control.textarea model=".deliveryNotes" id="deliveryNotes" name="deliveryNotes"
@@ -272,7 +287,7 @@ function Checkout() {
                         validators={{
                         }}
                       />
-                        
+
                       <Errors
                         className="text-danger"
                         model=".postalCode"
@@ -283,16 +298,6 @@ function Checkout() {
                       />
                     </Col>
                   </Row>
-                  
-                  {/* <Row className="form-group">
-                    <Col md={{ size: 3, offset: 1 }}>
-                      <Control.select name="contactType"
-                        className="form-control">
-                        <option>Tel.</option>
-                        <option>Email</option>
-                      </Control.select>
-                    </Col>
-                  </Row> */}
 
                   {/* <Row className="form-group">
                     <Col md={{ size: 10, offset: 2 }}>
@@ -301,6 +306,28 @@ function Checkout() {
                                     </Button>
                     </Col>
                   </Row> */}
+                </Form>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col md="6" xl="5">
+            <Card className="checkout__card">
+              <CardBody className="checkout__card__body">
+                <CardTitle className="checkout__card__title">
+                  <span>Total Payment: </span>
+                  <span className="checkout__total__payment">৳ {totalBill}</span>
+                </CardTitle>
+                <hr />
+                <CardTitle className="checkout__card__title">
+                  <span>Select Payment Method</span>
+                </CardTitle>
+                <Form model="order">
+                  <Row className="checkout__payment">
+                    <Control.radio
+                      model=".paymentMethod"
+                      component={RadioButton}
+                      />
+                  </Row>
                 </Form>
               </CardBody>
             </Card>

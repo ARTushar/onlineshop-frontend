@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Input, Row, Col, Button } from 'reactstrap';
 import '../assets/css/CartTotal.css';
+import { Link } from 'react-router-dom'
+
 
 function CartTotal() {
 
@@ -75,9 +77,14 @@ function CartTotal() {
                         <span>৳{deliveryCost + subTotal}</span>
                     </Col>
                     <Col xs="12" className="cart__button">
-                        <Button className="cart__button__select">
-                            Proceed to Checkout
+                        <Link style={{
+                            width: "inherit"
+                            
+                        }} to='/checkout'>
+                            <Button className="cart__button__select">
+                                Proceed to Checkout
                         </Button>
+                        </Link>
                     </Col>
                 </Row>
             </Container>
