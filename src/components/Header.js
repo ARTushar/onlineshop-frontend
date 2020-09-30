@@ -32,7 +32,7 @@ function Header() {
                     <NavbarToggler id="toggler" style={{ border: "0px", fontSize: "", outline: "none"}}/>
                     <NavbarBrand className="header__navbar__container__logo" href="/">
                         <img
-                            src="logo192.png"
+                            src="/logo192.png"
                             alt="logo"
                         />
                     </NavbarBrand>

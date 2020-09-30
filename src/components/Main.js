@@ -30,7 +30,7 @@ import { fetchProductDetails } from '../redux/actionCreators';
 
 const mapDispatchToProps = (dispatch) => ({
 	resetSignUpForm: () => { dispatch(actions.reset('user'))},
-	fetchProductDetails: (productId) => { dispatch(fetchProductDetails(productId)) }
+	fetchProductDetails: (productTitle) => { dispatch(fetchProductDetails(productTitle)) }
 });
 
 const mapStateToProps = (state) => {
@@ -44,10 +44,10 @@ function Main(props) {
     const location = useLocation();
 		console.log(location.pathname);
 
-		const ProductDetailsWithID = ({match}) => {
-			console.log('in main productDetailsWithId. id: ' + match.params.productId);
+		const ProductDetailsWithSlug = ({match}) => {
+			console.log('match: l' + JSON.stringify(match));
 			console.log('before state : ' + props.selectedProduct);
-			props.fetchProductDetails(parseInt(match.params.productId, 10));
+			props.fetchProductDetails(match.params.slug);
 			console.log('after state : ' + props.selectedProduct);
 			return (
 				<React.Fragment>
@@ -66,7 +66,7 @@ function Main(props) {
                     <Home />
                     <Footer />
                 </Route>
-                <Route path='/productdetails/:productId' component={ProductDetailsWithID} />
+                <Route path="/product/:slug" component={ProductDetailsWithSlug} />
                 <Route path="/cart" >
                     <Header />
                     <Cart />
