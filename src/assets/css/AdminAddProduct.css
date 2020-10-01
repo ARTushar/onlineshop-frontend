@@ -22,3 +22,32 @@
 .adminAddProduct__form__container__row {
 	padding: 10px;
 }
+
+.adminAddProduct__cancelButton {
+	width: inherit;
+}
+
+.adminAddProduct__form__button {
+	display: flex;
+	margin-top: 10px;
+	justify-content: center;
+	margin-bottom: 5px;
+}
+
+.adminAddProduct__form__button__submit {
+	width: inherit;
+	height: 40px;
+	padding: 5px;
+	font-size: medium;
+	font-weight: 600;
+	background-color: #0b0c10;
+}
+
+.adminAddProduct__form__button__addFeatures {
+	width: 80%;
+	height: 35px;
+	padding: 5px;
+	font-size: medium;
+	font-weight: 600;
+	background-color: green;
+}

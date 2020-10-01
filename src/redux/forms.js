@@ -1,40 +1,41 @@
-import { initialFieldState } from "react-redux-form";
+import { initialFieldState } from 'react-redux-form';
 
 export const InitialUserState = {
-    name: '',
-    mobile: '',
-    password: '',
-    confirmPassword: '',
-    agree: false,
-    country: 'Bangladesh',
-    district: {value: 'Dhaka', label: "Dhaka"},
-    thana: '',
-    region: '',
-    postalCode: null,
-    homeLocation: '',
-    paymentMethod: ''
+	name: '',
+	mobile: '',
+	password: '',
+	confirmPassword: '',
+	agree: false,
+	country: 'Bangladesh',
+	district: { value: 'Dhaka', label: 'Dhaka' },
+	thana: '',
+	region: '',
+	postalCode: null,
+	homeLocation: '',
+	paymentMethod: '',
 };
 
 export const InitialOrderState = {
-    name: InitialUserState.name,
-    mobile: InitialUserState.mobile,
-    country: InitialUserState.country,
-    district: InitialUserState.district,
-    thana: InitialUserState.thana,
-    region: InitialUserState.region,
-    postalCode: InitialUserState.postalCode,
-    homeLocation: InitialUserState.homeLocation,
-    deliveryNotes: '',
-    paymentMethod: InitialUserState.paymentMethod
-}
+	name: InitialUserState.name,
+	mobile: InitialUserState.mobile,
+	country: InitialUserState.country,
+	district: InitialUserState.district,
+	thana: InitialUserState.thana,
+	region: InitialUserState.region,
+	postalCode: InitialUserState.postalCode,
+	homeLocation: InitialUserState.homeLocation,
+	deliveryNotes: '',
+	paymentMethod: InitialUserState.paymentMethod,
+};
 export const InitialProductFormState = {
-	code: '',
+	image: [],
+	sku: '',
 	title: '',
-    price: 0,
-    discount: 0,
-    quantity: 0,
-    category: '',
-    subcategory: '',
-    features: [],
-    specifications: [],
+	price: 0,
+	discount: 0,
+	quantity: 1,
+	category: '',
+	subcategory: '',
+	features: [],
+	specifications: [],
 };
