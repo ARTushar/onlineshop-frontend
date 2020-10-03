@@ -1,6 +1,7 @@
 .header {
     /* background: linear-gradient(to left, #8942a8, #ba382f); */
-    background-color: #0b0c10; 
+    /* background-color: #0b0c10;  */
+    background-color:  #10000c;
     font-size: small;
     font-weight: 500;
     position: sticky;
@@ -30,7 +31,6 @@
 }
 .header__navbar__container__logo > img {
     height: 42px;
-    width: 40px;
 }
 .header__navbar__container__navitem {
     /* margin-left: 5px; */
@@ -68,4 +68,13 @@
     /* background-color:  #1B1924; */
     height: 5px;
     margin: 0px;
+}
+
+.header__navbar__nav__search {
+    width: inherit;
+    margin-right: 20px;
+}
+
+.header__navbar__nav__search__item {
+    width: inherit;
 }

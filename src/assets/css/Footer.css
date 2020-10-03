@@ -1,9 +1,9 @@
 .footer {
     /* background: linear-gradient(to left, #8942a8, #ba382f); */
-    background-color: #1B1924 ;
+    /* background-color: #1B1924 ; */
+    background-color:  #10000c;
     color: white;
     padding: 10px;
-    margin-top: 10px;
 }
 
 .footer__container {

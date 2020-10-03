@@ -1,5 +1,6 @@
 .home {
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
+    background-color: #f2746b;
     /* background: linear-gradient(to left, #8942a8, #ba382f); */
 }
 
@@ -16,16 +17,16 @@
     justify-content: center;
 }
 
-.home__jumbotron__container__row__banner {
-}
-
 .home__jumbotron__container__row > img {
-    max-width: inherit;
-    max-height: 200px;
-    height: 200px;
+    max-width: 100%;
+    border: 2px solid black;
+    border-radius: 5px ;
+
+    /* max-height: 200px; */
+    /* object-fit: contain; */
 }
 .home__container {
-    max-width: inherit;
+    max-width: 1500px;
 }
 
 .home__main__products {

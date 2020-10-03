@@ -19,12 +19,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Badge } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Category from './Category';
+import { getTotalProducts } from '../redux/cart';
 
-function Header() {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const toggle = () => setIsOpen(!isOpen);
-
+function Header({totalProducts}) {
     return (
         <div className="header">
             <Navbar dark expand="md" className="header__navbar">
@@ -32,10 +29,20 @@ function Header() {
                     <NavbarToggler id="toggler" style={{ border: "0px", fontSize: "", outline: "none"}}/>
                     <NavbarBrand className="header__navbar__container__logo" href="/">
                         <img
-                            src="/logo192.png"
+                            src="/images/logo3.png"
                             alt="logo"
                         />
                     </NavbarBrand>
+                    <Nav className="header__navbar__nav__search">
+                        <NavItem className="header__navbar__nav__search__item">
+                            <InputGroup>
+                                <Input placeholder="Search for products" className="header__search__input" />
+                                <InputGroupAddon addonType="append" className="header__search__icon">
+                                    <SearchIcon style={{ fontSize: 30, color: "#1B1924" }} />
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </NavItem>
+                    </Nav>
                     <UncontrolledCollapse navbar toggler="#toggler" className="header__navbar__collapse">
                         <Nav navbar className="header__navbar__nav__left">
                             <NavItem className="header__navbar__couuuntainer__navitem">
@@ -52,7 +59,7 @@ function Header() {
                             </NavItem>
                             <NavItem className="header__navbar__container__cart">
                                 <NavLink className="nav-link" to="/cart">
-                                    <Badge badgeContent={4} color="secondary">
+                                    <Badge badgeContent={totalProducts} color="secondary">
                                         <ShoppingCartIcon fontSize="medium" />
                                     </Badge>
                                 </NavLink>
@@ -65,17 +72,18 @@ function Header() {
 
                         </Nav>
                     </UncontrolledCollapse>
+
                 </Container>
             </Navbar>
-            <Row className="header__search">
+            {/* <Row className="header__search">
                 <InputGroup>
                     <Input placeholder="Search for products" className="header__search__input" />
                     <InputGroupAddon addonType="append" className="header__search__icon">
                         <SearchIcon style={{ fontSize: 30, color: "#1B1924" }} />
                     </InputGroupAddon>
                 </InputGroup>
-            </Row>
-            <Category />
+            </Row> */}
+            {/* <Category /> */}
             <hr className='header__divider' />
         </div >
 

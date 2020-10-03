@@ -12,7 +12,7 @@ function LoginRegister({type}) {
                 <Row className="loginregister__logo">
                     <Link to='/home'>
                         <img className="loginregister__logo__img"
-                            src="logo192.png"
+                            src="/images/logo3.png"
                             alt="logo"
                         />
                     </Link>

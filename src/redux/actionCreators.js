@@ -13,3 +13,26 @@ const addProductDetails = (selected_product) => ({
 	type: ActionTypes.ADD_PRODUCT_DETAILS,
 	selectedProduct: selected_product,
 });
+
+export const addToCart = (product) => ({
+  type: ActionTypes.ADD_TO_CART,
+  payload: product
+});
+
+export const removeFromCart = (productId) => ({
+  type: ActionTypes.REMOVE_FROM_CART,
+  payload: productId
+})
+
+export const updateQuantity = (productId, quantity) => ({
+  type: ActionTypes.UPDATE_QUANTITY,
+  payload: {
+    productId,
+    quantity
+  }
+})
+
+export const updateDeliveryCost = (cost) => ({
+  type: ActionTypes.UPDATE_DELIVERY_COST,
+  payload: cost
+})
