@@ -14,15 +14,17 @@ const addProductDetails = (selected_product) => ({
 	selectedProduct: selected_product,
 });
 
+
 export const addToCart = (product) => ({
   type: ActionTypes.ADD_TO_CART,
   payload: product
 });
 
+
 export const removeFromCart = (productId) => ({
   type: ActionTypes.REMOVE_FROM_CART,
   payload: productId
-})
+});
 
 export const updateQuantity = (productId, quantity) => ({
   type: ActionTypes.UPDATE_QUANTITY,
@@ -30,9 +32,30 @@ export const updateQuantity = (productId, quantity) => ({
     productId,
     quantity
   }
-})
+});
 
 export const updateDeliveryCost = (cost) => ({
   type: ActionTypes.UPDATE_DELIVERY_COST,
   payload: cost
-})
+});
+
+// export const addInWishlist = (product) => (dispatch) => {
+//   dispatch(add(product));
+// };
+
+// const add = (product) => ({
+//   type: ActionTypes.ADD_IN_WISHLIST,
+//   payload: product,
+// });
+
+
+export const addToWishlist = (product) => ({
+  type: ActionTypes.ADD_TO_WISHLIST,
+  payload: product
+});
+
+
+export const removeFromWishlist = (productId) => ({
+  type: ActionTypes.REMOVE_FROM_WISHLIST,
+  payload: productId
+});

@@ -21,18 +21,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import Category from './Category';
 import { getTotalProducts } from '../redux/cart';
 
-function Header({totalProducts}) {
+function Header({ totalProducts }) {
     return (
         <div className="header">
             <Navbar dark expand="md" className="header__navbar">
                 <Container className="header__navbar__container" >
-                    <NavbarToggler id="toggler" style={{ border: "0px", fontSize: "", outline: "none"}}/>
-                    <NavbarBrand className="header__navbar__container__logo" href="/">
-                        <img
-                            src="/images/logo3.png"
-                            alt="logo"
-                        />
-                    </NavbarBrand>
+                    <NavbarToggler id="toggler" style={{ border: "0px", fontSize: "", outline: "none" }} />
+                    <Link to="/home">
+                        <NavbarBrand  className="header__navbar__container__logo" href="/">
+                            <img
+                                src="/images/logo5.png"
+                                alt="logo"
+                            />
+                        </NavbarBrand>
+                    </Link>
                     <Nav className="header__navbar__nav__search">
                         <NavItem className="header__navbar__nav__search__item">
                             <InputGroup>

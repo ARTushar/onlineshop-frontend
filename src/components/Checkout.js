@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import '../assets/css/Checkout.css';
 import CallIcon from '@material-ui/icons/Call';
 import PersonIcon from '@material-ui/icons/Person';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import {
   Button,
   Card,
@@ -27,6 +28,8 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import isEmail from 'validator/lib/isEmail';
 import Select from 'react-select';
 import ReduxFormSelect from './ReduxFormSelect';
+import CurrencyFormat from 'react-currency-format';
+import { selectTotalPrice } from '../redux/cart';
 
 const required = (val) => val && val.length;
 const requiredObject = (val) => val.value && val.value.length
@@ -46,7 +49,7 @@ const RadioButton = (props) => (
   </RadioGroup>
 );
 
-function Checkout() {
+function Checkout({cartProducts, deliveryCost}) {
   const resetSignUpForm = React.useContext(UserContext);
 
   const [totalBill, setTotalBill] = React.useState(400);
@@ -63,6 +66,7 @@ function Checkout() {
   return (
     <div className="checkout">
       <Container className="checkout__container">
+          { cartProducts.length !== 0 ? (
         <Row className="checkout__row">
           <Col md="6" xl={{ size: "5", offset: "1" }} className="checkout__information">
             <Card className="checkout__card">
@@ -316,7 +320,14 @@ function Checkout() {
               <CardBody className="checkout__card__body">
                 <CardTitle className="checkout__card__title">
                   <span>Total Payment: </span>
-                  <span className="checkout__total__payment">৳ {totalBill}</span>
+                  <CurrencyFormat
+                    value={selectTotalPrice(cartProducts, deliveryCost)}
+                    displayType="text"
+                    decimalScale={2}
+                    prefix="৳"
+                    thousandSeparator={true}
+                    className="checkout__total__payment"
+                  />
                 </CardTitle>
                 <hr />
                 <CardTitle className="checkout__card__title">
@@ -342,10 +353,16 @@ function Checkout() {
                     </Col>
                   </Row>
                 </Form>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        ) : (
+            <>
+              <Redirect to="/cart" />
+            </>
+          )
+        }
       </Container>
     </div>
 

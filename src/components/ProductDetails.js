@@ -5,10 +5,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import { CartContext } from '../Context/context';
 import CurrencyFormat from 'react-currency-format';
 
-function ProductDetails({ selectedProduct }) {
+function ProductDetails({ selectedProduct, addToWishlist }) {
   const maxq = 12;
   const [quantity, setQuantity] = React.useState(1);
-  const addToCart = React.useContext(CartContext)
+  const cartContext = React.useContext(CartContext)
 
   const getValue = (val) => (
     val <= 1 ? 1 :
@@ -77,7 +77,15 @@ function ProductDetails({ selectedProduct }) {
                 <Col xs={8} sm={5} className="p-0">
 
                   <FavoriteIcon style={{ alignSelf: "center" }} color="secondary" ></FavoriteIcon>
-                  <Button
+                  <Button onClick={() => addToWishlist({
+                    id: selectedProduct.id,
+                    price: selectedProduct.price,
+                    title: selectedProduct.title,
+                    image: selectedProduct.image,
+                    slug: selectedProduct.slug,
+                    discount: selectedProduct.discount,
+                    rating: selectedProduct.rating
+                  })}
                     size='sm'
                     className='productDetails__toprow__titlebox__buttonwish'
                   >
@@ -97,7 +105,7 @@ function ProductDetails({ selectedProduct }) {
               </Row>
 
               <Row className='productDetails__toprow__titlebox__buyrow'>
-                <Button onClick={() => addToCart({
+                <Button onClick={() => cartContext.addToCart({
                   id: selectedProduct.id,
                   price: selectedProduct.price,
                   title: selectedProduct.title,

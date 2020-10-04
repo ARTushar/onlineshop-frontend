@@ -4,8 +4,9 @@ import { BrowserRouter, withRouter } from 'react-router-dom';
 import ConfigureStore from './redux/configureStore';
 import { Provider, connect } from 'react-redux';
 import Main from './components/Main';
+import { PersistGate } from 'redux-persist/integration/react';
 
-const store = ConfigureStore();
+const {store, persistor} = ConfigureStore();
 
 /* const mapStateToProps = state => {
   return {
@@ -18,9 +19,11 @@ function App(props) {
   return (
     <div className="app">
       <Provider store={store}>
-        <BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
             <Main />
-        </BrowserRouter>
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     </div>
   );

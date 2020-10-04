@@ -3,19 +3,24 @@ import React from 'react';
 import { Row, Col, Container, Jumbotron } from 'reactstrap';
 import '../assets/css/WishList.css';
 import { PRODUCTS } from '../shared/products';
+import { Link } from 'react-router-dom';
 import Product from './Product';
 import RemoveCircleSharpIcon from '@material-ui/icons/RemoveCircleSharp';
-
+import { UserContext } from '../Context/context';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 function WishList() {
+  const userContext = React.useContext(UserContext);
+
   return (
     <div className='wishList'>
 
       <Container className='wishList__container'>
         <Row className='wishList__main'>
           <Col className=''>
+            {userContext.wishlistProducts.length !== 0 ? (
             <Row className='wishList__main__products'>
-              {PRODUCTS.map((product) => {
+              {userContext.wishlistProducts.map((product) => {
                 return (
                   // <Col className="wishList__col">
                   <Col
@@ -25,7 +30,7 @@ function WishList() {
                     className='wishList__product'
                   >
                     <Row className="wishList__remove">
-                      <a role="button" className="wishList__remove__button">
+                      <a role="button" onClick={()=> userContext.removeFromWishlist(product.id)} className="wishList__remove__button">
                         <span>Remove</span>
                         <RemoveCircleSharpIcon style={{
                           color: "secondary",
@@ -39,6 +44,7 @@ function WishList() {
                       discountPrice={product.price - product.price * product.discount * .01}
                       rating={product.rating}
                       image={product.image}
+                      slug={product.slug}
                     />
                   </Col>
 
@@ -46,6 +52,24 @@ function WishList() {
               })}
 
             </Row>
+            ) : (
+                <>
+                  <div className="wishlist__no__product">
+                    <RemoveShoppingCartIcon style={{ textAlign: "center", fontSize: "100px" }} />
+                  </div>
+                  <Row className="wishlist__no__product__message">
+                    <span>NO PRODUCTS IN THE WISHLIST 😒</span>
+                  </Row>
+                  <Row className="justify-content-center">
+                    <Link to="/home" style={{textDecoration: "inherit", color: "inherit"}}>
+                      <Button role="a" className="wishlist__no__product__button">
+                        RETURN TO SHOP
+                                </Button>
+                    </Link>
+                  </Row>
+                </>
+              )
+            }
           </Col>
         </Row>
       </Container>

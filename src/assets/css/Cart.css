@@ -15,7 +15,11 @@ height: 100%;
 }
 
 .cart__products {
-    margin: 20px 0px 0px 0px;
+    margin: 10px 0px 0px 0px;
+    /* border-radius: 5px;
+    border: 2px solid whitesmoke;
+    box-shadow: 2px;
+    padding: 10px; */
 }
 
 .cart__products__header {

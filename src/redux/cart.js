@@ -1,10 +1,12 @@
 import * as ActionTypes from './ActionTypes';
+import { loadFromLocalStorage } from './localStorage';
 
 export const selectSubTotalPrice = (products) => {
     return products?.reduce((amount, product) => amount + product.price * product.quantity, 0)
 }
 
-export const selectTotalPrice = (subTotal, deliveryCost) => {
+export const selectTotalPrice = (products, deliveryCost) => {
+    let subTotal = products?.reduce((amount, product) => amount + product.price * product.quantity, 0)
     return subTotal + deliveryCost;
 }
 

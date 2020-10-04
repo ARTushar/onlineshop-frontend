@@ -26,7 +26,7 @@ import AdminFooter from './AdminFooter';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext } from '../Context/context';
 
-import { addToCart, fetchProductDetails, removeFromCart, updateDeliveryCost, updateQuantity } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity } from '../redux/actionCreators';
 
 const mapDispatchToProps = (dispatch) => ({
 	resetSignUpForm: () => dispatch(actions.reset('user')),
@@ -35,6 +35,8 @@ const mapDispatchToProps = (dispatch) => ({
 	removeFromCart: (productId) => dispatch(removeFromCart(productId)),
 	updateQuantity: (productId, quantity) => dispatch(updateQuantity(productId, quantity)),
 	updateDeliveryCost: (cost) => dispatch(updateDeliveryCost(cost)),
+	addToWishlist: (product) => dispatch(addToWishlist(product)),
+	removeFromWishlist: (productId) => dispatch(removeFromWishlist(productId)),
 });
 
 const mapStateToProps = (state) => {
@@ -42,6 +44,7 @@ const mapStateToProps = (state) => {
 		products: state.products.products,
 		selectedProduct: state.products.selectedProduct,
 		cart: state.cart,
+		wishlist: state.wishlist
 	};
 };
 
@@ -57,10 +60,11 @@ function Main(props) {
 		return (
 			<React.Fragment>
 				<Header totalProducts={props.cart.products.length}/>
-				<CartContext.Provider value={
-					props.addToCart
-				}>
-					<ProductDetails selectedProduct={props.selectedProduct} />
+				<CartContext.Provider value={{
+					addToCart: props.addToCart,
+
+				}}>
+					<ProductDetails selectedProduct={props.selectedProduct} addToWishlist={props.addToWishlist} />
 				</CartContext.Provider>
 				<Footer />
 			</React.Fragment>
@@ -84,7 +88,7 @@ function Main(props) {
 						updateQuantity: props.updateQuantity,
 						updateDeliveryCost: props.updateDeliveryCost,
 						deliveryCost: props.cart.deliveryCost,
-						updateDeliveryCost: props.updateDeliveryCost
+						updateDeliveryCost: props.updateDeliveryCost,
 					}}>
 						<Cart />
 					</CartContext.Provider>
@@ -93,7 +97,10 @@ function Main(props) {
 				</Route>
 				<Route path="/checkout">
 					<Header totalProducts={props.cart.products.length} />
-					<Checkout />
+					<Checkout 
+						cartProducts={props.cart.products}
+						deliveryCost={props.cart.deliveryCost}
+					/>
 					<Footer />
 				</Route>
 				<Route path="/purchase">
@@ -103,7 +110,12 @@ function Main(props) {
 				</Route>
 				<Route path="/profile">
 					<Header totalProducts={props.cart.products.length} />
-					<Profile />
+					<UserContext.Provider value={{
+						wishlistProducts: props.wishlist.products,
+						removeFromWishlist: props.removeFromWishlist
+					}}>
+						<Profile />
+					</UserContext.Provider>
 					<Footer />
 				</Route>
 				<Route path="/videos">

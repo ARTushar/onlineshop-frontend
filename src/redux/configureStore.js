@@ -6,22 +6,34 @@ import  { InitialOrderState, InitialUserState, InitialProductFormState } from '.
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Products } from './products';
 import Cart from './cart';
-
+import Wishlist from './wishlist';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const ConfigureStore = () => {
-    const store = createStore(
-        combineReducers({
-            cart: Cart,
-            ...createForms({
-                user: InitialUserState,
-                order: InitialOrderState,
-                product: InitialProductFormState
-            }),
-            products: Products,
-        }),
-        applyMiddleware(thunk, logger)
-    );
-    return store;
+  const persistConfig = {
+    key: 'cart',
+    storage,
+    whitelist: ['cart']
+  }
+
+  const persistedReducer = persistReducer(persistConfig,
+    combineReducers({
+      wishlist: Wishlist,
+      cart: Cart,
+      ...createForms({
+        user: InitialUserState,
+        order: InitialOrderState,
+        product: InitialProductFormState
+      }),
+      products: Products
+    }))
+
+  const store = createStore(persistedReducer,
+    applyMiddleware(thunk, logger)
+  );
+  const persistor = persistStore(store)
+  return { store, persistor };
 }
 
 export default ConfigureStore;
