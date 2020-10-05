@@ -1,0 +1,40 @@
+.orderproductsmall {
+    font-size: small;
+    font-weight: 500;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.orderproductsmall__content {
+    margin-bottom: 5px;
+}
+
+
+
+.orderproductsmall__heading {
+    text-align: start;
+    align-self: center;
+}
+
+.orderproductsmall__thumbnail > img {
+    width: 65px;
+}
+
+.orderproductsmall__title {
+    text-align: start;
+}
+.orderproductsmall__price {
+    color: #777;
+    text-align: end;
+}
+.orderproductsmall__quantity {
+    align-items: center;
+    text-align: end;
+}
+.orderproductsmall__subtotal {
+    text-align: end;
+    font-size: medium;
+    color: #f50057;
+    font-weight: 600;
+}

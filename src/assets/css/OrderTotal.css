@@ -1,0 +1,124 @@
+.ordertotal {
+    font-size: small;
+    font-weight: 500;
+    border-radius: 5px;
+    border: 2px solid whitesmoke;
+    box-shadow: 2px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.ordertotal__container {
+    max-width: inherit;
+}
+
+.ordertotal__heading {
+    font-weight: 600;
+    font-size: medium;
+}
+
+.ordertotal__subtotal {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.ordertotal__subtotal__cost {
+    text-align: end;
+    color: #f50057;
+}
+.ordertotal__shipping {
+    align-items: center;
+    margin-top: 10px;
+}
+
+.ordertotal__shipping__heading {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ordertotal__shipping__cost {
+    text-align: end;
+
+}
+
+.ordertotal__shipping__cost__value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f50057;
+}
+
+.ordertotal__shipping {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ordertotal__shipping__value {
+    font-size: small;
+    color: #f50057;
+    text-align: end;
+    text-transform: capitalize;
+}
+
+.ordertotal__total {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.ordertotal__total__cost {
+    text-align: end;
+    color: #f50057;
+}
+
+.ordertotal__status {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.ordertotal__status__value{
+    font-size: small;
+    text-align: end;
+    color: #f50057;
+    text-transform: capitalize;
+}
+
+
+.ordertotal__name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.ordertotal__name__value{
+    font-size: small;
+    text-align: end;
+    color: #f50057;
+    text-transform: capitalize;
+}
+
+.ordertotal__payment{
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.ordertotal__payment__value{
+    font-size: small;
+    text-align: end;
+    color: #f50057;
+    text-transform: capitalize;
+}
+
+.ordertotal__delivery{
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.ordertotal__delivery__value {
+    text-align: end;
+    color: #f50057;
+}

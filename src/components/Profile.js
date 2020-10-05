@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import UserInformation from './UserInformation';
 import WishList from './WishLIst';
 import { Col, Container, Row } from 'reactstrap';
+import OrderList from './OrderList';
 
 
 function useWindowSize() {
@@ -140,6 +141,7 @@ function Profile() {
         <UserInformation />
       </TabPanel>
       <TabPanel className={classes.tabPanel} value={value} index={1}>
+        <OrderList />
       </TabPanel>
       <TabPanel className={classes.tabPanel} value={value} index={2}>
         <WishList />
