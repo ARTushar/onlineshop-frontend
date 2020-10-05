@@ -14,15 +14,6 @@ import LoginRegister from './LoginRegister';
 import Search from './Search';
 import Checkout from './Checkout';
 
-import AdminHome from './AdminHome';
-import AdminOrders from './AdminOrders';
-import AdminProducts from './AdminProducts';
-import AdminAddProduct from './AdminAddProduct';
-import AdminCustomers from './AdminCustomers';
-import AdminCategories from './AdminCategories';
-import AdminHeader from './AdminHeader';
-import AdminFooter from './AdminFooter';
-
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext } from '../Context/context';
 
@@ -150,41 +141,7 @@ function Main(props) {
           <Footer />
         </Route>
         <Route path="/order/:order_no" component={OrderInvoiceComponent} />
-        <Route exact path='/admin'>
-          <AdminHeader />
-          <AdminHome />
-          <AdminFooter />
-        </Route>
-        <Route exact path='/admin/home'>
-          <AdminHeader />
-          <AdminHome />
-          <AdminFooter />
-        </Route>
-        <Route exact path='/admin/orders'>
-          <AdminHeader />
-          <AdminOrders />
-          <AdminFooter />
-        </Route>
-        <Route exact path='/admin/products'>
-          <AdminHeader />
-          <AdminProducts />
-          <AdminFooter />
-        </Route>
-        <Route exact path='/admin/addproduct'>
-          <AdminHeader />
-          <AdminAddProduct />
-          <AdminFooter />
-        </Route>
-        <Route exact path='/admin/customers'>
-          <AdminHeader />
-          <AdminCustomers />
-          <AdminFooter />
-        </Route>
-        <Route exact path='/admin/categories'>
-          <AdminHeader />
-          <AdminCategories />
-          <AdminFooter />
-        </Route>
+        
         <Redirect to='/home' />
       </Switch>
     </div>

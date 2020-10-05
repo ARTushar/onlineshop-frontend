@@ -116,7 +116,7 @@ function UserInformation() {
                   model=".email"
                   show="touched"
                   messages={{
-                    isEmail: 'Invalid Email'
+                    validEmail: 'Invalid Email'
                   }}
                 />
               </Col>
