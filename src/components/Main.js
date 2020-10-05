@@ -109,6 +109,7 @@ function Main(props) {
           <Checkout
             cartProducts={props.cart.products}
             deliveryCost={props.cart.deliveryCost}
+            resetSignUpForm={props.resetSignUpForm}
           />
           <Footer />
         </Route>

@@ -15,18 +15,6 @@ export const InitialUserState = {
     paymentMethod: ''
 };
 
-export const InitialOrderState = {
-    name: InitialUserState.name,
-    mobile: InitialUserState.mobile,
-    country: InitialUserState.country,
-    district: InitialUserState.district,
-    thana: InitialUserState.thana,
-    region: InitialUserState.region,
-    postalCode: InitialUserState.postalCode,
-    homeLocation: InitialUserState.homeLocation,
-    deliveryNotes: '',
-    paymentMethod: InitialUserState.paymentMethod
-}
 export const InitialProductFormState = {
 	code: '',
 	title: '',

@@ -23,7 +23,6 @@ const ConfigureStore = () => {
       cart: Cart,
       ...createForms({
         user: InitialUserState,
-        order: InitialOrderState,
         product: InitialProductFormState
       }),
       products: Products
