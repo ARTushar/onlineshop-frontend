@@ -9,6 +9,7 @@ import Cart from './cart';
 import Wishlist from './wishlist';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import Order from './order';
 
 const ConfigureStore = () => {
   const persistConfig = {
@@ -21,6 +22,7 @@ const ConfigureStore = () => {
     combineReducers({
       wishlist: Wishlist,
       cart: Cart,
+      order: Order,
       ...createForms({
         user: InitialUserState,
         product: InitialProductFormState

@@ -49,7 +49,7 @@ const RadioButton = (props) => (
   </RadioGroup>
 );
 
-function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
+function Checkout({ cartProducts, deliveryCost, userInformation, postOrder}) {
 
   const [totalBill, setTotalBill] = React.useState(400);
 
@@ -58,9 +58,13 @@ function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
   }]
 
   const handleSubmit = (values) => {
-    console.log("value: hola khola bap bola")
-    console.log(values);
-    resetSignUpForm();
+    postOrder({
+      ...values,
+      products: {...cartProducts},
+      deliveryCost,
+      totalCost: selectTotalPrice(cartProducts, deliveryCost),
+    })
+    console.log(values)
   }
 
   return (
@@ -82,6 +86,7 @@ function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
                         <Control.text model=".name" id="name" name="name"
                           placeholder="Name"
                           className="form-control"
+                          defaultValue={userInformation.name}
                           style={{
                             fontSize: "small"
                           }}
@@ -108,6 +113,7 @@ function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
                         <Control.text model=".mobile" id="mobile" name="mobile"
                           placeholder="Mobile Number"
                           className="form-control"
+                          defaultValue={userInformation.mobile}
                           style={{
                             fontSize: "small"
                           }}
@@ -159,6 +165,7 @@ function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
                       <Label htmlFor="district" md={3}>District</Label>
                       <Col md={9}>
                         <Control.select model=".district" id="district" name="district"
+                          defaultValue={userInformation.district}
                           className="form-control"
                           validators={{
                             requiredObject
@@ -184,6 +191,7 @@ function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
                       <Col md={9}>
                         <Control.text model=".thana" id="thana" name="thana"
                           className="form-control"
+                          defaultValue={userInformation.thana}
                           placeholder="Your thana name"
                           style={{
                             fontSize: "small"
@@ -209,6 +217,7 @@ function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
                       <Col md={9}>
                         <Control.text model=".region" id="region" name="region"
                           className="form-control"
+                          defaultValue={userInformation.region}
                           placeholder="Your region in the thana"
                           style={{
                             fontSize: "small"
@@ -235,6 +244,7 @@ function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
                       <Col md={9}>
                         <Control.text model=".postalCode" id="postalCode" name="postalCode"
                           className="form-control"
+                          defaultValue={userInformation.postalCode}
                           placeholder="Postal Code"
                           style={{
                             fontSize: "small"
@@ -261,6 +271,7 @@ function Checkout({ cartProducts, deliveryCost, resetSignUpForm }) {
                       <Label htmlFor="homeLocation" md={3}>Home Location</Label>
                       <Col md={9}>
                         <Control.text model=".homeLocation" id="homeLocation" name="homeLocation"
+                          defaultValue={userInformation.homeLocation}
                           className="form-control"
                           placeholder="Street name/no, house name/no"
                           style={{

@@ -39,6 +39,10 @@ export const updateDeliveryCost = (cost) => ({
   payload: cost
 });
 
+export const deleteCart = () => ({
+  type: ActionTypes.INITIALIZE_CART
+})
+
 // export const addInWishlist = (product) => (dispatch) => {
 //   dispatch(add(product));
 // };
@@ -59,3 +63,15 @@ export const removeFromWishlist = (productId) => ({
   type: ActionTypes.REMOVE_FROM_WISHLIST,
   payload: productId
 });
+
+// orders
+export const addOrder = (order) => ({
+  type: ActionTypes.ADD_ORDER,
+  payload: order
+})
+
+export const postOrder = (order) => (dispatch) => {
+  console.log('Posting an order')
+  dispatch(addOrder(order));
+  dispatch(deleteCart());
+}

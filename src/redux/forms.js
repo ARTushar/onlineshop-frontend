@@ -4,15 +4,14 @@ export const InitialUserState = {
     name: '',
     mobile: '',
     password: '',
-    confirmPassword: '',
+    email: '',
     agree: false,
     country: 'Bangladesh',
     district: {value: 'Dhaka', label: "Dhaka"},
     thana: '',
     region: '',
     postalCode: null,
-    homeLocation: '',
-    paymentMethod: ''
+    homeLocation: ''
 };
 
 export const InitialProductFormState = {

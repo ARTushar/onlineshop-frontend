@@ -37,6 +37,9 @@ const Cart = (state = {
         case ActionTypes.UPDATE_DELIVERY_COST:
             return {...state, deliveryCost: action.payload}
         
+        case ActionTypes.INITIALIZE_CART:
+            return { products: [], deliveryCost: 60 };
+
         default:
             return state;
     }

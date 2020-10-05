@@ -26,7 +26,7 @@ import AdminFooter from './AdminFooter';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -38,6 +38,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateDeliveryCost: (cost) => dispatch(updateDeliveryCost(cost)),
   addToWishlist: (product) => dispatch(addToWishlist(product)),
   removeFromWishlist: (productId) => dispatch(removeFromWishlist(productId)),
+  postOrder: (order) => dispatch(postOrder(order)),
 });
 
 const mapStateToProps = (state) => {
@@ -45,7 +46,8 @@ const mapStateToProps = (state) => {
     products: state.products.products,
     selectedProduct: state.products.selectedProduct,
     cart: state.cart,
-    wishlist: state.wishlist
+    wishlist: state.wishlist,
+    user: state.user
   };
 };
 
@@ -109,7 +111,8 @@ function Main(props) {
           <Checkout
             cartProducts={props.cart.products}
             deliveryCost={props.cart.deliveryCost}
-            resetSignUpForm={props.resetSignUpForm}
+            userInformation={props.user}
+            postOrder={props.postOrder}
           />
           <Footer />
         </Route>
