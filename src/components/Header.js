@@ -21,7 +21,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Category from './Category';
 import { getTotalProducts } from '../redux/cart';
 
-function Header({ totalProducts }) {
+function Header({totalProducts, auth , logoutUser }) {
     return (
         <div className="header">
             <Navbar dark expand="md" className="header__navbar">
@@ -67,14 +67,17 @@ function Header({ totalProducts }) {
                                 </NavLink>
                             </NavItem>
                             <NavItem className="header__navbar__container__loginregister">
-                                <Link className="nav-link mt-1" to="/login">
-                                    <span>Login/Register</span>
-                                </Link>
+                                {!auth.isAuthenticated ? (
+                                    <Link className="nav-link mt-1" to="/login">
+                                        <span>Login/Register</span>
+                                    </Link>
+                                ) : (
+                                        <span onClick={() => logoutUser(auth.creds? auth.creds.remember: false)} className="nav-link mt-1">Logout</span>
+                                    )}
                             </NavItem>
 
                         </Nav>
                     </UncontrolledCollapse>
-
                 </Container>
             </Navbar>
             {/* <Row className="header__search">

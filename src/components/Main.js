@@ -17,7 +17,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,8 +33,9 @@ const mapDispatchToProps = (dispatch) => ({
   addSingleProduct: (product) => dispatch(addSingleProduct(product)),
   removeSingleProduct: () => dispatch(removeSingleProduct()),
   loginUser: (creds, remember) => dispatch(loginUser(creds, remember)),
-  logoutUser: () => dispatch(logoutUser()),
+  logoutUser: (remember) => dispatch(logoutUser(remember)),
   registerUser: (user) => dispatch(registerUser(user)),
+  clearRegsiter: () => dispatch(clearRegsiter()),
 });
 
 const mapStateToProps = (state) => {
@@ -62,7 +63,7 @@ function Main(props) {
     // console.log('after state : ' + props.selectedProduct);
     return (
       <React.Fragment>
-        <Header totalProducts={props.cart.products.length} />
+        <Header  logoutUser={props.logoutUser} auth={props.auth}  totalProducts={props.cart.products.length} />
         <CartContext.Provider value={{
           addToCart: props.addToCart,
           addSingleProduct: props.addSingleProduct
@@ -76,7 +77,7 @@ function Main(props) {
 
   const OrderInvoiceComponent = ({ match }) => (
     <>
-      <Header totalProducts={props.cart.products.length} />
+      <Header logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
       <OrderInvoice order_no={match.params.order_no} orders={props.orders} />
       <Footer />
     </>
@@ -86,13 +87,13 @@ function Main(props) {
     <div className="main">
       <Switch>
         <Route path="/home">
-          <Header totalProducts={props.cart.products.length} />
+          <Header logoutUser={props.logoutUser} auth={props.auth}  totalProducts={props.cart.products.length} />
           <Home />
           <Footer />
         </Route>
         <Route path="/product/:slug" component={ProductDetailsWithSlug} />
         <Route path="/cart" >
-          <Header totalProducts={props.cart.products.length} />
+          <Header logoutUser={props.logoutUser} auth={props.auth}  totalProducts={props.cart.products.length} />
           <CartContext.Provider value={{
             removeFromCart: props.removeFromCart,
             cartProducts: props.cart.products,
@@ -107,7 +108,7 @@ function Main(props) {
 
         </Route>
         <Route path="/checkout">
-          <Header totalProducts={props.cart.products.length} />
+          <Header logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Checkout
             cartProducts={props.cart.products}
             deliveryCost={props.cart.deliveryCost}
@@ -119,12 +120,12 @@ function Main(props) {
           <Footer />
         </Route>
         <Route path="/purchase">
-          <Header totalProducts={props.cart.products.length} />
+          <Header logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Purchase />
           <Footer />
         </Route>
         <Route path="/profile">
-          <Header totalProducts={props.cart.products.length} />
+          <Header logoutUser={props.logoutUser}  auth={props.auth}  totalProducts={props.cart.products.length} />
           <UserContext.Provider value={{
             wishlistProducts: props.wishlist.products,
             removeFromWishlist: props.removeFromWishlist,
@@ -135,14 +136,14 @@ function Main(props) {
           <Footer />
         </Route>
         <Route path="/videos">
-          <Header totalProducts={props.cart.products.length} />
+          <Header logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Videos />
           <Footer />
         </Route>
         <Route exact path="/login">
           <AuthContext.Provider value={{
             loginUser: props.loginUser,
-            creds: props.auth.creds
+            auth: props.auth
           }}>
             <LoginRegister type="login" />
           </AuthContext.Provider>
@@ -152,12 +153,13 @@ function Main(props) {
             registerUser: props.registerUser,
             register: props.register,
             loginUser: props.loginUser,
+            clearRegsiter: props.clearRegsiter
           }}>
             <LoginRegister type="register" />
           </AuthContext.Provider>
         </Route>
         <Route path="/search">
-          <Header totalProducts={props.cart.products.length} />
+          <Header  logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Search />
           <Footer />
         </Route>

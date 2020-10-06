@@ -47,6 +47,14 @@ export const Auth = (state = {
         token: '',
         creds: null
       };
+    
+    case ActionTypes.LOGOUT_SUCCESS_REMEMBER:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: false,
+        token: '',
+      };
     default:
       return state;
   }

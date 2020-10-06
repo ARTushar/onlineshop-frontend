@@ -22,7 +22,10 @@ const Register = (state = {
                 hasRegsitered: false,
                 errMess: action.message
             }
-            
+        
+        case ActionTypes.REGISTER_CLEAR:
+            return { isLoading: false, hasRegistered: false, errMess: null };
+
         default:
             return state;
     }

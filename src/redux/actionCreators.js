@@ -143,7 +143,7 @@ export const loginUser = (creds, remember) => (dispatch) => {
         throw error;
       }
     })
-    .catch(error => dispatch(loginError(error.message)))
+    .catch(error => dispatch(loginError(error.response.data.err)))
 };
 
 export const requestLogout = () => ({
@@ -154,12 +154,17 @@ export const receiveLogout = () => ({
   type: ActionTypes.LOGOUT_SUCCESS
 });
 
+export const receiveLogoutRemember = () => ({
+  type: ActionTypes.LOGOUT_SUCCESS_REMEMBER
+});
+
 // Logs the user out
-export const logoutUser = () => (dispatch) => {
+export const logoutUser = (remember) => (dispatch) => {
   dispatch(requestLogout());
   localStorage.removeItem('token');
-  localStorage.removeItem('creds');
-  dispatch(receiveLogout());
+  if(remember)
+    dispatch(receiveLogoutRemember());
+  else dispatch(receiveLogout());
 }
 
 // register
@@ -207,6 +212,10 @@ export const registerUser = (user) => (dispatch) => {
         throw error;
       }
     })
-    .catch(error => dispatch(registerError(error.message)))
+    .catch(error => dispatch(registerError(error.response.data.err)))
 
-}
+};
+
+export const clearRegsiter = () => ({
+  type: ActionTypes.REGISTER_CLEAR
+});

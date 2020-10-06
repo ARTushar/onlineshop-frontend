@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import '../assets/css/Login.css';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 // reactstrap components
 import CallIcon from '@material-ui/icons/Call';
@@ -33,7 +33,10 @@ function Login() {
 
   const authContext = React.useContext(AuthContext);
   const loginUser = authContext.loginUser;
-  const creds = authContext.creds;
+  const auth = authContext.auth;
+  const creds = auth.creds;
+
+  const [errMess, setErrMess] = useState();
 
   const handleLogin = (values) => {
     console.log("creds: " + JSON.stringify(values))
@@ -43,6 +46,22 @@ function Login() {
     }, values.remember
     );
   };
+
+  const history = useHistory();
+
+  useEffect(() => {
+    if(auth.isAuthenticated){
+      history.push('/home');
+    } else if(auth.errMess){
+      if(auth.errMess.name === 'IncorrectUsernameError')
+        setErrMess('Mobile Number is incorrect');
+      else if(auth.errMess.name === 'IncorrectPasswordError')
+        setErrMess('Password is incorrect');
+      else
+        setErrMess('Something went wrong! Try again')
+    }
+
+  }, [auth.errMess, auth.isAuthenticated])
 
   return (
     <Col lg="5" md="7" className="login">
@@ -122,6 +141,7 @@ function Login() {
                     <Control.checkbox model=".remember" aria-label="Checkbox for following text input" 
                     defaultChecked={creds? creds.remember: false} className="login__card__body__checkbox" />
                     <Label className="login__card__body__remember">Remember me</Label>
+                    <span className="col-12 text-danger p-2 ml-3">{errMess? errMess: ""}</span>
                     <Col xs={{ size: 6, offset: 4 }} className="login__card__body__submit">
                       <Button type="submit" className="login__card__body__sign__button">Sign in</Button>
                     </Col>

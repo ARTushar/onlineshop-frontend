@@ -40,8 +40,10 @@ function Register() {
   const registerUser = authContext.registerUser;
   const register = authContext.register;
   const loginUser = authContext.loginUser;
+  const clearRegsiter = authContext.clearRegsiter;
 
   const [creds, setCreds] = useState();
+  const [errMess, setErrMess] = useState();
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -54,6 +56,8 @@ function Register() {
     console.log('Register Status: ' + JSON.stringify(register));
   }
 
+  const serverError = (val) => errMess? false: true; 
+
   const history = useHistory();
 
   useEffect(()=> {
@@ -61,8 +65,13 @@ function Register() {
       loginUser({
         username: creds.mobile,
         password: creds.password
-      }, false)
+      }, false);
+      clearRegsiter();
       history.push('/home')
+    } else if(register.errMess){
+      if(register.errMess.name === 'UserExistsError'){
+        setErrMess("There is already an account with this mobile number")
+      }
     }
   }, [register])
 
@@ -145,7 +154,7 @@ function Register() {
                       show="touched"
                       messages={{
                         required: 'Required',
-                        validMobile: 'Inavlid mobile number'
+                        validMobile: 'Inavlid mobile number',
                       }}
                     />
                 </FormGroup>
@@ -214,6 +223,7 @@ function Register() {
                         mustAgree: "You must agree with the policy",
                       }}
                     />
+                    <span className="text-danger p-2 ml-3">{errMess? errMess: ""}</span>
                     <Col xs={{ size: 6, offset: 4 }} className="register__card__body__submit">
                       <Button type="submit" className="register__card__body__sign__button">Sign up</Button>
                     </Col>
