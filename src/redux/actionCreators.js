@@ -143,7 +143,11 @@ export const loginUser = (creds, remember) => (dispatch) => {
         throw error;
       }
     })
-    .catch(error => dispatch(loginError(error.response.data.err)))
+    .catch(error => {
+      if(error.response)
+        dispatch(loginError(error.response.data.err));
+      else dispatch(loginError(error.message));
+    })
 };
 
 export const requestLogout = () => ({
@@ -212,7 +216,11 @@ export const registerUser = (user) => (dispatch) => {
         throw error;
       }
     })
-    .catch(error => dispatch(registerError(error.response.data.err)))
+    .catch(error => {
+      if(error.response)
+        dispatch(registerError(error.response.data.err))
+      else dispatch(registerError(error.message));
+    })
 
 };
 

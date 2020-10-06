@@ -6,7 +6,7 @@ import OrderProductSmall from './OrderProductSmall';
 import OrderProduct from './OrderProduct';
 
 function OrderInvoice({order_no, orders}) {
-  const order = orders.filter(order => order.serialNo === order_no)[0];
+  const order = orders.filter(order => order.serialNo == order_no)[0];
 
   return (
     <div className="orderinvoice">

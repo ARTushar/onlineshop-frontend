@@ -76,7 +76,7 @@ function Register() {
     } else if(register.errMess){
       if(register.errMess.name === 'UserExistsError'){
         setErrMess("There is already an account with this mobile number")
-      }
+      } else setErrMess("Something went wrong! Try again");
     }
   }, [register])
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import '../assets/css/Login.css';
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import { APP_ID } from '../shared/appId';
 
 // reactstrap components
 import CallIcon from '@material-ui/icons/Call';
@@ -47,6 +49,11 @@ function Login() {
     );
   };
 
+  const responseFacebook = (response) => {
+    console.log(response);
+    
+  }
+
   const history = useHistory();
 
   useEffect(() => {
@@ -78,13 +85,23 @@ function Login() {
                 />
                 <strong>Google</strong>
               </Button>
-              <Button outline className="login__title__button shadow">
-                <img
-                  className="facebook__icon"
-                  src={require('../assets/icons/facebook.svg')}
-                />
-                <strong>Facebook</strong>
-              </Button>
+              <FacebookLogin 
+                appId={APP_ID}
+                fields="name, email"
+                scope="public_profile, email"
+                callback={responseFacebook}
+                render={renderProps => (
+                  <Button onClick={renderProps.onClick} outline className="login__title__button shadow">
+                    <img
+                      className="facebook__icon"
+                      src={require('../assets/icons/facebook.svg')}
+                    />
+                    <strong>Facebook</strong>
+                  </Button>
+                )}
+              />
+
+
             </Row>
           </Container>
         </CardTitle>
@@ -95,7 +112,7 @@ function Login() {
             </Row>
             <Row className="login__card__body__input">
               <LocalForm model="creds" onSubmit={(values) => handleLogin(values)} className="login__form">
-                <FormGroup  className="login__form__formgroup">
+                <FormGroup className="login__form__formgroup">
                   <InputGroup className="login__form__inputgroup">
                     <InputGroupAddon addonType="prepend" className="">
                       <InputGroupText className="login__form__input__icon">
@@ -104,17 +121,17 @@ function Login() {
                     </InputGroupAddon>
                     <Control type="text" validators={{
                       required, validMobile
-                    }} defaultValue={creds? creds.username: ""} model=".username" placeholder="Mobile Number" className="login__form__input__text" />
+                    }} defaultValue={creds ? creds.username : ""} model=".username" placeholder="Mobile Number" className="login__form__input__text" />
                   </InputGroup>
                   <Errors
-                      className="text-danger p-2"
-                      model=".username"
-                      show="touched"
-                      messages={{
-                        required: 'Required',
-                        validMobile: 'Inavlid mobile number'
-                      }}
-                    />
+                    className="text-danger p-2"
+                    model=".username"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      validMobile: 'Inavlid mobile number'
+                    }}
+                  />
                 </FormGroup>
                 <FormGroup>
                   <InputGroup className="login__form__inputgroup">
@@ -123,25 +140,25 @@ function Login() {
                         <LockOpenIcon />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Control model=".password" type="password" placeholder="Password" defaultValue={creds? creds.password: ""} validators={{
+                    <Control model=".password" type="password" placeholder="Password" defaultValue={creds ? creds.password : ""} validators={{
                       required
                     }} className="login__form__input__text" />
                   </InputGroup>
                   <Errors
-                      className="text-danger p-2"
-                      model=".password"
-                      show="touched"
-                      messages={{
-                        required: 'Required',
-                      }}
-                    />
+                    className="text-danger p-2"
+                    model=".password"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                    }}
+                  />
                 </FormGroup>
                 <FormGroup>
                   <Row >
-                    <Control.checkbox model=".remember" aria-label="Checkbox for following text input" 
-                    defaultChecked={creds? creds.remember: false} className="login__card__body__checkbox" />
+                    <Control.checkbox model=".remember" aria-label="Checkbox for following text input"
+                      defaultChecked={creds ? creds.remember : false} className="login__card__body__checkbox" />
                     <Label className="login__card__body__remember">Remember me</Label>
-                    <span className="col-12 text-danger p-2 ml-3">{errMess? errMess: ""}</span>
+                    <span className="col-12 text-danger p-2 ml-3">{errMess ? errMess : ""}</span>
                     <Col xs={{ size: 6, offset: 4 }} className="login__card__body__submit">
                       <Button type="submit" className="login__card__body__sign__button">Sign in</Button>
                     </Col>
