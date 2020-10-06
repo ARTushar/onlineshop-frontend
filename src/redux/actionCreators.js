@@ -13,3 +13,4 @@ const addProductDetails = (selected_product) => ({
 	type: ActionTypes.ADD_PRODUCT_DETAILS,
 	selectedProduct: selected_product,
 });
+

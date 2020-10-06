@@ -36,7 +36,7 @@ function GlobalFilter({
 					setValue(e.target.value);
 					onChange(e.target.value);
 				}}
-				placeholder={`${count} records...`}
+				placeholder={`${count} records`}
 			/>
 		</span>
 	);
@@ -54,7 +54,7 @@ function DefaultColumnFilter({
 			onChange={(e) => {
 				setFilter(e.target.value || undefined);
 			}}
-			placeholder={`Search ${count} records...`}
+			placeholder={`Search ${count} records`}
 		/>
 	);
 }
@@ -101,7 +101,7 @@ const Table = ({ columns, data }) => {
 	);
 
 	return (
-		<div className='table-responsive-md'>
+		<div className='adminDataTable table-responsive-lg'>
 			{/* <GlobalFilter
 				preGlobalFilteredRows={preGlobalFilteredRows}
 				globalFilter={state.globalFilter}
@@ -109,7 +109,7 @@ const Table = ({ columns, data }) => {
 			/> */}
 			<table
 				className='table table-striped table-bordered table-hover'
-				style={{ minWidth: 800 }}
+				style={{ minWidth: 800}}
 				{...getTableProps()}
 			>
 				<thead className='thead-dark'>
@@ -118,9 +118,8 @@ const Table = ({ columns, data }) => {
 							{headerGroup.headers.map((column) => (
 								// Add the sorting props to control sorting. For this example
 								// we can add them into the header props
-								<th {...column.getHeaderProps(column.getSortByToggleProps())}>
+								<th {...column.getHeaderProps(column.getSortByToggleProps())} className='adminDataTable__table__heading'>
 									{column.render('Header')}
-									{console.log('column header : ' + column.isSorted)};
 									{/* Add a sort direction indicator */}
 									<span>
 										{column.isSorted
@@ -129,12 +128,16 @@ const Table = ({ columns, data }) => {
 												: ' 🔼'
 											: ''}
 									</span>
+								</th>
+							))}
+						</tr>
+					))}
+					{headerGroups.map((headerGroup) => (
+						<tr {...headerGroup.getHeaderGroupProps()}>
+							{headerGroup.headers.map((column) => (
+								<th {...column.getHeaderProps()}>
 									{/* Render the columns filter UI */}
-									<div>
-										{column.canFilter && column.Header !== 'ACTIONS'
-											? column.render('Filter')
-											: null}
-									</div>
+									<div>{column.canFilter ? column.render('Filter') : null}</div>
 								</th>
 							))}
 						</tr>
@@ -242,7 +245,7 @@ const Table = ({ columns, data }) => {
 
 const AdminDataTable = ({columnHeaders, dataTable}) => {
 	const columns = React.useMemo(() => 
-    [...columnHeaders]
+    [...columnHeaders],[]
 	);
 
 	return <Table columns={columns} data={dataTable} />;

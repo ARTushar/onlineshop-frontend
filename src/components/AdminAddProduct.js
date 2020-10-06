@@ -15,6 +15,7 @@ import { Form, Control, Errors, actions, Field } from 'react-redux-form';
 
 import ReduxFormSelect from './ReduxFormSelect';
 import '../assets/css/AdminAddProduct.css';
+import '../assets/css/Admin.css';
 import AdminSidebar from './AdminSidebar';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -59,12 +60,12 @@ function AdminAddProduct() {
 	};
 
 	return (
-		<div className='adminAddProduct'>
+		<div className='admin'>
+			<ButtonToggle id='sidebartoggler' className='admin__toggler'>
+				<MenuIcon></MenuIcon>
+			</ButtonToggle>
 			{/* <!-- Sidenav --> */}
-			<Container className='adminAddProduct__container'>
-				<ButtonToggle id='sidebartoggler'>
-					<MenuIcon></MenuIcon>
-				</ButtonToggle>
+			<Container className='admin__container'>
 				<Row>
 					<Col md='2'>
 						<UncontrolledCollapse
@@ -78,12 +79,11 @@ function AdminAddProduct() {
 
 					<Col md='10'>
 						<Container className='adminAddProduct__form__container'>
-							<Row className='adminAddProduct__form__container__row'>
-								<h3>Add Product</h3>
-								<Col></Col>
+							<Row className='adminAddProduct__form__container__row__header'>
+								<h4>ADD NEW PRODUCT</h4>
 								<Link to='/admin/products'>
 									<Button className='adminAddProduct__cancelButton btn btn-danger'>
-										<ClearIcon></ClearIcon> Cancel
+										<ClearIcon></ClearIcon>
 									</Button>
 								</Link>
 							</Row>
@@ -124,11 +124,11 @@ function AdminAddProduct() {
 														let reader = new FileReader();
 														reader.readAsDataURL(image);
 														return (
-														<img
-															src={reader.result}
-															alt='imagePreview'
-															style={{ width: 100, height: 100 }}
-														/>
+															<img
+																src={reader.result}
+																alt='imagePreview'
+																style={{ width: 100, height: 100 }}
+															/>
 														);
 													})
 												) : (
@@ -147,9 +147,9 @@ function AdminAddProduct() {
 													name='sku'
 													placeholder='sku'
 													className='form-control'
-													style={{
-														fontSize: 'small',
-													}}
+													// style={{
+													// 	fontSize: 'small',
+													// }}
 													validators={{
 														required,
 														minLength: minLength(3),
@@ -180,9 +180,9 @@ function AdminAddProduct() {
 													name='title'
 													placeholder='Title for the product'
 													className='form-control'
-													style={{
-														fontSize: 'small',
-													}}
+													// style={{
+													// 	fontSize: 'small',
+													// }}
 													validators={{
 														required,
 														minLength,
@@ -210,9 +210,9 @@ function AdminAddProduct() {
 													name='price'
 													placeholder='Price'
 													className='form-control'
-													style={{
-														fontSize: 'small',
-													}}
+													// style={{
+													// 	fontSize: 'small',
+													// }}
 													validators={{
 														required,
 													}}
@@ -239,9 +239,9 @@ function AdminAddProduct() {
 													name='discount'
 													placeholder='Discount'
 													className='form-control'
-													style={{
-														fontSize: 'small',
-													}}
+													// style={{
+													// 	fontSize: 'small',
+													// }}
 												/>
 											</Col>
 										</Row>
@@ -257,9 +257,9 @@ function AdminAddProduct() {
 													name='quantity'
 													placeholder='Quantity'
 													className='form-control'
-													style={{
-														fontSize: 'small',
-													}}
+													// style={{
+													// 	fontSize: 'small',
+													// }}
 													validators={{
 														required,
 													}}
@@ -310,7 +310,7 @@ function AdminAddProduct() {
 
 										<Row className='form-group'>
 											<Label htmlFor='subcategory' md={3}>
-												subcategory
+												Sub-category
 											</Label>
 											<Col md={9}>
 												<Control.text
@@ -319,9 +319,9 @@ function AdminAddProduct() {
 													name='subcategory'
 													className='form-control'
 													placeholder='Subcategory'
-													style={{
-														fontSize: 'small',
-													}}
+													// style={{
+													// 	fontSize: 'small',
+													// }}
 													validators={
 														{
 															// required
@@ -412,9 +412,9 @@ function AdminAddProduct() {
 																name={`.spec${j}`}
 																className='form-control'
 																placeholder={`Specification ${j}`}
-																style={{
-																	fontSize: 'small',
-																}}
+																// style={{
+																// 	fontSize: 'small',
+																// }}
 															/>
 														</Col>
 														<Button

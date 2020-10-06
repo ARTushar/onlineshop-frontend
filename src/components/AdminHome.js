@@ -6,7 +6,7 @@ import {
 	UncontrolledCollapse,
 	NavbarToggler,
 	ButtonToggle,
-	Button
+	Button,
 } from 'reactstrap';
 import '../assets/css/AdminHome.css';
 import '../assets/css/AdminSidebar.css';
@@ -72,22 +72,12 @@ function AdminHome() {
 	);
 
 	return (
-		<div className='adminhome'>
+		<div className='admin'>
+			<ButtonToggle id='sidebartoggler' className='admin__toggler'>
+				<MenuIcon></MenuIcon>
+			</ButtonToggle>
 			{/* <!-- Sidenav --> */}
-			<Container className='adminhome__container'>
-				{/* <NavbarToggler
-					id='sidebartoggler'
-					className='d-sm-block d-md-none'
-					style={{
-						border: '2px',
-						color: 'primary',
-						outline: 'none',
-						backgroundColor: 'gray',
-					}}
-				/> */}
-				<ButtonToggle id='sidebartoggler'>
-					<MenuIcon ></MenuIcon>
-				</ButtonToggle>
+			<Container className='admin__container'>
 				<Row>
 					<Col md='2'>
 						<UncontrolledCollapse

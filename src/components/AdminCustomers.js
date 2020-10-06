@@ -9,45 +9,43 @@ import {
 	ButtonGroup,
 	ButtonToggle,
 } from 'reactstrap';
-import '../assets/css/AdminCustomers.css';
+import { Link } from 'react-router-dom';
+
+import '../assets/css/Admin.css';
 import AdminSidebar from './AdminSidebar';
 import AdminDataTable from './AdminDataTable';
 import { CUSTOMERS } from '../shared/users';
 
 import MenuIcon from '@material-ui/icons/Menu';
+import PrintIcon from '@material-ui/icons/Print';
 
 function AdminCustomers() {
 	const columnHeaders = [
 		{
-			Header: 'Customers Table',
-			columns: [
-				{
-					Header: 'CUSTOMER',
-					accessor: 'name',
-				},
-				{
-					Header: 'EMAIL',
-					accessor: 'email',
-				},
-				{
-					Header: 'MOBILE',
-					accessor: 'mobile',
-				},
-				{
-					Header: 'ADDRESS',
-					accessor: 'address',
-				},
-			],
+			Header: 'CUSTOMER',
+			accessor: 'name',
+		},
+		{
+			Header: 'EMAIL',
+			accessor: 'email',
+		},
+		{
+			Header: 'MOBILE',
+			accessor: 'mobile',
+		},
+		{
+			Header: 'ADDRESS',
+			accessor: 'address',
 		},
 	];
 
 	return (
-		<div className='admincustomers'>
+		<div className='admin'>
+			<ButtonToggle id='sidebartoggler' className='admin__toggler'>
+				<MenuIcon></MenuIcon>
+			</ButtonToggle>
 			{/* <!-- Sidenav --> */}
-			<Container className='admincustomers__container'>
-				<ButtonToggle id='sidebartoggler'>
-					<MenuIcon></MenuIcon>
-				</ButtonToggle>
+			<Container className='admin__container'>
 				<Row>
 					<Col md='2'>
 						<UncontrolledCollapse
@@ -60,12 +58,16 @@ function AdminCustomers() {
 					</Col>
 
 					<Col md='10'>
-						<Container className='admincustomers__table__container'>
-							<Row className='admincustomers__table__container__row'>
-								<h3>Customers</h3>
+						<Container className='admin__table__container'>
+							<Row className='admin__table__container__row__customersHeader'>
+								<h4>CUSTOMERS</h4>
+								<Link to='/admin/addproduct'>
+									<Button className='admin__printButton'>
+										<PrintIcon></PrintIcon>
+									</Button>
+								</Link>
 							</Row>
-							<hr></hr>
-							<Row className='admincustomers__table__container__row'>
+							<Row className='admin__table__container__row'>
 								<AdminDataTable
 									columnHeaders={columnHeaders}
 									dataTable={CUSTOMERS}
