@@ -5,11 +5,11 @@ import OrderTotal from './OrderTotal';
 import OrderProductSmall from './OrderProductSmall';
 import OrderProduct from './OrderProduct';
 import { ORDERS } from '../shared/orders';
+import { UserContext } from '../Context/context';
 
-function OrderInvoice({order_no}) {
-  console.log('order_no : ' + order_no)
-  const order = ORDERS.filter(order => order.serial_no == order_no)[0];
-  console.log('order: ' + JSON.stringify(order));
+function OrderInvoice({order_no, orders}) {
+  const order = orders.filter(order => order.serialNo == order_no)[0];
+
   return (
     <div className="orderinvoice">
       <Container className="orderinvoice__container">
@@ -19,7 +19,7 @@ function OrderInvoice({order_no}) {
         <Row className="orderinvoice__row">
           <Col xs="12" lg="7" className="orderinvoice__products">
             <div className="orderinvoice__products__header d-sm-none">
-              {order.products_list.map(orderproduct => (
+              {order.products.map(orderproduct => (
                 <OrderProductSmall
                   id={orderproduct.id}
                   slug={orderproduct.slug}
@@ -41,7 +41,7 @@ function OrderInvoice({order_no}) {
                 </tr>
               </thead>
               <tbody>
-                {order.products_list.map(orderproduct => (
+                {order.products.map(orderproduct => (
                   <OrderProduct
                     id={orderproduct.id}
                     slug={orderproduct.slug}

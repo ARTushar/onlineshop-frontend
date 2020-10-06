@@ -18,7 +18,7 @@ function OrderProductSmall({ id, image, title, price, q, maxq }) {
         </Col>
         <Col>
           <Row className="orderproductsmall__content">
-            <Col xs="10" className="orderproductsmall__title">
+            <Col xs="12" className="orderproductsmall__title">
               {title}
             </Col>
           </Row>

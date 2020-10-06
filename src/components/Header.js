@@ -30,7 +30,7 @@ function Header({ totalProducts }) {
                     <Link to="/home">
                         <NavbarBrand  className="header__navbar__container__logo" href="/">
                             <img
-                                src="/images/logo5.png"
+                                src="/images/logo8.png"
                                 alt="logo"
                             />
                         </NavbarBrand>

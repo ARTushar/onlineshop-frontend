@@ -17,7 +17,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,7 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
   updateDeliveryCost: (cost) => dispatch(updateDeliveryCost(cost)),
   addToWishlist: (product) => dispatch(addToWishlist(product)),
   removeFromWishlist: (productId) => dispatch(removeFromWishlist(productId)),
-  postOrder: (order) => dispatch(postOrder(order)),
+  postOrder: (order, fromBuy) => dispatch(postOrder(order, fromBuy)),
+  addSingleProduct: (product) => dispatch(addSingleProduct(product)),
+  removeSingleProduct: () => dispatch(removeSingleProduct()),
 });
 
 const mapStateToProps = (state) => {
@@ -38,25 +40,27 @@ const mapStateToProps = (state) => {
     selectedProduct: state.products.selectedProduct,
     cart: state.cart,
     wishlist: state.wishlist,
-    user: state.user
+    user: state.user,
+    orders: state.order.orders,
+    singleProduct: state.order.singleProduct
   };
 };
 
 function Main(props) {
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
   const ProductDetailsWithSlug = ({ match }) => {
-    console.log('match: l' + JSON.stringify(match));
-    console.log('before state : ' + props.selectedProduct);
+    // console.log('match: l' + JSON.stringify(match));
+    // console.log('before state : ' + props.selectedProduct);
     props.fetchProductDetails(match.params.slug);
-    console.log('after state : ' + props.selectedProduct);
+    // console.log('after state : ' + props.selectedProduct);
     return (
       <React.Fragment>
         <Header totalProducts={props.cart.products.length} />
         <CartContext.Provider value={{
           addToCart: props.addToCart,
-
+          addSingleProduct: props.addSingleProduct
         }}>
           <ProductDetails selectedProduct={props.selectedProduct} addToWishlist={props.addToWishlist} />
         </CartContext.Provider>
@@ -68,7 +72,7 @@ function Main(props) {
   const OrderInvoiceComponent = ({ match }) => (
     <>
       <Header totalProducts={props.cart.products.length} />
-      <OrderInvoice order_no={match.params.order_no} />
+      <OrderInvoice order_no={match.params.order_no} orders={props.orders} />
       <Footer />
     </>
   );
@@ -104,6 +108,8 @@ function Main(props) {
             deliveryCost={props.cart.deliveryCost}
             userInformation={props.user}
             postOrder={props.postOrder}
+            singleProduct={props.singleProduct}
+            removeSingleProduct={props.removeSingleProduct}
           />
           <Footer />
         </Route>
@@ -116,7 +122,8 @@ function Main(props) {
           <Header totalProducts={props.cart.products.length} />
           <UserContext.Provider value={{
             wishlistProducts: props.wishlist.products,
-            removeFromWishlist: props.removeFromWishlist
+            removeFromWishlist: props.removeFromWishlist,
+            orders: props.orders,
           }}>
             <Profile />
           </UserContext.Provider>

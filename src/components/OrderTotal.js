@@ -12,14 +12,16 @@ function OrderTotal({order}) {
   // const deliveryCost = orderContext.deliveryCost;
   // const subTotal = selectSubTotalPrice(orderContext.orderProducts);
   const deliveryCost = 60;
-  const subTotal = order.total_cost - 60;
-  const total = order.total_cost;
+  const subTotal = order.totalCost - order.deliveryCost;
+  const total = order.totalCost;
+  const shippingAddress = order.homeLocation + ", " + order.region + ", " +
+    order.thana + ", " + order.district + "-" + order.postalCode + ", " + order.country;
 
   return (
     <div className="ordertotal">
       <Container className="ordertotal__container">
         <Row className="ordertotal__heading">
-          <span>Order Summary ({order.serial_no})</span>
+          <span>Order Summary ({order.serialNo})</span>
         </Row>
         <hr />
         <Row className="ordertotal__name">
@@ -28,7 +30,7 @@ function OrderTotal({order}) {
           </Col>
           <Col xs={9} lg={8} className="ordertotal__name__value">
             <span>
-              {order.user}
+              {order.name}
             </span>
           </Col>
         </Row>
@@ -88,7 +90,7 @@ function OrderTotal({order}) {
             <span>Shipping Address</span>
           </Col>
           <Col xs={9} lg={8} className="ordertotal__shipping__value">
-                <span>{order.shipping_address}</span>
+                <span>{shippingAddress}</span>
           </Col>
         </Row>
         <hr />
@@ -97,7 +99,7 @@ function OrderTotal({order}) {
             <span>Payment Method</span>
           </Col>
           <Col className="ordertotal__payment__value">
-            <span>{order.payment_method}</span>
+            <span>{order.paymentMethod}</span>
           </Col>
         </Row>
         <hr />

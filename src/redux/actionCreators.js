@@ -70,8 +70,18 @@ export const addOrder = (order) => ({
   payload: order
 })
 
-export const postOrder = (order) => (dispatch) => {
+export const postOrder = (order, fromBuy) => (dispatch) => {
   console.log('Posting an order')
   dispatch(addOrder(order));
-  dispatch(deleteCart());
+  if(!fromBuy)
+    dispatch(deleteCart());
 }
+
+export const addSingleProduct = (product) => ({
+  type: ActionTypes.ADD_SINGLE_PRODUCT,
+  payload: product
+})
+
+export const removeSingleProduct = () => ({
+  type: ActionTypes.REMOVE_SINGLE_PRODUCT
+})

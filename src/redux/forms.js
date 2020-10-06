@@ -13,15 +13,3 @@ export const InitialUserState = {
     postalCode: null,
     homeLocation: ''
 };
-
-export const InitialProductFormState = {
-	code: '',
-	title: '',
-    price: 0,
-    discount: 0,
-    quantity: 0,
-    category: '',
-    subcategory: '',
-    features: [],
-    specifications: [],
-};

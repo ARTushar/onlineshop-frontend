@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import '../assets/css/Checkout.css';
 import CallIcon from '@material-ui/icons/Call';
 import PersonIcon from '@material-ui/icons/Person';
@@ -29,6 +29,7 @@ import isEmail from 'validator/lib/isEmail';
 import ReduxFormSelect from './ReduxFormSelect';
 import CurrencyFormat from 'react-currency-format';
 import { selectTotalPrice } from '../redux/cart';
+import { defaultOrderByFn } from 'react-table';
 
 const required = (val) => val && val.length;
 const requiredObject = (val) => val && val.value && val.value.length
@@ -49,28 +50,45 @@ const RadioButton = (props) => (
   </RadioGroup>
 );
 
-function Checkout({ cartProducts, deliveryCost, userInformation, postOrder}) {
-
-  const [totalBill, setTotalBill] = React.useState(400);
+function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, singleProduct, removeSingleProduct}) {
 
   const districts = [{ value: 'noakhali', label: "noakhali" }, {
     value: 'dhaka', label: "dhaka"
   }]
 
+  let products;
+  let totalCost;
+
+  const history = useHistory();
+
+  if (history.location.state){
+    products = [singleProduct];
+    totalCost = singleProduct.price + deliveryCost;
+  }
+  else {
+    products = [...cartProducts];
+    totalCost =  selectTotalPrice(cartProducts, deliveryCost);
+  }
+
   const handleSubmit = (values) => {
+    const fromBuy = history.location.state? true: false;
+
     postOrder({
       ...values,
-      products: {...cartProducts},
+      country: values.country.value,
+      district: values.district.value,
+      products: products,
       deliveryCost,
-      totalCost: selectTotalPrice(cartProducts, deliveryCost),
-    })
-    console.log(values)
+      totalCost: totalCost,
+    }, fromBuy);
+    removeSingleProduct();
+    history.push('/home');
   }
 
   return (
     <div className="checkout">
       <Container className="checkout__container">
-        {cartProducts.length !== 0 ? (
+        {history.location.state || cartProducts.length !== 0 ? (
           <LocalForm validateOn="submit" model="order" onSubmit={(values) => handleSubmit(values)}>
             <Row className="checkout__row">
               <Col md="6" xl={{ size: "5", offset: "1" }} className="checkout__information">
@@ -327,7 +345,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder}) {
                     <CardTitle className="checkout__card__title">
                       <span>Total Payment: </span>
                       <CurrencyFormat
-                        value={selectTotalPrice(cartProducts, deliveryCost)}
+                        value={totalCost}
                         displayType="text"
                         decimalScale={2}
                         prefix="৳"
