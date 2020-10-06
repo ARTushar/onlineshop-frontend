@@ -17,7 +17,7 @@ import {
   Col, CardTitle, Container, Label
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Control, Form, Errors } from 'react-redux-form';
+import { Control, LocalForm, Errors } from 'react-redux-form';
 import { UserContext } from '../Context/context';
 
 import isMobilePhone from 'validator/lib/isMobilePhone';
@@ -37,11 +37,9 @@ const mustAgree = ({agree}) => agree === true;
 
 function Register() {
 
-  const resetSignUpForm = React.useContext(UserContext);
 
   const handleSubmit = (values) => {
     console.log(values);
-    resetSignUpForm();
   }
 
   return (
@@ -75,7 +73,7 @@ function Register() {
               <span>Or sign up with credentials</span>
             </Row>
             <Row className="register__card__body__input">
-              <Form model="user" validateOn="submit" validators={{
+              <LocalForm model="user" validateOn="submit" validators={{
                 '': { passwordsMatch, mustAgree },
                 confirmPassword: { required }
               }}  onSubmit={(values) => handleSubmit(values)} role="form" className="register__form">
@@ -112,7 +110,7 @@ function Register() {
                         <CallIcon style={{}} />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Control.text model=".mobile" id="mobile" name="mobile" placeholder="Mobile Number" autoComplete="new-mobile" validators={{
+                    <Control.text model=".mobile" id="mobile" name="mobile" placeholder="Mobile Number" validators={{
                       required, validMobile
                     }} className="register__form__input__text" />
                     
@@ -198,7 +196,7 @@ function Register() {
                     
                   </Row>
                 </FormGroup>
-              </Form>
+              </LocalForm>
             </Row>
           </Container>
         </CardBody>

@@ -5,7 +5,7 @@ import Login from './Login';
 import Register from './Register';
 import { Link } from 'react-router-dom';
 
-function LoginRegister({type}) {
+function LoginRegister({type, loginUser}) {
     return (
         <div className="loginregister">
             <Container className="loginregister__container">

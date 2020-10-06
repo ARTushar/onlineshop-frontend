@@ -11,6 +11,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import storageSession from 'redux-persist/lib/storage/session';
 import Order from './order';
+import { Auth } from './auth';
 
 const ConfigureStore = () => {
   const persistConfig = {
@@ -33,6 +34,7 @@ const ConfigureStore = () => {
     combineReducers({
       wishlist: Wishlist,
       cart: Cart,
+      auth: Auth,
       order: persistReducer(orderPersistConfig, Order),
       // ...createForms({
       //   user: InitialUserState,

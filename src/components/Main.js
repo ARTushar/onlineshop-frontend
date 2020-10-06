@@ -15,9 +15,9 @@ import Search from './Search';
 import Checkout from './Checkout';
 
 import { actions } from 'react-redux-form';
-import { UserContext, CartContext } from '../Context/context';
+import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -32,6 +32,8 @@ const mapDispatchToProps = (dispatch) => ({
   postOrder: (order, fromBuy) => dispatch(postOrder(order, fromBuy)),
   addSingleProduct: (product) => dispatch(addSingleProduct(product)),
   removeSingleProduct: () => dispatch(removeSingleProduct()),
+  loginUser: (creds, remember) => dispatch(loginUser(creds, remember)),
+  logoutUser: () => dispatch(logoutUser()),
 });
 
 const mapStateToProps = (state) => {
@@ -42,7 +44,8 @@ const mapStateToProps = (state) => {
     wishlist: state.wishlist,
     user: state.user,
     orders: state.order.orders,
-    singleProduct: state.order.singleProduct
+    singleProduct: state.order.singleProduct,
+    auth: state.auth,
   };
 };
 
@@ -135,12 +138,15 @@ function Main(props) {
           <Footer />
         </Route>
         <Route exact path="/login">
-          <LoginRegister type="login" />
+          <AuthContext.Provider value={{
+            loginUser: props.loginUser,
+            creds: props.auth.creds
+          }}>
+            <LoginRegister type="login" />
+          </AuthContext.Provider>
         </Route>
         <Route exact path="/register">
-          <UserContext.Provider value={props.resetSignUpForm}>
-            <LoginRegister type="register" />
-          </UserContext.Provider>
+          <LoginRegister type="register" />
         </Route>
         <Route path="/search">
           <Header totalProducts={props.cart.products.length} />
@@ -148,7 +154,7 @@ function Main(props) {
           <Footer />
         </Route>
         <Route path="/order/:order_no" component={OrderInvoiceComponent} />
-        
+
         <Redirect to='/home' />
       </Switch>
     </div>

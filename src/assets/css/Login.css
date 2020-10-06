@@ -103,6 +103,7 @@
     border: 0px;
     box-shadow: none;
     font-size: small;
+    flex: 1 1 auto;
 }
 
 .login__form__input__text:focus {

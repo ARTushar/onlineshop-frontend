@@ -10,7 +10,6 @@ import {
   Card,
   CardBody,
   FormGroup,
-  Form,
   Input,
   InputGroupAddon,
   InputGroupText,
@@ -18,8 +17,33 @@ import {
   Row,
   Col, CardTitle, Container, Label
 } from "reactstrap";
+import { LocalForm, Control, Errors } from "react-redux-form";
+
+import isMobilePhone from 'validator/lib/isMobilePhone';
+import { AuthContext } from "../Context/context";
+const required = (val) => val && val.length;
+const validMobile = (val) => (
+  !val ? true: (
+  val.substring(0, 3) === '+88'?  isMobilePhone(val): 
+  (val.substring(0, 2) === '88'? isMobilePhone("+" + val):
+  isMobilePhone("+88" + val)))
+)
 
 function Login() {
+
+  const authContext = React.useContext(AuthContext);
+  const loginUser = authContext.loginUser;
+  const creds = authContext.creds;
+
+  const handleLogin = (values) => {
+    console.log("creds: " + JSON.stringify(values))
+    loginUser({
+      username: values.username,
+      password: values.password
+    }, values.remember
+    );
+  };
+
   return (
     <Col lg="5" md="7" className="login">
       <Card className="login__card">
@@ -51,16 +75,27 @@ function Login() {
               <span>Or sign in with credentials</span>
             </Row>
             <Row className="login__card__body__input">
-              <Form role="form" className="login__form">
-                <FormGroup className="login__form__formgroup">
+              <LocalForm model="creds" onSubmit={(values) => handleLogin(values)} className="login__form">
+                <FormGroup  className="login__form__formgroup">
                   <InputGroup className="login__form__inputgroup">
                     <InputGroupAddon addonType="prepend" className="">
                       <InputGroupText className="login__form__input__icon">
                         <CallIcon style={{}} />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Mobile Number" type="tel" autoComplete="new-mobile" className="login__form__input__text" />
+                    <Control type="text" validators={{
+                      required, validMobile
+                    }} defaultValue={creds? creds.username: ""} model=".username" placeholder="Mobile Number" className="login__form__input__text" />
                   </InputGroup>
+                  <Errors
+                      className="text-danger p-2"
+                      model=".username"
+                      show="touched"
+                      messages={{
+                        required: 'Required',
+                        validMobile: 'Inavlid mobile number'
+                      }}
+                    />
                 </FormGroup>
                 <FormGroup>
                   <InputGroup className="login__form__inputgroup">
@@ -69,19 +104,29 @@ function Login() {
                         <LockOpenIcon />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Input placeholder="Password" type="password" autoComplete="new-password" className="login__form__input__text" />
+                    <Control model=".password" type="password" placeholder="Password" defaultValue={creds? creds.password: ""} validators={{
+                      required
+                    }} className="login__form__input__text" />
                   </InputGroup>
+                  <Errors
+                      className="text-danger p-2"
+                      model=".password"
+                      show="touched"
+                      messages={{
+                        required: 'Required',
+                      }}
+                    />
                 </FormGroup>
                 <FormGroup>
                   <Row >
-                    <Input addon type="checkbox" aria-label="Checkbox for following text input" className="login__card__body__checkbox" />
+                    <Control.checkbox model=".remember" aria-label="Checkbox for following text input" className="login__card__body__checkbox" />
                     <Label className="login__card__body__remember">Remember me</Label>
                     <Col xs={{ size: 6, offset: 4 }} className="login__card__body__submit">
-                      <Button className="login__card__body__sign__button">Sign in</Button>
+                      <Button type="submit" className="login__card__body__sign__button">Sign in</Button>
                     </Col>
                   </Row>
                 </FormGroup>
-              </Form>
+              </LocalForm>
             </Row>
           </Container>
         </CardBody>

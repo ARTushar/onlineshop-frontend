@@ -1,6 +1,8 @@
 import * as ActionTypes from './ActionTypes';
-
+import axios from 'axios';
+import { baseUrl } from '../shared/baseUrl';
 import { PRODUCTS_DETAILS } from '../shared/productDetails';
+import { saveToLocalStorage } from './localStorage';
 
 
 export const fetchProductDetails = (slug) => (dispatch) => {
@@ -85,3 +87,76 @@ export const addSingleProduct = (product) => ({
 export const removeSingleProduct = () => ({
   type: ActionTypes.REMOVE_SINGLE_PRODUCT
 })
+
+
+// authentication
+
+export const requestLogin = (creds) => ({
+  type: ActionTypes.LOGIN_REQUEST,
+  creds
+});
+
+export const receiveLogin = (response) => ({
+  type: ActionTypes.LOGIN_SUCCESS,
+  token: response.token
+});
+
+export const loginError = (message) => ({
+  type: ActionTypes.LOGIN_FAILURE,
+  message
+})
+
+export const loginUser = (creds, remember) => (dispatch) => {
+  dispatch(requestLogin(creds));
+  
+  return axios({
+    method: 'POST',
+    url: 'users/login',
+    baseURL: baseUrl,
+    data: creds
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        if (remember) {
+          localStorage.setItem('creds', JSON.stringify(creds));
+        } else {
+          localStorage.removeItem('creds');
+        }
+        dispatch(receiveLogin(response));
+      } else {
+        let error = new Error('Error ' + response.status);
+        error.response = response;
+        throw error;
+      }
+    })
+    .catch(error => dispatch(loginError(error.message)))
+};
+
+export const requestLogout = () => ({
+  type: ActionTypes.LOGOUT_REQUEST
+});
+
+export const receiveLogout = () => ({
+  type: ActionTypes.LOGOUT_SUCCESS
+});
+
+// Logs the user out
+export const logoutUser = () => (dispatch) => {
+  dispatch(requestLogout());
+  localStorage.removeItem('token');
+  localStorage.removeItem('creds');
+  dispatch(receiveLogout());
+}
