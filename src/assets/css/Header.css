@@ -78,3 +78,7 @@
 .header__navbar__nav__search__item {
     width: inherit;
 }
+
+.logout__span:hover {
+    cursor: pointer;
+}

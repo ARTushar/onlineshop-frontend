@@ -153,7 +153,8 @@ function Main(props) {
             registerUser: props.registerUser,
             register: props.register,
             loginUser: props.loginUser,
-            clearRegsiter: props.clearRegsiter
+            clearRegsiter: props.clearRegsiter,
+            isAuthenticated: props.auth.isAuthenticated
           }}>
             <LoginRegister type="register" />
           </AuthContext.Provider>

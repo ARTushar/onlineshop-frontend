@@ -54,11 +54,13 @@ function Header({totalProducts, auth , logoutUser }) {
                             </NavItem>
                         </Nav>
                         <Nav navbar className="header__navbar__nav__right">
-                            <NavItem className=" header__navbar__container__profile">
-                                <NavLink className="nav-link" to="/profile">
-                                    <AccountCircleIcon fontSize="medium" />
-                                </NavLink>
-                            </NavItem>
+                            {auth.isAuthenticated ? (
+                                <NavItem className=" header__navbar__container__profile">
+                                    <NavLink className="nav-link" to="/profile">
+                                        <AccountCircleIcon fontSize="medium" />
+                                    </NavLink>
+                                </NavItem>
+                            ) : ("")}
                             <NavItem className="header__navbar__container__cart">
                                 <NavLink className="nav-link" to="/cart">
                                     <Badge badgeContent={totalProducts} color="secondary">
@@ -72,7 +74,7 @@ function Header({totalProducts, auth , logoutUser }) {
                                         <span>Login/Register</span>
                                     </Link>
                                 ) : (
-                                        <span onClick={() => logoutUser(auth.creds? auth.creds.remember: false)} className="nav-link mt-1">Logout</span>
+                                        <span onClick={() => logoutUser(auth.creds ? auth.creds.remember : false)} className="nav-link mt-1 logout__span">Logout</span>
                                     )}
                             </NavItem>
 

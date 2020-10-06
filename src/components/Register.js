@@ -41,6 +41,7 @@ function Register() {
   const register = authContext.register;
   const loginUser = authContext.loginUser;
   const clearRegsiter = authContext.clearRegsiter;
+  const isAuthenticated = authContext.isAuthenticated;
 
   const [creds, setCreds] = useState();
   const [errMess, setErrMess] = useState();
@@ -61,6 +62,10 @@ function Register() {
   const history = useHistory();
 
   useEffect(()=> {
+    if(isAuthenticated){
+      history.push('/home');
+      return;
+    }
     if(register.hasRegsitered){
       loginUser({
         username: creds.mobile,
