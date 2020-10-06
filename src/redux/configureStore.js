@@ -12,6 +12,7 @@ import storage from 'redux-persist/lib/storage';
 import storageSession from 'redux-persist/lib/storage/session';
 import Order from './order';
 import { Auth } from './auth';
+import Register from './register';
 
 const ConfigureStore = () => {
   const persistConfig = {
@@ -35,6 +36,7 @@ const ConfigureStore = () => {
       wishlist: Wishlist,
       cart: Cart,
       auth: Auth,
+      register: Register,
       order: persistReducer(orderPersistConfig, Order),
       // ...createForms({
       //   user: InitialUserState,

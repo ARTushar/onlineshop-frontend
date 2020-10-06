@@ -131,6 +131,7 @@ export const loginUser = (creds, remember) => (dispatch) => {
       if (response.success) {
         localStorage.setItem('token', response.token);
         if (remember) {
+          creds.remember = remember;
           localStorage.setItem('creds', JSON.stringify(creds));
         } else {
           localStorage.removeItem('creds');
@@ -159,4 +160,53 @@ export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('token');
   localStorage.removeItem('creds');
   dispatch(receiveLogout());
+}
+
+// register
+
+export const requestRegister = () => ({
+  type: ActionTypes.REGISTER_REQUEST
+});
+
+export const receiveRegister = () => ({
+  type: ActionTypes.REGISTER_SUCCESS
+});
+
+export const registerError = (message) => ({
+  type: ActionTypes.REGISTER_FAILURE,
+  message
+})
+
+export const registerUser = (user) => (dispatch) => {
+  dispatch(requestRegister());
+
+  return axios({
+    method: 'POST',
+    url: 'users/register',
+    baseURL: baseUrl,
+    data: user
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      if (response.success) {
+        dispatch(receiveRegister());
+      } else {
+        let error = new Error('Error ' + response.status);
+        error.response = response;
+        throw error;
+      }
+    })
+    .catch(error => dispatch(registerError(error.message)))
+
 }

@@ -119,7 +119,8 @@ function Login() {
                 </FormGroup>
                 <FormGroup>
                   <Row >
-                    <Control.checkbox model=".remember" aria-label="Checkbox for following text input" className="login__card__body__checkbox" />
+                    <Control.checkbox model=".remember" aria-label="Checkbox for following text input" 
+                    defaultChecked={creds? creds.remember: false} className="login__card__body__checkbox" />
                     <Label className="login__card__body__remember">Remember me</Label>
                     <Col xs={{ size: 6, offset: 4 }} className="login__card__body__submit">
                       <Button type="submit" className="login__card__body__sign__button">Sign in</Button>

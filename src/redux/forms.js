@@ -5,7 +5,6 @@ export const InitialUserState = {
     mobile: '',
     password: '',
     email: '',
-    agree: false,
     country: 'Bangladesh',
     district: {value: 'Dhaka', label: "Dhaka"},
     thana: '',

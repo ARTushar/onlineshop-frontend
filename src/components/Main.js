@@ -17,7 +17,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -34,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
   removeSingleProduct: () => dispatch(removeSingleProduct()),
   loginUser: (creds, remember) => dispatch(loginUser(creds, remember)),
   logoutUser: () => dispatch(logoutUser()),
+  registerUser: (user) => dispatch(registerUser(user)),
 });
 
 const mapStateToProps = (state) => {
@@ -46,6 +47,7 @@ const mapStateToProps = (state) => {
     orders: state.order.orders,
     singleProduct: state.order.singleProduct,
     auth: state.auth,
+    register: state.register
   };
 };
 
@@ -146,7 +148,13 @@ function Main(props) {
           </AuthContext.Provider>
         </Route>
         <Route exact path="/register">
-          <LoginRegister type="register" />
+          <AuthContext.Provider value={{
+            registerUser: props.registerUser,
+            register: props.register,
+            loginUser: props.loginUser,
+          }}>
+            <LoginRegister type="register" />
+          </AuthContext.Provider>
         </Route>
         <Route path="/search">
           <Header totalProducts={props.cart.products.length} />

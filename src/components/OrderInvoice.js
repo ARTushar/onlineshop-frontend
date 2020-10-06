@@ -4,11 +4,9 @@ import { Container, Row, Col, Table } from 'reactstrap';
 import OrderTotal from './OrderTotal';
 import OrderProductSmall from './OrderProductSmall';
 import OrderProduct from './OrderProduct';
-import { ORDERS } from '../shared/orders';
-import { UserContext } from '../Context/context';
 
 function OrderInvoice({order_no, orders}) {
-  const order = orders.filter(order => order.serialNo == order_no)[0];
+  const order = orders.filter(order => order.serialNo === order_no)[0];
 
   return (
     <div className="orderinvoice">

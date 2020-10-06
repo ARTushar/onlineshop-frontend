@@ -3,8 +3,6 @@ import { Row, Col, Container, Jumbotron } from 'reactstrap';
 import '../assets/css/Home.css';
 import { PRODUCTS } from '../shared/products';
 import Product from './Product';
-import Filter from './Filter';
-import { Link } from 'react-router-dom';
 
 function Home() {
 	return (

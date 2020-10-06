@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../assets/css/Register.css';
 // reactstrap components
 import CallIcon from '@material-ui/icons/Call';
@@ -16,9 +16,9 @@ import {
   Row,
   Col, CardTitle, Container, Label
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { UserContext } from '../Context/context';
+import { AuthContext, UserContext } from '../Context/context';
 
 import isMobilePhone from 'validator/lib/isMobilePhone';
 const required = (val) => val && val.length;
@@ -36,11 +36,35 @@ const passwordsMatch = ({ password, confirmPassword }) => {
 const mustAgree = ({agree}) => agree === true;
 
 function Register() {
+  const authContext = React.useContext(AuthContext);
+  const registerUser = authContext.registerUser;
+  const register = authContext.register;
+  const loginUser = authContext.loginUser;
 
+  const [creds, setCreds] = useState();
 
   const handleSubmit = (values) => {
     console.log(values);
+    registerUser({
+      name: values.name,
+      mobile: values.mobile,
+      password: values.password
+    });
+    setCreds(values)
+    console.log('Register Status: ' + JSON.stringify(register));
   }
+
+  const history = useHistory();
+
+  useEffect(()=> {
+    if(register.hasRegsitered){
+      loginUser({
+        username: creds.mobile,
+        password: creds.password
+      }, false)
+      history.push('/home')
+    }
+  }, [register])
 
   return (
     <Col lg="5" md="7" className="register">
