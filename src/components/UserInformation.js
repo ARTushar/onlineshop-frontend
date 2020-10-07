@@ -26,6 +26,7 @@ const validMobile = (val) => (
       (val.substring(0, 2) === '88' ? isMobilePhone("+" + val) :
         isMobilePhone("+88" + val)))
 );
+const isPostalCode = (val) => !val || val.match(/^[1-9][0-9]{3}$/)
 
 function UserInformation() {
 
@@ -44,7 +45,7 @@ function UserInformation() {
           <CardTitle className="userinformation__card__title">
             <span>Your Information</span>
           </CardTitle>
-          <Form model="user" onSubmit={(values) => this.handleSubmit(values)}>
+          <Form model="user" onSubmit={(values) => handleSubmit(values)}>
             <Row className="form-group">
               <Label htmlFor="name" md={3}>Name</Label>
               <Col md={9}>
@@ -115,7 +116,7 @@ function UserInformation() {
                   model=".email"
                   show="touched"
                   messages={{
-                    isEmail: 'Invalid Email'
+                    validEmail: 'Invalid Email'
                   }}
                 />
               </Col>
@@ -135,7 +136,7 @@ function UserInformation() {
                   defaultValue={{ "value": "Bangladesh", "label": "Bangladesh" }}
                   component={ReduxFormSelect}
                   validators={{
-                    required
+                    // requiredObject
                   }}
                 />
                 <Errors
@@ -143,7 +144,7 @@ function UserInformation() {
                   model=".country"
                   show="touched"
                   messages={{
-                    required: 'Required',
+                    // requiredObject: 'Required',
                   }}
                 />
               </Col>
@@ -235,6 +236,7 @@ function UserInformation() {
                   }}
                   validators={{
                     // required
+                    isPostalCode
                   }}
                 />
 
@@ -244,6 +246,7 @@ function UserInformation() {
                   show="touched"
                   messages={{
                     // required: 'Required',
+                    isPostalCode: 'Invalid Postal Code'
                   }}
                 />
               </Col>

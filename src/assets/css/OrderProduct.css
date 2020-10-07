@@ -1,0 +1,35 @@
+.orderproduct {
+    font-size: small;
+    font-weight: 500;
+}
+
+.orderproduct__thumbnail {
+    vertical-align: middle !important;
+}
+
+.orderproduct__thumbnail > img {
+    width: 65px;
+}
+
+.orderproduct__title {
+    vertical-align: middle !important;
+}
+.orderproduct__price {
+    vertical-align: middle !important;
+    color: #777;
+    text-align: end;
+}
+
+
+.orderproduct__quantity {
+    vertical-align: middle !important;
+    text-align: center;
+}
+.orderproduct__subtotal {
+    vertical-align: middle !important;
+    font-size: medium;
+    color: #f50057;
+    font-weight: 600;
+    text-align: end;
+    min-width: 50px;
+}

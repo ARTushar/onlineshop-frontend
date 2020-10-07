@@ -1,5 +1,5 @@
 .wishList {
-    background-color: aliceblue;
+    /* background-color: #f2746b; */
     /* background: linear-gradient(to left, #8942a8, #ba382f); */
 }
 
@@ -33,4 +33,48 @@
 .wishList__remove__button {
     text-decoration: none !important;
     color: inherit;
+}
+
+.wishlist__no__product {
+    justify-content: center;
+    align-items: flex-end;
+    display: flex;
+    height: 20vh;
+    margin-bottom: 10px;
+}
+
+.wishlist__no__product__message {
+    font-size: large;
+    font-weight: 700;
+    justify-content: center;
+    margin: 0px 0px 20px 0px;
+    padding: 0px;
+}
+
+.wishlist__no__product__button {
+    height: 30px;
+    min-width: 200px;
+	color: #404040 !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: none;
+	border-radius: 5px;
+	display: inline-block;
+	border: none;
+	transition: all 0.4s ease 0s;
+	font-weight: 600;
+	box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    font-size: small;
+    margin-bottom: 20px;
+}
+
+.wishlist__no__product__button:hover{
+	color: #404040 !important;
+font-weight: 700 !important;
+letter-spacing: 3px;
+background: none;
+box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+transition: all 0.3s ease 0s;
 }

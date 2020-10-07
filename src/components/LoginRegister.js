@@ -5,14 +5,14 @@ import Login from './Login';
 import Register from './Register';
 import { Link } from 'react-router-dom';
 
-function LoginRegister({type}) {
+function LoginRegister({type, loginUser}) {
     return (
         <div className="loginregister">
             <Container className="loginregister__container">
                 <Row className="loginregister__logo">
                     <Link to='/home'>
                         <img className="loginregister__logo__img"
-                            src="logo192.png"
+                            src="/images/logo8.png"
                             alt="logo"
                         />
                     </Link>

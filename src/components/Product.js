@@ -15,12 +15,12 @@ import '../assets/css/Product.css';
 import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
 
-function Product({ id, image, title, price, discountPrice, rating, number }) {
+function Product({ id, image, title, price, discountPrice, rating, number, slug }) {
     return (
 			<div
 				className='product shadow rounded'
 			>
-				<Link to='/productdetails' style={{ textDecoration: "inherit", color: 'inherit'}}>
+				<Link to={`/product/${slug}`} style={{ textDecoration: "inherit", color: 'inherit'}}>
 					<Card className='product__card'>
 						<CardImg
 							top

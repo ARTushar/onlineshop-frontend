@@ -23,6 +23,8 @@
     color: #777;
     text-align: end;
 }
+
+
 .cartproduct__quantity {
     vertical-align: middle !important;
 }
@@ -58,4 +60,5 @@
     color: #f50057;
     font-weight: 600;
     text-align: end;
+    min-width: 50px;
 }

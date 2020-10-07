@@ -1,12 +1,15 @@
 export const PRODUCTS_DETAILS = [
 	{
 		id: 0,
+		sku: '123abc',
 		title:
 			'Lamaze Peek-A-Boo Forest, Fun Interactive Baby Book with Inspiring Rhymes and Stories',
+		slug:
+			'lamaze-peek-a-boo-forest-fun-interactive-baby-book-with-inspiring-rhymes-and-stories',
 		price: 21.23,
-		rating: 4,
+		rating: 4.5,
 		discount: 10,
-		image: 'images/products/handBag.jpg',
+		image: '/images/products/handBag.jpg',
 		category: 'Bag',
 		description: {
 			header:
@@ -38,36 +41,49 @@ export const PRODUCTS_DETAILS = [
 		},
 		questionAns: [
 			{
+				user: 'raju',
 				q: 'eta ki red color hobe?',
 				a: 'sorry. eta just ekta color e ase.',
+				qtime: '2020-10-07T06:08:29.477Z',
+				atime: '2020-10-07T06:08:29.477Z',
 			},
 			{
+				user: 'raju',
 				q: 'eta ki red color hobe?',
 				a: 'sorry. eta just ekta color e ase.',
+				qtime: '2020-10-07T06:08:29.477Z',
+				atime: '2020-10-07T06:08:29.477Z',
 			},
 			{
+				user: 'raju',
 				q: 'eta ki red color hobe?',
 				a: 'sorry. eta just ekta color e ase.',
+				qtime: '2020-10-07T06:08:29.477Z',
+				atime: '2020-10-07T06:08:29.477Z',
 			},
 		],
 		reviews: [
 			{
 				user: 'raju',
+				time: '2020-10-07T06:08:29.477Z',
+				rating: 3,
+				comment: 'onek valo product',
+			},
+			{
+				user: 'raju',
+				time: '2020-10-07T06:08:29.477Z',
 				rating: 5,
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
+				time: '2020-10-07T06:08:29.477Z',
 				rating: 5,
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
-				rating: 5,
-				comment: 'onek valo product',
-			},
-			{
-				user: 'raju',
+				time: '2020-10-07T06:08:29.477Z',
 				rating: 5,
 				comment: 'onek valo product',
 			},
@@ -79,8 +95,9 @@ export const PRODUCTS_DETAILS = [
 		price: 24.99,
 		rating: 4,
 		discount: 10,
-		image: 'images/products/bag.jpg',
+		image: '/images/products/bag.jpg',
 		category: 'Bag',
+		slug: 'fjallraven-kanken-classic-backpack-for-everyday',
 		description: {
 			header:
 				'Product details of PLEXTONE G20 Magnetic Stereo Bass GamingHeadphone for Mobile and Computer',
@@ -109,50 +126,43 @@ export const PRODUCTS_DETAILS = [
 				'Drive unit: 10mm, neodymium magnet',
 			],
 		},
-		questionAns: [
-			{
-				q: 'eta ki red color hobe?',
-				a: 'sorry. eta just ekta color e ase.',
-			},
-			{
-				q: 'eta ki red color hobe?',
-				a: 'sorry. eta just ekta color e ase.',
-			},
-			{
-				q: 'eta ki red color hobe?',
-				a: 'sorry. eta just ekta color e ase.',
-			},
-		],
+		questionAns: [],
 		reviews: [
 			{
 				user: 'raju',
 				rating: 5,
+				time: '2020-10-07T06:08:29.477Z',
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
 				rating: 5,
+				time: '2020-10-07T06:08:29.477Z',
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
 				rating: 5,
+				time: '2020-10-07T06:08:29.477Z',
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
 				rating: 5,
+				time: '2020-10-07T06:08:29.477Z',
 				comment: 'onek valo product',
 			},
 		],
 	},
 	{
 		id: 2,
+		sku: '123abc',
 		title: 'The Art of Darksiders Genesis',
+		slug: 'the-art-of-darksiders-genesis',
 		price: 11.99,
 		rating: 2,
 		discount: 10,
-		image: 'images/products/book.jpg',
+		image: '/images/products/book.jpg',
 		category: 'Bag',
 		description: {
 			header:
@@ -184,49 +194,39 @@ export const PRODUCTS_DETAILS = [
 		},
 		questionAns: [
 			{
+				user: 'raju',
 				q: 'eta ki red color hobe?',
 				a: 'sorry. eta just ekta color e ase.',
+				qtime: '2020-10-07T06:08:29.477Z',
+				atime: '2020-10-07T06:08:29.477Z',
 			},
 			{
+				user: 'raju',
 				q: 'eta ki red color hobe?',
 				a: 'sorry. eta just ekta color e ase.',
+				qtime: '2020-10-07T06:08:29.477Z',
+				atime: '2020-10-07T06:08:29.477Z',
 			},
 			{
+				user: 'raju',
 				q: 'eta ki red color hobe?',
 				a: 'sorry. eta just ekta color e ase.',
+				qtime: '2020-10-07T06:08:29.477Z',
+				atime: '2020-10-07T06:08:29.477Z',
 			},
 		],
-		reviews: [
-			{
-				user: 'raju',
-				rating: 5,
-				comment: 'onek valo product',
-			},
-			{
-				user: 'raju',
-				rating: 5,
-				comment: 'onek valo product',
-			},
-			{
-				user: 'raju',
-				rating: 5,
-				comment: 'onek valo product',
-			},
-			{
-				user: 'raju',
-				rating: 5,
-				comment: 'onek valo product',
-			},
-		],
+		reviews: [],
 	},
 	{
 		id: 3,
 		title:
 			'PDP 048-082-NA-RD Wired Controller for Xbox One, Xbox One X and Xbox One S, Crimson Red',
+		slug:
+			'pdp-048-082-na-rd-wired-controller-for-xbox-one-xbox-one-x-and-xbox-one-s-crimson-red',
 		price: 30.2,
 		rating: 3,
 		discount: 10,
-		image: 'images/products/joystick.jpg',
+		image: '/images/products/joystick.jpg',
 		category: 'Bag',
 		description: {
 			header:
@@ -296,10 +296,11 @@ export const PRODUCTS_DETAILS = [
 	{
 		id: 4,
 		title: 'Oculus Quest All-in-one VR Gaming Headset – 64GB',
+		slug: 'oculus-quest-all-in-one-vr-gaming-headset-64gb',
 		price: 249.99,
 		rating: 4,
 		discount: 10,
-		image: 'images/products/VRkit.jpg',
+		image: '/images/products/VRkit.jpg',
 		category: 'Bag',
 		description: {
 			header:
@@ -370,10 +371,12 @@ export const PRODUCTS_DETAILS = [
 		id: 5,
 		title:
 			'ASUS VivoBook 15 Thin and Light Laptop, 15.6” FHD Display, Intel i3-1005G1 CPU, 8GB RAM, 128GB SSD, Backlit Keyboard, Fingerprint, Windows 10 Home in S Mode, Slate Gray, F512JA-AS34',
+		slug:
+			'asus-vivobook-15-thin-and-light-laptop-15.6"-fhd-display-intel-i3-1005g1-cpu-8gb-ram-128gb-ssd-backlit-keyboard-fingerprint-windows-10-home-in-s-mode-slate-gray-f512ja-as34',
 		price: 549.99,
 		rating: 5,
 		discount: 10,
-		image: 'images/products/laptop.jpg',
+		image: '/images/products/laptop.jpg',
 		category: 'Bag',
 		description: {
 			header:
@@ -443,6 +446,7 @@ export const PRODUCTS_DETAILS = [
 	{
 		id: 6,
 		title: "Samsung LC49RG90SSUXEN 49' Curved LED Gaming Monitor",
+		slug: "samsung-lc49rg90ssuxen-49'-curved-led-gaming-monitor",
 		price: 199.99,
 		rating: 3,
 		discount: 10,

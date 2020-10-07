@@ -19,23 +19,32 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Badge } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import Category from './Category';
+import { getTotalProducts } from '../redux/cart';
 
-function Header() {
-	const [isOpen, setIsOpen] = useState(false);
-
-	const toggle = () => setIsOpen(!isOpen);
-
+function Header({totalProducts, auth , logoutUser }) {
     return (
         <div className="header">
             <Navbar dark expand="md" className="header__navbar">
                 <Container className="header__navbar__container" >
-                    <NavbarToggler id="toggler" style={{ border: "0px", fontSize: "", outline: "none"}}/>
-                    <NavbarBrand className="header__navbar__container__logo" href="/">
-                        <img
-                            src="logo192.png"
-                            alt="logo"
-                        />
-                    </NavbarBrand>
+                    <NavbarToggler id="toggler" style={{ border: "0px", fontSize: "", outline: "none" }} />
+                    <Link to="/home">
+                        <NavbarBrand  className="header__navbar__container__logo" href="/">
+                            <img
+                                src="/images/logo8.png"
+                                alt="logo"
+                            />
+                        </NavbarBrand>
+                    </Link>
+                    <Nav className="header__navbar__nav__search">
+                        <NavItem className="header__navbar__nav__search__item">
+                            <InputGroup>
+                                <Input placeholder="Search for products" className="header__search__input" />
+                                <InputGroupAddon addonType="append" className="header__search__icon">
+                                    <SearchIcon style={{ fontSize: 30, color: "#1B1924" }} />
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </NavItem>
+                    </Nav>
                     <UncontrolledCollapse navbar toggler="#toggler" className="header__navbar__collapse">
                         <Nav navbar className="header__navbar__nav__left">
                             <NavItem className="header__navbar__couuuntainer__navitem">
@@ -45,37 +54,43 @@ function Header() {
                             </NavItem>
                         </Nav>
                         <Nav navbar className="header__navbar__nav__right">
-                            <NavItem className=" header__navbar__container__profile">
-                                <NavLink className="nav-link" to="/profile">
-                                    <AccountCircleIcon fontSize="medium" />
-                                </NavLink>
-                            </NavItem>
+                            {!auth.isAuthenticated ? (
+                                <NavItem className=" header__navbar__container__profile">
+                                    <NavLink className="nav-link" to="/profile">
+                                        <AccountCircleIcon fontSize="medium" />
+                                    </NavLink>
+                                </NavItem>
+                            ) : ("")}
                             <NavItem className="header__navbar__container__cart">
                                 <NavLink className="nav-link" to="/cart">
-                                    <Badge badgeContent={4} color="secondary">
+                                    <Badge badgeContent={totalProducts} color="secondary">
                                         <ShoppingCartIcon fontSize="medium" />
                                     </Badge>
                                 </NavLink>
                             </NavItem>
                             <NavItem className="header__navbar__container__loginregister">
-                                <Link className="nav-link mt-1" to="/login">
-                                    <span>Login/Register</span>
-                                </Link>
+                                {!auth.isAuthenticated ? (
+                                    <Link className="nav-link mt-1" to="/login">
+                                        <span>Login/Register</span>
+                                    </Link>
+                                ) : (
+                                        <span onClick={() => logoutUser(auth.creds ? auth.creds.remember : false)} className="nav-link mt-1 logout__span">Logout</span>
+                                    )}
                             </NavItem>
 
                         </Nav>
                     </UncontrolledCollapse>
                 </Container>
             </Navbar>
-            <Row className="header__search">
+            {/* <Row className="header__search">
                 <InputGroup>
                     <Input placeholder="Search for products" className="header__search__input" />
                     <InputGroupAddon addonType="append" className="header__search__icon">
                         <SearchIcon style={{ fontSize: 30, color: "#1B1924" }} />
                     </InputGroupAddon>
                 </InputGroup>
-            </Row>
-            <Category />
+            </Row> */}
+            {/* <Category /> */}
             <hr className='header__divider' />
         </div >
 

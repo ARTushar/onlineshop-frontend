@@ -2,16 +2,19 @@ import React from 'react';
 import { Container, Input, Row, Col, Button } from 'reactstrap';
 import '../assets/css/CartTotal.css';
 import { Link } from 'react-router-dom'
+import { CartContext } from '../Context/context';
+import { selectSubTotalPrice } from '../redux/cart';
+import CurrencyFormat from 'react-currency-format';
 
 
 function CartTotal() {
 
-    let subTotal = 5730;
-    let [deliveryCost, setDeliveryCost] = React.useState(60);
-    let shippingLocation = "Dhaka";
-    let total = 5790;
+    const cartContext = React.useContext(CartContext);
+    const deliveryCost = cartContext.deliveryCost;
+    const updateDeliveryCost = cartContext.updateDeliveryCost;
+    const subTotal = selectSubTotalPrice(cartContext.cartProducts);
     const districts = {
-        'Dhaka': 60,
+       'Dhaka': 60,
        'Chittangong': 100, 
        'Noakhali': 100, 
        'Feni': 90
@@ -20,7 +23,7 @@ function CartTotal() {
 
     const setCurrentDistrict = (e) => {
         setDeliveryDistrict(e.target.value);
-        setDeliveryCost(districts[e.target.value])
+        updateDeliveryCost(districts[e.target.value])
     }
 
 
@@ -36,7 +39,13 @@ function CartTotal() {
                         <span>Subtotal</span>
                     </Col>
                     <Col className="carttotal__subtotal__cost">
-                        <span>৳{subTotal}</span>
+                        <CurrencyFormat
+                            decimalScale={2}
+                            thousandSeparator={true}
+                            value={subTotal}
+                            displayType={"text"}
+                            prefix="৳"
+                        />
                     </Col>
                 </Row>
                 <hr />
@@ -56,7 +65,7 @@ function CartTotal() {
                             <Col className="carttotal__shipping__location">
                                 <Input
                                     type="select"
-                                    value={deliveryDistrict}
+                                    placeholder="Select delivery location"
                                     onChange={setCurrentDistrict}
                                     className="carttotal__shipping__location__select"
                                 >
@@ -74,7 +83,14 @@ function CartTotal() {
                         <span>Total</span>
                     </Col>
                     <Col className="carttotal__total__cost">
-                        <span>৳{deliveryCost + subTotal}</span>
+                        
+                        <CurrencyFormat
+                            decimalScale={2}
+                            value={subTotal + deliveryCost}
+                            displayType={"text"}
+                            prefix="৳"
+                            thousandSeparator={true}
+                        />
                     </Col>
                     <Col xs="12" className="cart__button">
                         <Link style={{

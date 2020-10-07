@@ -18,6 +18,8 @@
 }
 
 .carttotal__subtotal {
+    font-size: medium;
+    font-weight: 600;
     margin-top: 10px;
 }
 
@@ -35,6 +37,8 @@
 }
 
 .carttotal__shipping__cost__value {
+    font-size: medium;
+    font-weight: 600;
     color: #f50057;
 }
 
@@ -66,6 +70,7 @@
 
 .carttotal__total {
     font-size: medium;
+    font-weight: 600;
     margin-top: 10px;
 }
 

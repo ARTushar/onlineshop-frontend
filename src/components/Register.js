@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../assets/css/Register.css';
 // reactstrap components
 import CallIcon from '@material-ui/icons/Call';
@@ -16,9 +16,9 @@ import {
   Row,
   Col, CardTitle, Container, Label
 } from "reactstrap";
-import { Link } from "react-router-dom";
-import { Control, Form, Errors } from 'react-redux-form';
-import { UserContext } from '../Context/context';
+import { Link, useHistory } from "react-router-dom";
+import { Control, LocalForm, Errors } from 'react-redux-form';
+import { AuthContext, UserContext } from '../Context/context';
 
 import isMobilePhone from 'validator/lib/isMobilePhone';
 const required = (val) => val && val.length;
@@ -36,13 +36,49 @@ const passwordsMatch = ({ password, confirmPassword }) => {
 const mustAgree = ({agree}) => agree === true;
 
 function Register() {
+  const authContext = React.useContext(AuthContext);
+  const registerUser = authContext.registerUser;
+  const register = authContext.register;
+  const loginUser = authContext.loginUser;
+  const clearRegsiter = authContext.clearRegsiter;
+  const isAuthenticated = authContext.isAuthenticated;
 
-  const resetSignUpForm = React.useContext(UserContext);
+  const [creds, setCreds] = useState();
+  const [errMess, setErrMess] = useState();
 
   const handleSubmit = (values) => {
     console.log(values);
-    resetSignUpForm();
+    registerUser({
+      name: values.name,
+      mobile: values.mobile,
+      password: values.password
+    });
+    setCreds(values)
+    console.log('Register Status: ' + JSON.stringify(register));
   }
+
+  const serverError = (val) => errMess? false: true; 
+
+  const history = useHistory();
+
+  useEffect(()=> {
+    if(isAuthenticated){
+      history.push('/home');
+      return;
+    }
+    if(register.hasRegsitered){
+      loginUser({
+        username: creds.mobile,
+        password: creds.password
+      }, false);
+      clearRegsiter();
+      history.push('/home')
+    } else if(register.errMess){
+      if(register.errMess.name === 'UserExistsError'){
+        setErrMess("There is already an account with this mobile number")
+      }
+    }
+  }, [register])
 
   return (
     <Col lg="5" md="7" className="register">
@@ -75,7 +111,7 @@ function Register() {
               <span>Or sign up with credentials</span>
             </Row>
             <Row className="register__card__body__input">
-              <Form model="user" validateOn="submit" validators={{
+              <LocalForm model="user" validateOn="submit" validators={{
                 '': { passwordsMatch, mustAgree },
                 confirmPassword: { required }
               }}  onSubmit={(values) => handleSubmit(values)} role="form" className="register__form">
@@ -112,7 +148,7 @@ function Register() {
                         <CallIcon style={{}} />
                       </InputGroupText>
                     </InputGroupAddon>
-                    <Control.text model=".mobile" id="mobile" name="mobile" placeholder="Mobile Number" autoComplete="new-mobile" validators={{
+                    <Control.text model=".mobile" id="mobile" name="mobile" placeholder="Mobile Number" validators={{
                       required, validMobile
                     }} className="register__form__input__text" />
                     
@@ -123,7 +159,7 @@ function Register() {
                       show="touched"
                       messages={{
                         required: 'Required',
-                        validMobile: 'Inavlid mobile number'
+                        validMobile: 'Inavlid mobile number',
                       }}
                     />
                 </FormGroup>
@@ -192,13 +228,14 @@ function Register() {
                         mustAgree: "You must agree with the policy",
                       }}
                     />
+                    <span className="text-danger p-2 ml-3">{errMess? errMess: ""}</span>
                     <Col xs={{ size: 6, offset: 4 }} className="register__card__body__submit">
                       <Button type="submit" className="register__card__body__sign__button">Sign up</Button>
                     </Col>
                     
                   </Row>
                 </FormGroup>
-              </Form>
+              </LocalForm>
             </Row>
           </Container>
         </CardBody>
