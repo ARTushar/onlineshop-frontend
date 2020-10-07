@@ -15,7 +15,7 @@ function OrderInvoice({ order_no, orders }) {
 					<span>Ordered Products: </span>
 				</Row>
 				<Row className='orderinvoice__row'>
-					<Col xs='12' lg='7' className='orderinvoice__products'>
+					<Col xs='12' lg='8' className='orderinvoice__products'>
 						<div className='orderinvoice__products__header d-sm-none'>
 							{order.products.map((orderproduct) => (
 								<OrderProductSmall
@@ -35,7 +35,7 @@ function OrderInvoice({ order_no, orders }) {
 									<th>PRODUCT</th>
 									<th>PRICE</th>
 									<th>QUANTITY</th>
-									<th>SUBTOTAL</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -52,7 +52,7 @@ function OrderInvoice({ order_no, orders }) {
 							</tbody>
 						</Table>
 					</Col>
-					<Col lg='5' className='orderinvoice__totals'>
+					<Col lg='4' className='orderinvoice__totals'>
 						<OrderTotal order={order} />
 					</Col>
 				</Row>

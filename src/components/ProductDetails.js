@@ -3,11 +3,9 @@ import {
 	Container,
 	Row,
 	Col,
-	ButtonGroup,
 	Button,
 	InputGroup,
 	Input,
-	Progress,
 } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
@@ -303,7 +301,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 													border: 0,
 												}}
 											>
-												Ask Question
+												Submit Question
 											</Button>
 										</Col>
 									</Row>
