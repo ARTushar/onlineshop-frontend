@@ -33,3 +33,10 @@
     text-align: end;
     min-width: 50px;
 }
+
+.orderproduct__rivewButton {
+    vertical-align: middle !important;
+    font-size: small;
+    font-weight: 600;
+    min-width: 50px;
+}

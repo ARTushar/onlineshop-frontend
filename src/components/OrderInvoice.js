@@ -1,23 +1,23 @@
 import React from 'react';
-import '../assets/css/OrderInvoice.css'
+import '../assets/css/OrderInvoice.css';
 import { Container, Row, Col, Table } from 'reactstrap';
 import OrderTotal from './OrderTotal';
 import OrderProductSmall from './OrderProductSmall';
 import OrderProduct from './OrderProduct';
 
-function OrderInvoice({order_no, orders}) {
+function OrderInvoice({ order_no, orders }) {
   const order = orders.filter(order => order.serialNo == order_no)[0];
 
   return (
-    <div className="orderinvoice">
-      <Container className="orderinvoice__container">
-        <Row className="orderinvoice__heading">
+    <div className='orderinvoice'>
+      <Container className='orderinvoice__container'>
+        <Row className='orderinvoice__heading'>
           <span>Ordered Products: </span>
         </Row>
-        <Row className="orderinvoice__row">
-          <Col xs="12" lg="7" className="orderinvoice__products">
-            <div className="orderinvoice__products__header d-sm-none">
-              {order.products.map(orderproduct => (
+        <Row className='orderinvoice__row'>
+          <Col xs='12' lg='8' className='orderinvoice__products'>
+            <div className='orderinvoice__products__header d-sm-none'>
+              {order.products.map((orderproduct) => (
                 <OrderProductSmall
                   id={orderproduct.id}
                   slug={orderproduct.slug}
@@ -28,18 +28,18 @@ function OrderInvoice({order_no, orders}) {
                 />
               ))}
             </div>
-            <Table className="d-none d-sm-block">
+            <Table className='d-none d-sm-block'>
               <thead>
                 <tr>
                   <th></th>
                   <th>PRODUCT</th>
                   <th>PRICE</th>
                   <th>QUANTITY</th>
-                  <th>SUBTOTAL</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                {order.products.map(orderproduct => (
+                {order.products.map((orderproduct) => (
                   <OrderProduct
                     id={orderproduct.id}
                     slug={orderproduct.slug}
@@ -51,15 +51,14 @@ function OrderInvoice({order_no, orders}) {
                 ))}
               </tbody>
             </Table>
-
           </Col>
-          <Col lg="5" className="orderinvoice__totals">
+          <Col lg='4' className='orderinvoice__totals'>
             <OrderTotal order={order} />
           </Col>
         </Row>
       </Container>
     </div>
-  )
+  );
 }
 
 export default OrderInvoice;

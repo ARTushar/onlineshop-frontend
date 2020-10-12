@@ -1,4 +1,4 @@
-import { initialFieldState } from "react-redux-form";
+import { initialFieldState } from 'react-redux-form';
 
 export const InitialUserState = {
     name: '',
