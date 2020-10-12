@@ -17,7 +17,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -36,6 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
   logoutUser: (remember) => dispatch(logoutUser(remember)),
   registerUser: (user) => dispatch(registerUser(user)),
   clearRegsiter: () => dispatch(clearRegsiter()),
+  loginUserThirdParty: (creds, provider, history) => dispatch(loginUserThirdParty(creds, provider, history)),
 });
 
 const mapStateToProps = (state) => {
@@ -143,7 +144,8 @@ function Main(props) {
         <Route exact path="/login">
           <AuthContext.Provider value={{
             loginUser: props.loginUser,
-            auth: props.auth
+            auth: props.auth,
+            loginUserThirdParty: props.loginUserThirdParty
           }}>
             <LoginRegister type="login" />
           </AuthContext.Provider>
@@ -154,7 +156,8 @@ function Main(props) {
             register: props.register,
             loginUser: props.loginUser,
             clearRegsiter: props.clearRegsiter,
-            isAuthenticated: props.auth.isAuthenticated
+            isAuthenticated: props.auth.isAuthenticated,
+            loginUserThirdParty: props.loginUserThirdParty
           }}>
             <LoginRegister type="register" />
           </AuthContext.Provider>

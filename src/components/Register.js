@@ -4,6 +4,7 @@ import '../assets/css/Register.css';
 import CallIcon from '@material-ui/icons/Call';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PersonIcon from '@material-ui/icons/Person';
+import firebase, { auth } from 'firebase/app';
 import {
   Button,
   Card,
@@ -42,9 +43,15 @@ function Register() {
   const loginUser = authContext.loginUser;
   const clearRegsiter = authContext.clearRegsiter;
   const isAuthenticated = authContext.isAuthenticated;
+  const loginUserThirdParty = authContext.loginUserThirdParty;
 
   const [creds, setCreds] = useState();
   const [errMess, setErrMess] = useState();
+  const history = useHistory();
+
+  // window.recapthaVerifier = new firebase.auth.RecaptchaVerifier('', {
+  //   'size': 'invisible'
+  // });
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -57,24 +64,57 @@ function Register() {
     console.log('Register Status: ' + JSON.stringify(register));
   }
 
-  const serverError = (val) => errMess? false: true; 
+  const handleGoogleLogin = () => {
+    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(googleAuthProvider)
+      .then(result => {
+        console.log(result);
+        firebase.auth().currentUser.getIdToken(true)
+          .then(idToken => {
+            loginUserThirdParty({
+              idToken
+            }, 'google', history)
+          }, err => {
+            console.log(err);
+          });
+      })
+      .catch(err => console.log(err.message));
+  }
+  const handleFacebookLogin = () => {
+    const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(facebookAuthProvider)
+      .then(result => {
+        console.log(result);
+        firebase.auth().currentUser.getIdToken(true)
+          .then(idToken => {
+            loginUserThirdParty({
+              idToken
+            }, 'facebook', history)
+          }, err => {
+            console.log(err);
+          });
+      })
+      .catch(err => console.log(err.message));
+  }
 
-  const history = useHistory();
+  const serverError = (val) => errMess ? false : true;
 
-  useEffect(()=> {
-    if(isAuthenticated){
+  
+
+  useEffect(() => {
+    if (isAuthenticated) {
       history.push('/home');
       return;
     }
-    if(register.hasRegsitered){
+    if (register.hasRegsitered) {
       loginUser({
         username: creds.mobile,
         password: creds.password
       }, false);
       clearRegsiter();
       history.push('/home')
-    } else if(register.errMess){
-      if(register.errMess.name === 'UserExistsError'){
+    } else if (register.errMess) {
+      if (register.errMess.name === 'UserExistsError') {
         setErrMess("There is already an account with this mobile number")
       } else setErrMess("Something went wrong! Try again");
     }
@@ -89,13 +129,13 @@ function Register() {
               <p>Sign up with</p>
             </Row>
             <Row className="register__title__option">
-              <Button outline className="register__title__button shadow">
+              <Button onClick={handleGoogleLogin} outline className="register__title__button shadow">
                 <img
                   src={require('../assets/icons/google.svg')}
                 />
                 <strong>Google</strong>
               </Button>
-              <Button outline className="register__title__button shadow">
+              <Button onClick={handleFacebookLogin} outline className="register__title__button shadow">
                 <img
                   className="facebook__icon"
                   src={require('../assets/icons/facebook.svg')}
@@ -114,7 +154,7 @@ function Register() {
               <LocalForm model="user" validateOn="submit" validators={{
                 '': { passwordsMatch, mustAgree },
                 confirmPassword: { required }
-              }}  onSubmit={(values) => handleSubmit(values)} role="form" className="register__form">
+              }} onSubmit={(values) => handleSubmit(values)} role="form" className="register__form">
                 <FormGroup className="register__form__formgroup">
                   <InputGroup className="register__form__inputgroup">
                     <InputGroupAddon addonType="prepend" className="">
@@ -128,18 +168,18 @@ function Register() {
                         maxLength: maxLength(30)
                       }
                     } className="register__form__input__text" />
-                     
+
                   </InputGroup>
-                   <Errors
-                        className="text-danger p-2"
-                        model=".name"
-                        show="touched"
-                        messages={{
-                          required: 'Required',
-                          minLength: 'Must be greater than 2 characters',
-                          maxLength: 'Must be 15 characters or less'
-                        }}
-                      />
+                  <Errors
+                    className="text-danger p-2"
+                    model=".name"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      minLength: 'Must be greater than 2 characters',
+                      maxLength: 'Must be 15 characters or less'
+                    }}
+                  />
                 </FormGroup>
                 <FormGroup className="register__form__formgroup">
                   <InputGroup className="register__form__inputgroup">
@@ -151,17 +191,17 @@ function Register() {
                     <Control.text model=".mobile" id="mobile" name="mobile" placeholder="Mobile Number" validators={{
                       required, validMobile
                     }} className="register__form__input__text" />
-                    
+
                   </InputGroup>
                   <Errors
-                      className="text-danger p-2"
-                      model=".mobile"
-                      show="touched"
-                      messages={{
-                        required: 'Required',
-                        validMobile: 'Inavlid mobile number',
-                      }}
-                    />
+                    className="text-danger p-2"
+                    model=".mobile"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      validMobile: 'Inavlid mobile number',
+                    }}
+                  />
                 </FormGroup>
                 <FormGroup>
                   <InputGroup className="register__form__inputgroup">
@@ -175,19 +215,19 @@ function Register() {
                       minLength: minLength(6),
                       maxLength: maxLength(29)
                     }} className="register__form__input__text" />
-                    
+
 
                   </InputGroup>
                   <Errors
-                      className="text-danger p-2"
-                      model=".password"
-                      show="touched"
-                      messages={{
-                        required: 'Required',
-                        minLength: 'Must be greather than 5 characters',
-                        maxLength: 'Must be less than 30 characters'
-                      }}
-                    />
+                    className="text-danger p-2"
+                    model=".password"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                      minLength: 'Must be greather than 5 characters',
+                      maxLength: 'Must be less than 30 characters'
+                    }}
+                  />
                 </FormGroup>
                 <FormGroup>
                   <InputGroup className="register__form__inputgroup">
@@ -197,24 +237,24 @@ function Register() {
                       </InputGroupText>
                     </InputGroupAddon>
                     <Control model=".confirmPassword" id="confirmPassword" name="confirmPassword" placeholder="Retype Password" type="password" className="register__form__input__text" />
-                    
+
                   </InputGroup>
                   <Errors
-                      className="text-danger p-2"
-                      model=".confirmPassword"
-                      show="touched"
-                      messages={{
-                        required: 'Required',
-                      }}
-                    />
-                    <Errors
-                      className="text-danger p-2"
-                      model="user"
-                      show="touched"
-                      messages={{
-                        passwordsMatch: "Passoword doesn't match",
-                      }}
-                    />
+                    className="text-danger p-2"
+                    model=".confirmPassword"
+                    show="touched"
+                    messages={{
+                      required: 'Required',
+                    }}
+                  />
+                  <Errors
+                    className="text-danger p-2"
+                    model="user"
+                    show="touched"
+                    messages={{
+                      passwordsMatch: "Passoword doesn't match",
+                    }}
+                  />
                 </FormGroup>
                 <FormGroup>
                   <Row >
@@ -228,11 +268,11 @@ function Register() {
                         mustAgree: "You must agree with the policy",
                       }}
                     />
-                    <span className="text-danger p-2 ml-3">{errMess? errMess: ""}</span>
+                    <span className="text-danger p-2 ml-3">{errMess ? errMess : ""}</span>
                     <Col xs={{ size: 6, offset: 4 }} className="register__card__body__submit">
                       <Button type="submit" className="register__card__body__sign__button">Sign up</Button>
                     </Col>
-                    
+
                   </Row>
                 </FormGroup>
               </LocalForm>

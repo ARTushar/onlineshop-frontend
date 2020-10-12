@@ -150,6 +150,49 @@ export const loginUser = (creds, remember) => (dispatch) => {
     })
 };
 
+export const requestLoginThirdParty= () => ({
+  type: ActionTypes.LOGIN_REQUEST
+})
+
+export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
+  dispatch(requestLoginThirdParty());
+  console.log(creds);
+  return axios({
+    method: 'POST',
+    url: 'users/' + provider + "/token",
+    baseURL: baseUrl,
+    data: creds
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      if (response.success) {
+        localStorage.setItem('token', response.token);
+        dispatch(receiveLogin(response));
+        history.push('/home')
+      } else {
+        let error = new Error('Error ' + response.status);
+        error.response = response;
+        throw error;
+      }
+    })
+    .catch(error => {
+      if(error.response)
+        dispatch(loginError(error.response.data.err));
+      else dispatch(loginError(error.message));
+    })
+}
+
 export const requestLogout = () => ({
   type: ActionTypes.LOGOUT_REQUEST
 });

@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import '../assets/css/Login.css';
 import { Link, useHistory } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import { APP_ID } from '../shared/appId';
+import { FACEBOOKAPP_ID, GOOGLE_CLIENT_ID } from '../shared/appId';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
+import config from '../assets/config';
 
 // reactstrap components
 import CallIcon from '@material-ui/icons/Call';
@@ -35,6 +39,7 @@ function Login() {
 
   const authContext = React.useContext(AuthContext);
   const loginUser = authContext.loginUser;
+  const loginUserThirdParty = authContext.loginUserThirdParty;
   const auth = authContext.auth;
   const creds = auth.creds;
 
@@ -49,20 +54,53 @@ function Login() {
     );
   };
 
+  const handleGoogleLogin = () => {
+    const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(googleAuthProvider)
+      .then(result => {
+        console.log(result);
+        firebase.auth().currentUser.getIdToken(true)
+          .then(idToken => {
+            loginUserThirdParty({
+              idToken
+            }, 'google')
+          }, err => {
+            console.log(err);
+          });
+      })
+      .catch(err => console.log(err.message));
+  }
+  const handleFacebookLogin = () => {
+    const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(facebookAuthProvider)
+      .then(result => {
+        console.log(result);
+        firebase.auth().currentUser.getIdToken(true)
+          .then(idToken => {
+            loginUserThirdParty({
+              idToken
+            }, 'facebook')
+          }, err => {
+            console.log(err);
+          });
+      })
+      .catch(err => console.log(err.message));
+  }
+
   const responseFacebook = (response) => {
     console.log(response);
-    
+
   }
 
   const history = useHistory();
 
   useEffect(() => {
-    if(auth.isAuthenticated){
+    if (auth.isAuthenticated) {
       history.push('/home');
-    } else if(auth.errMess){
-      if(auth.errMess.name === 'IncorrectUsernameError')
+    } else if (auth.errMess) {
+      if (auth.errMess.name === 'IncorrectUsernameError')
         setErrMess('Mobile Number is incorrect');
-      else if(auth.errMess.name === 'IncorrectPasswordError')
+      else if (auth.errMess.name === 'IncorrectPasswordError')
         setErrMess('Password is incorrect');
       else
         setErrMess('Something went wrong! Try again')
@@ -79,13 +117,25 @@ function Login() {
               <p>Sign in with</p>
             </Row>
             <Row className="login__title__option">
-              <Button outline className="login__title__button shadow">
-                <img
-                  src={require('../assets/icons/google.svg')}
-                />
-                <strong>Google</strong>
+              
+
+                <Button onClick={handleGoogleLogin} outline className="login__title__button shadow">
+                  <img
+                    src={require('../assets/icons/google.svg')}
+                  />
+                  <strong>Google</strong>
+                </Button>
+
+
+                <Button onClick={handleFacebookLogin} outline className="login__title__button shadow">
+                  <img
+                    className="facebook__icon"
+                    src={require('../assets/icons/facebook.svg')}
+                  />
+                  <strong>Facebook</strong>
               </Button>
-              <FacebookLogin 
+
+              {/* <FacebookLogin 
                 appId={APP_ID}
                 fields="name, email"
                 scope="public_profile, email"
@@ -99,7 +149,7 @@ function Login() {
                     <strong>Facebook</strong>
                   </Button>
                 )}
-              />
+              /> */}
 
 
             </Row>

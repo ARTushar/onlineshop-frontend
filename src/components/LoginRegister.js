@@ -4,6 +4,12 @@ import {  Container, NavbarBrand, Row} from 'reactstrap';
 import Login from './Login';
 import Register from './Register';
 import { Link } from 'react-router-dom';
+import {
+  FirebaseAuthProvider,
+} from '@react-firebase/auth';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import config from '../assets/config';
 
 function LoginRegister({type, loginUser}) {
     return (
@@ -20,9 +26,11 @@ function LoginRegister({type, loginUser}) {
                 <Row className="loginregister__title">
                     <h2>Welcome to Nipun's Gallery!</h2>
                 </Row>
-                <Row className="loginregister__login">
-                    {type == 'register' ? <Register /> : <Login />}
-                </Row>
+                <FirebaseAuthProvider firebase={firebase} {...config}>
+                    <Row className="loginregister__login">
+                        {type == 'register' ? <Register /> : <Login />}
+                    </Row>
+                </FirebaseAuthProvider>
             </Container>
         </div>
     )

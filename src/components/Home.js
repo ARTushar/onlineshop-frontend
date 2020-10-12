@@ -11,7 +11,7 @@ function Home() {
 			<Jumbotron className="home__jumbotron">
                 <Container className="home__jumbotron__container">
                     <Row className="home__jumbotron__container__row">
-                        <img src='/images/banner2.jpg' />
+                        <img src='/images/banner3.jpg' />
                     </Row>
                 </Container>
             </Jumbotron>
