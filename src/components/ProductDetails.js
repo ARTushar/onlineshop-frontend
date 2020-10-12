@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-	Container,
-	Row,
-	Col,
-	Button,
-	InputGroup,
-	Input,
-} from 'reactstrap';
+import { Container, Row, Col, Button, InputGroup, Input } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
 import ProductDetailsReviewsAndRatings from './ProductDetailsReviewsAndRatings';
@@ -27,9 +20,19 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 	const [quantity, setQuantity] = React.useState(1);
 	const cartContext = React.useContext(CartContext);
 	const history = useHistory();
-
 	const [askQuestionButtonState, setAskQuestionButtonState] = useState(false);
 
+	
+	const calculateAvgRating = () => {
+		let avg_rating = 0;
+		selectedProduct.reviews.map((rev) => {
+										avg_rating += rev.rating;
+									});
+									if (selectedProduct.reviews.length > 0) {
+										avg_rating = avg_rating / selectedProduct.reviews.length;
+									}
+									return avg_rating;
+	}
 	const handleAskQuestion = (newQuestion) => {
 		alert('adding question: ' + newQuestion);
 		setAskQuestionButtonState(!askQuestionButtonState);
@@ -74,12 +77,17 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 								</h4>
 							</Row>
 							<Row className='productDetails__toprow__titlebox_rating'>
-								{Array(selectedProduct && Math.ceil(selectedProduct.rating))
-									.fill()
-									.map((_, i) => (
-										// <p>🌟</p>
-										<StarIcon style={{ color: '#fdb900' }}></StarIcon>
-									))}
+								{selectedProduct && selectedProduct.reviews.length > 0
+									? Array(Math.round(parseFloat(calculateAvgRating())))
+											.fill()
+											.map((_, i) => (
+												<StarIcon style={{ color: '#fdb900' }}></StarIcon>
+											))
+									: Array(5)
+											.fill()
+											.map((_, i) => (
+												<StarIcon style={{ color: 'lightgray' }}></StarIcon>
+											))}
 							</Row>
 							<Row className='productDetails__toprow__titlebox_pricerow'>
 								<Col sm={3} md={4} lg={3} className='p-0'>
@@ -380,20 +388,10 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 						<Container className='productDetails__bottomRows__container'>
 							<h5>Reviews & Ratings</h5>
 							<hr></hr>
-							{selectedProduct && selectedProduct.reviews.length ? (
+							{selectedProduct && (
 								<ProductDetailsReviewsAndRatings
 									selectedProduct={selectedProduct}
 								/>
-							) : (
-								<Row
-									style={{
-										justifyContent: 'center',
-										fontSize: 'medium',
-										fontWeight: 300,
-									}}
-								>
-									<span>No Reviews About The Product</span>
-								</Row>
 							)}
 						</Container>
 					</Col>

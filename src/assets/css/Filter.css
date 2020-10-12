@@ -1,41 +1,29 @@
 .filter {
     font-size: small;
     z-index: 10;
-    margin-left: 5px;
 }
 
 .filter__container {
-    max-width: 100%;
-    padding: 0px;
-    margin: 0px;
+    height: 100%;
 }
 
 .filter__collapse {
     position: fixed;
+    background-color: lightcyan;
+    height: 100%;
+    max-width: 180px;
 }
 
-.filter__heading {
+.filter__toggler {
     font-size: larger;
     font-weight: 600;
-    padding: 5px;
     height: 30px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1px;
 }
 
 .filter__price {
-    justify-content: left;
-    padding: 0px;
-    margin: 0px;
 }
 
 .filter__type__heading {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 0px;
 }
 
 .filter__type__heading > span {
@@ -43,28 +31,25 @@
 }
 
 .filter__price__limit {
-    width: 100%;
-    max-width: 200px;
     height: 30px;
+    width: 100%;
     font-size: small;
+    
     /* padding: 0px; */
 }
 
 .filter__price__submit__button {
     height: 30px;
-    width: 35px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+    width: 100%;
 }
 
 .filter__rating {
-    margin-left: 15px;
+    margin-top: 90px;
+    min-width: 100px;
 }
 
 .filter__rating__dropdownmenu {
     min-width: 100px;
-    background-color: aliceblue;
+    background-color: rgb(171, 200, 224);
     font-weight: 400;
-    z-index: 10;
 }

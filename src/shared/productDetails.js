@@ -130,25 +130,25 @@ export const PRODUCTS_DETAILS = [
 		reviews: [
 			{
 				user: 'raju',
-				rating: 5,
+				rating: 2,
 				time: '2020-10-07T06:08:29.477Z',
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
-				rating: 5,
+				rating: 2,
 				time: '2020-10-07T06:08:29.477Z',
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
-				rating: 5,
+				rating: 3,
 				time: '2020-10-07T06:08:29.477Z',
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
-				rating: 5,
+				rating: 4,
 				time: '2020-10-07T06:08:29.477Z',
 				comment: 'onek valo product',
 			},
@@ -160,7 +160,6 @@ export const PRODUCTS_DETAILS = [
 		title: 'The Art of Darksiders Genesis',
 		slug: 'the-art-of-darksiders-genesis',
 		price: 11.99,
-		rating: 2,
 		discount: 10,
 		image: '/images/products/book.jpg',
 		category: 'Bag',
@@ -273,22 +272,22 @@ export const PRODUCTS_DETAILS = [
 		reviews: [
 			{
 				user: 'raju',
-				rating: 5,
+				rating: 2,
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
-				rating: 5,
+				rating: 2,
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
-				rating: 5,
+				rating: 3,
 				comment: 'onek valo product',
 			},
 			{
 				user: 'raju',
-				rating: 5,
+				rating: 4,
 				comment: 'onek valo product',
 			},
 		],

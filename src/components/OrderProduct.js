@@ -90,7 +90,7 @@ function OrderProduct({ id, image, title, price, q, slug }) {
 								<Col md={2}>
 									<label htmlFor='.rating'>Rating:</label>
 									<Control.select
-										style={{ backgroundColor: 'lightblue', height: 30 }}
+										style={{ backgroundColor: 'white', height: 30 }}
 										model='.rating'
 										id='.rating'
 										defaultValue='5'

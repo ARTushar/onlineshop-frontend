@@ -17,48 +17,110 @@ function Filter() {
     })
 
     return (
-        <div className="filter">
-            <Container className="filter__container">
-                <ButtonToggle id="filtertoggler" style={{ border: "0px", fontSize: "small", outline: "none", backgroundColor: "HighlightText" }} className="filter__heading">
-                    <span>Filter</span>
-                </ ButtonToggle>
-                <UncontrolledCollapse toggler="#filtertoggler" className="filter__collapse">
-                    <Row className="filter__price">
-                        <Col xs={{ size: 12 }} className="filter__type__heading">
-                            <span>Price</span>
-                        </Col>
-                        <InputGroup className="filter__price__limit">
-                            <InputGroupAddon addonType="append" className="filter__input__group">
-                                <Input placeholder="min" className="filter__price__limit" value={minPrice} onChange={e => setMinPrice(e.target.value.replace(/\D/, ''))} />
-                                <Input placeholder="max" className="filter__price__limit" value={maxPrice} onChange={e => setMaxPrice(e.target.value.replace(/\D/, ''))} />
-                                <Button type="submit" style={{ backgroundColor: "HighlightText" }} className="filter__price__submit__button">
-                                    <PlayArrowIcon style={{}} />
-                                </Button>
-                            </InputGroupAddon>
-                        </InputGroup>
-                    </Row>
-                    <Col xs={{ Size: 12 }} className="filter__type__heading">
-                        <span>Rating</span>
-                    </Col>
-                    <Row>
-                        <UncontrolledButtonDropdown size="sm" className="filter__rating">
-                            <DropdownToggle caret style={{ backgroundColor: "HighlightText", fontSize: "small" }} >
-                                <span>Rating</span>
-                            </DropdownToggle>
-                            <DropdownMenu style={{ fontSize: "small", width: "20px" }} className="filter__rating__dropdownmenu">
-                                <DropdownItem onClick={() => changeRating(1)}>1+</DropdownItem>
-                                <DropdownItem onClick={() => changeRating(2)}>2+</DropdownItem>
-                                <DropdownItem onClick={() => changeRating(3)}>3+</DropdownItem>
-                                <DropdownItem onClick={() => changeRating(4)}>4+</DropdownItem>
-                                <DropdownItem onClick={() => changeRating(5)}>5</DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledButtonDropdown>
-                    </Row>
-                </UncontrolledCollapse>
+			<div className='filter'>
+				<Container className='filter__container'>
+					<ButtonToggle
+						id='filtertoggler'
+						style={{
+							border: '0px',
+							fontSize: 'small',
+							outline: 'none',
+							backgroundColor: 'HighlightText',
+						}}
+						className='filter__toggler'
+					>
+						<span>Filter</span>
+					</ButtonToggle>
+					<UncontrolledCollapse
+						toggler='#filtertoggler'
+						className='filter__collapse'
+					>
+						<Row>
+							<Col xs='12' className='filter__type__heading'>
+								<span>Price</span>
+							</Col>
+							<Col xs='12'>
+								<InputGroup className='filter__price__limit'>
+									<Row>
+										<Col>
+											<Input
+												placeholder='min'
+												className='filter__price__limit'
+												value={minPrice}
+												onChange={(e) =>
+													setMinPrice(e.target.value.replace(/\D/, ''))
+												}
+											/>
+										</Col>
+									</Row>
+									<Row>
+										<Col>
+											<Input
+												placeholder='max'
+												className='filter__price__limit'
+												value={maxPrice}
+												onChange={(e) =>
+													setMaxPrice(e.target.value.replace(/\D/, ''))
+												}
+											/>
+										</Col>
+									</Row>
+									<Row>
+										<Col xs='12' className='filter__price__submit__button'>
+											<Button
+												className='btn btn-sm'
+												type='submit'
+												style={{ backgroundColor: 'HighlightText' }}
+											>
+												<PlayArrowIcon style={{}} />
+											</Button>
+										</Col>
+									</Row>
+								</InputGroup>
+							</Col>
+						</Row>
 
-            </Container>
-        </div>
-    )
+						<Row className='filter__rating'>
+							<Col xs='12'>
+								<span>Rating</span>
+							</Col>
+							<Col xs='12'>
+								<UncontrolledButtonDropdown size='sm'>
+									<DropdownToggle
+										style={{
+											backgroundColor: 'HighlightText',
+											fontSize: 'small',
+										}}
+									>
+										<span>Rating</span>
+									</DropdownToggle>
+									<DropdownMenu
+										style={{ fontSize: 'small' }}
+										className='filter__rating__dropdownmenu'
+									>
+										<DropdownItem onClick={() => changeRating(1)}>
+											1+
+										</DropdownItem>
+										<DropdownItem onClick={() => changeRating(2)}>
+											2+
+										</DropdownItem>
+										<DropdownItem onClick={() => changeRating(3)}>
+											3+
+										</DropdownItem>
+										<DropdownItem onClick={() => changeRating(4)}>
+											4+
+										</DropdownItem>
+										<DropdownItem onClick={() => changeRating(5)}>
+											5
+										</DropdownItem>
+									</DropdownMenu>
+								</UncontrolledButtonDropdown>
+							</Col>
+						</Row>
+					</UncontrolledCollapse>
+				</Container>
+			</div>
+		);
 }
 
 export default Filter;

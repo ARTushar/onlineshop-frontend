@@ -12,9 +12,19 @@ import {
 import StarIcon from '@material-ui/icons/Star';
 
 function ProductDetailsReviewsAndRatings({selectedProduct}) {
+	const calculateAvgRating = () => {
+		let avg_rating = 0;
+		selectedProduct.reviews.map((rev) => {
+			avg_rating += rev.rating;
+		});
+		if (selectedProduct.reviews.length>0) {
+			avg_rating = avg_rating / selectedProduct.reviews.length;
+		}
+		return avg_rating;
+	};
   return (
 		<div>
-			{selectedProduct && (
+			{
 				<React.Fragment>
 					<Row>
 						<Container>
@@ -23,10 +33,10 @@ function ProductDetailsReviewsAndRatings({selectedProduct}) {
 								<Col xs={12} md={4} style={{ marginBottom: 10 }}>
 									<Container>
 										<Row style={{ fontSize: '28px', fontWeight: 400 }}>
-											{selectedProduct.rating}/5
+											{calculateAvgRating()}/5
 										</Row>
 										<Row>
-											{Array(Math.ceil(selectedProduct.rating))
+											{Array(Math.round(parseFloat(calculateAvgRating())))
 												.fill()
 												.map((_, i) => (
 													<StarIcon
@@ -94,7 +104,7 @@ function ProductDetailsReviewsAndRatings({selectedProduct}) {
 					</Row>
 					<hr></hr>
 				</React.Fragment>
-			)}
+			}
 
 			{selectedProduct &&
 				selectedProduct.reviews.map((rev) => {
