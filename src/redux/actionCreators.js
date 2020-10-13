@@ -2,20 +2,153 @@ import * as ActionTypes from './ActionTypes';
 import axios from 'axios';
 import { baseUrl } from '../shared/baseUrl';
 import { PRODUCTS_DETAILS } from '../shared/productDetails';
-import { saveToLocalStorage } from './localStorage';
 
+/**
+ * products 
+ */
+export const setCurrentSlug= (currentSlug) => ({
+  type: ActionTypes.SET_CURRENT_SLUG,
+  currentSlug
+})
 
-export const fetchProductDetails = (slug) => (dispatch) => {
-  const selected_product = PRODUCTS_DETAILS.filter((product) => product.slug === slug)[0];
-  dispatch(addProductDetails(selected_product));
-}
+export const fetchProductRequest = () => ({
+  type: ActionTypes.FETCH_REQUEST
+})
 
+export const fetchProductDone = () => ({
+  type: ActionTypes.FETCH_SUCCESS
+})
+
+export const fetchProductFailure = () => ({
+  type: ActionTypes.FETCH_FAILURE
+})
+
+export const addHomeProducts = (products) => ({
+  type: ActionTypes.ADD_HOME_PRODUCTS,
+  payload: products
+})
 
 const addProductDetails = (selected_product) => ({
 	type: ActionTypes.ADD_PRODUCT_DETAILS,
 	selectedProduct: selected_product,
 });
 
+export const deleteProductDetails = () => ({
+	type: ActionTypes.DELETE_PRODUCT_DETAILS
+});
+
+export const addSearchProducts = (products) => ({
+  type: ActionTypes.ADD_SEARCH_PRODUCTS,
+  payload: products
+})
+
+export const fetchError = (errMess) => ({
+  type: ActionTypes.FETCH_FAILURE,
+  errMess
+})
+
+export const fetchSuccess = () => ({
+  type: ActionTypes.FETCH_SUCCESS
+})
+
+export const fetchProductDetails = (slug) => (dispatch) => {
+  dispatch(fetchProductRequest());
+
+  return axios({
+    method: 'GET',
+    url: 'products/product/'+slug,
+    baseURL: baseUrl
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      response.price = response.price / 100;
+      dispatch(addProductDetails(response));
+      dispatch(fetchSuccess());
+    })
+    .catch(error => {
+      dispatch(fetchError(error.message));
+    })
+}
+
+export const fetchHomeProducts = () => (dispatch) => {
+  console.log("fetching ");
+  dispatch(fetchProductRequest());
+
+  return axios({
+    method: 'GET',
+    url: 'products/home',
+    baseURL: baseUrl
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      for(let i = 0; i < response.length; i++){
+        response[i].price = response[i].price / 100;
+      }
+      dispatch(addHomeProducts(response));
+      dispatch(fetchSuccess());
+    })
+    .catch(error => {
+      dispatch(fetchError(error.message));
+    })
+}
+
+export const fetchSearchProducts = (searchInput) => (dispatch) => {
+  console.log("fetching : " + JSON.stringify(searchInput));
+  dispatch(fetchProductRequest());
+
+  return axios({
+    method: 'GET',
+    url: 'products/search',
+    baseURL: baseUrl,
+    params: {
+      input: searchInput
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      for(let i = 0; i < response.length; i++){
+        response[i].price = response[i].price / 100;
+      }
+      dispatch(addSearchProducts(response));
+      dispatch(fetchSuccess());
+    })
+    .catch(error => {
+      dispatch(fetchError(error.message));
+    })
+}
 
 export const addToCart = (product) => ({
   type: ActionTypes.ADD_TO_CART,
@@ -66,15 +199,117 @@ export const removeFromWishlist = (productId) => ({
   payload: productId
 });
 
-// orders
+/**
+ * orders
+ */
+
+const removeOrders = () => ({
+  type: ActionTypes.REMOVE_ORDERS
+})
+
 export const addOrder = (order) => ({
   type: ActionTypes.ADD_ORDER,
   payload: order
 })
 
+export const addSelectedOrder = (order) => ({
+  type: ActionTypes.ADD_SELECTED_ORDER,
+  payload: order
+})
+
+export const addAllOrders = (orders) => ({
+  type: ActionTypes.ADD_ALL_ORDERS,
+  payload: orders
+})
+
+const requestOrders = () => ({
+  type: ActionTypes.FETCH_ORDERS_REQUEST
+})
+
+const orderSuccess = () => ({
+  type: ActionTypes.FETCH_ORDERS_SUCCESS
+})
+
+const orderFailure = (errMess) => ({
+  type: ActionTypes.FETCH_ORDERS_FAILURE,
+  errMess
+})
+
+export const fetchSelectedOrder = (orders, orderId) => (dispatch) => {
+  console.log("fetching selected Order");
+  dispatch(addSelectedOrder(orders.filter(order => order._id == orderId)[0]));
+}
+
+export const fetchOrders = () => (dispatch) => {
+  dispatch(requestOrders())
+
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+
+  return axios({
+    method: 'GET',
+    url: 'orders/user',
+    baseURL: baseUrl,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      dispatch(addAllOrders(response));
+      dispatch(orderSuccess());
+    })
+    .catch(error => {
+      dispatch(orderFailure(error.message));
+    })
+}
+
 export const postOrder = (order, fromBuy) => (dispatch) => {
   console.log('Posting an order')
-  dispatch(addOrder(order));
+
+  dispatch(requestOrders())
+
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+
+  axios({
+    method: 'POST',
+    url: 'orders/user',
+    baseURL: baseUrl,
+    data: order,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      dispatch(addOrder(response));
+      dispatch(orderSuccess());
+    })
+    .catch(error => {
+      dispatch(orderFailure(error.message));
+    })
+
   if(!fromBuy)
     dispatch(deleteCart());
 }
@@ -87,6 +322,108 @@ export const addSingleProduct = (product) => ({
 export const removeSingleProduct = () => ({
   type: ActionTypes.REMOVE_SINGLE_PRODUCT
 })
+
+
+/**
+ * user information
+ */
+
+const removeProfile = () => ({
+  type: ActionTypes.REMOVE_PROFILE
+})
+
+const addProfile = (profile) => ({
+  type: ActionTypes.ADD_PROFILE,
+  payload: profile
+})
+
+const requestProfile = () => ({
+  type: ActionTypes.FETCH_PROFILE_REQUEST
+})
+
+const fetchProfileSuccess = () => ({
+  type: ActionTypes.FETCH_PROFILE_SUCCESS
+})
+
+const fetchProfileFailure = (errMess) => ({
+  type: ActionTypes.FETCH_PROFILE_FAILURE,
+  errMess
+})
+
+const setLoad = () => ({
+  type: ActionTypes.SET_LOAD
+})
+
+export const fetchProfile = () => (dispatch) => {
+  dispatch(requestProfile())
+
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+
+  return axios({
+    method: 'GET',
+    url: 'users',
+    baseURL: baseUrl,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      dispatch(addProfile(response))
+      dispatch(fetchProfileSuccess());
+      dispatch(setLoad());
+    })
+    .catch(error => {
+      dispatch(fetchProfileFailure(error.message));
+    })
+}
+
+export const updateProfile = (profile) => (dispatch) => {
+  dispatch(requestProfile())
+
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+
+  return axios({
+    method: 'PUT',
+    url: 'users/update',
+    baseURL: baseUrl,
+    data: profile,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      dispatch(addProfile(response))
+      dispatch(fetchProfileSuccess());
+
+    })
+    .catch(error => {
+      dispatch(fetchProfileFailure(error.message));
+    })
+}
 
 
 // authentication
@@ -137,6 +474,7 @@ export const loginUser = (creds, remember) => (dispatch) => {
           localStorage.removeItem('creds');
         }
         dispatch(receiveLogin(response));
+        dispatch(fetchOrders());
       } else {
         let error = new Error('Error ' + response.status);
         error.response = response;
@@ -180,6 +518,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
         localStorage.setItem('token', response.token);
         dispatch(receiveLogin(response));
         history.push('/home')
+        dispatch(fetchOrders());
       } else {
         let error = new Error('Error ' + response.status);
         error.response = response;
@@ -206,12 +545,15 @@ export const receiveLogoutRemember = () => ({
 });
 
 // Logs the user out
-export const logoutUser = (remember) => (dispatch) => {
+export const logoutUser = (remember, history) => (dispatch) => {
   dispatch(requestLogout());
   localStorage.removeItem('token');
   if(remember)
     dispatch(receiveLogoutRemember());
   else dispatch(receiveLogout());
+  history.push('home');
+  dispatch(removeOrders());
+  dispatch(removeProfile());
 }
 
 // register
@@ -270,3 +612,4 @@ export const registerUser = (user) => (dispatch) => {
 export const clearRegsiter = () => ({
   type: ActionTypes.REGISTER_CLEAR
 });
+

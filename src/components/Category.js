@@ -2,7 +2,7 @@ import React from 'react';
 import '../assets/css/Category.css';
 import { CATEGORIES } from '../shared/categories';
 import LocalMallIcon from '@material-ui/icons/LocalMall';
-import {Row, Col, Container} from 'reactstrap';
+import {Row, Col} from 'reactstrap';
 
 function Category() {
     return (

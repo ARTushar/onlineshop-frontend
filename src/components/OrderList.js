@@ -1,9 +1,7 @@
 import React from 'react';
 import { Container, Row, Table } from 'reactstrap';
 import '../assets/css/OrderList.css';
-import { ORDERS } from '../shared/orders';
-import { useTable } from 'react-table';
-import { Link, Router, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { UserContext } from '../Context/context';
 
 
@@ -81,18 +79,18 @@ function OrderList() {
             </thead>
             <tbody>
               {orders.map(orderproduct => (
-                <tr onClick={() => history.push(`/order/${orderproduct.serialNo}`)}>
+                <tr onClick={() => history.push(`/order/${orderproduct._id}`)}>
                   <td className="orderlist__orderno">
-                    <span>{orderproduct.serialNo}</span>
+                    <span>{orderproduct._id}</span>
                   </td>
                   <td className="orderlist__date">
-                    <span>{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: "2-digit" }).format(new Date(orderproduct.date))}</span>
+                    <span>{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: "2-digit" }).format(new Date(orderproduct.createdAt))}</span>
                   </td>
                   <td className="orderlist__totalproducts">
                     <span>{orderproduct.products.length}</span>
                   </td>
                   <td className="orderlist__totalcost">
-                    <span>{orderproduct.totalCost}</span>
+                    <span>{orderproduct.subTotalCost + orderproduct.deliveryCost}</span>
                   </td>
                   <td className="orderlist__status">
                     <span>{orderproduct.status}</span>

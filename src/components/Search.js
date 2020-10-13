@@ -1,52 +1,55 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Container } from 'reactstrap';
 import '../assets/css/Search.css';
-import { PRODUCTS } from '../shared/products';
 import Product from './Product';
 import Filter from './Filter';
 import Sort from './Sort';
 
-function Search() {
-	return (
-		<div className='search'>
-            <Container className='search__container'>
-                <Row className='search__main'>
-                    {/* <Col md={{ size: 3 }} lg="2" className="search__main__filter"> */}
-                        {/* <Filter /> */}
-                    {/* </Col> */}
-                    <Col className=''>
-                        <Row className="justify-content-end">
-                            <Filter />
-                            <Sort />
-                        </Row>
-                        <Row className='search__main__products'>
-                            {PRODUCTS.map((product) => {
-                                
-                                return (
-                                    <Col
-                                        xs={{ size: 5 }}
-                                        md={{ size: 4 }}
-                                        xl={{ size: 3 }}
-                                        className='search__main__product'
-                                    >
-                                        <Product
-                                            id={product.id}
-                                            title={product.title}
-                                            price={product.price}
-                                            discountPrice={product.price - product.price * product.discount * .01}
-                                            rating={product.rating}
-                                            image={product.image}
-                                        />
-                                    </Col>
-                                );
-                            })}
+function Search({ searchProducts }) {
+  useEffect(() => {
+    console.log("changed")
+  }, [searchProducts])
 
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    );
+  return (
+    <div className='search'>
+      <Container className='search__container'>
+        <Row className='search__main'>
+          {/* <Col md={{ size: 3 }} lg="2" className="search__main__filter"> */}
+          {/* <Filter /> */}
+          {/* </Col> */}
+          <Col className=''>
+            <Row className="justify-content-end">
+              <Filter />
+              <Sort />
+            </Row>
+            <Row className='search__main__products'>
+              {searchProducts && searchProducts.map((product) => {
+
+                return (
+                  <Col
+                    xs={{ size: 5 }}
+                    md={{ size: 4 }}
+                    xl={{ size: 3 }}
+                    className='search__main__product'
+                  >
+                    <Product
+                      id={product.id}
+                      title={product.title}
+                      price={product.price}
+                      discountPrice={product.price - product.price * product.discount * .01}
+                      rating={product.rating}
+                      image={product.image}
+                      slug={product.slug}
+                    />
+                  </Col>
+                );
+              })}
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 }
 
 export default Search;

@@ -42,6 +42,7 @@ function Login() {
   const loginUserThirdParty = authContext.loginUserThirdParty;
   const auth = authContext.auth;
   const creds = auth.creds;
+  const history = useHistory();
 
   const [errMess, setErrMess] = useState();
 
@@ -63,7 +64,7 @@ function Login() {
           .then(idToken => {
             loginUserThirdParty({
               idToken
-            }, 'google')
+            }, 'google', history)
           }, err => {
             console.log(err);
           });
@@ -79,20 +80,13 @@ function Login() {
           .then(idToken => {
             loginUserThirdParty({
               idToken
-            }, 'facebook')
+            }, 'facebook', history)
           }, err => {
             console.log(err);
           });
       })
       .catch(err => console.log(err.message));
   }
-
-  const responseFacebook = (response) => {
-    console.log(response);
-
-  }
-
-  const history = useHistory();
 
   useEffect(() => {
     if (auth.isAuthenticated) {

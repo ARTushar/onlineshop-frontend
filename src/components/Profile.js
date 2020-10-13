@@ -11,6 +11,7 @@ import UserInformation from './UserInformation';
 import WishList from './WishLIst';
 import { Col, Container, Row } from 'reactstrap';
 import OrderList from './OrderList';
+import { UserContext } from '../Context/context';
 
 
 function useWindowSize() {
@@ -105,6 +106,7 @@ function Profile() {
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const userContext = React.useContext(UserContext)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

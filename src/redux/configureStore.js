@@ -1,9 +1,6 @@
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { actions, createForms, formReducer, modelReducer} from 'react-redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import  { InitialOrderState, InitialUserState, InitialProductFormState } from './forms';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { Products } from './products';
 import Cart from './cart';
 import Wishlist from './wishlist';
@@ -13,6 +10,7 @@ import storageSession from 'redux-persist/lib/storage/session';
 import Order from './order';
 import { Auth } from './auth';
 import Register from './register';
+import User from './user';
 
 const ConfigureStore = () => {
   const persistConfig = {
@@ -38,11 +36,7 @@ const ConfigureStore = () => {
       auth: Auth,
       register: Register,
       order: persistReducer(orderPersistConfig, Order),
-      // ...createForms({
-      //   user: InitialUserState,
-      // }),
-      user: persistReducer(profilePersistConfig, modelReducer('user', InitialUserState)),
-      forms: formReducer(''),
+      user: persistReducer(profilePersistConfig, User),
       products: Products
     }))
 

@@ -3,10 +3,6 @@ import {
 	Container,
 	Row,
 	Col,
-	ButtonGroup,
-	Button,
-	InputGroup,
-	Input,
 	Progress,
 } from 'reactstrap';
 import StarIcon from '@material-ui/icons/Star';

@@ -1,35 +1,23 @@
-import React, { useEffect } from 'react';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Redirect, useHistory } from 'react-router-dom';
 import '../assets/css/Checkout.css';
-import CallIcon from '@material-ui/icons/Call';
-import PersonIcon from '@material-ui/icons/Person';
-import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import {
   Button,
   Card,
   CardBody,
-  FormGroup,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   Row,
-  Col, CardTitle, Container, Label, CardSubtitle
+  Col, CardTitle, Container, Label 
 } from "reactstrap";
-import { DISTRICTS } from '../shared/Districts';
-import { LocalForm, Form, Control, Errors, Field } from 'react-redux-form';
-import { UserContext } from '../Context/context';
+import { LocalForm, Control, Errors } from 'react-redux-form';
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import isMobilePhone from 'validator/lib/isMobilePhone';
-import isEmail from 'validator/lib/isEmail';
 import ReduxFormSelect from './ReduxFormSelect';
 import CurrencyFormat from 'react-currency-format';
 import { selectTotalPrice } from '../redux/cart';
-import { defaultOrderByFn } from 'react-table';
 
 const required = (val) => val && val.length;
 const requiredObject = (val) => val && val.value && val.value.length
@@ -62,24 +50,41 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
   const history = useHistory();
 
   if (history.location.state){
-    products = [singleProduct];
+    products = [{
+      product: singleProduct.id,
+      quantity: singleProduct.quantity
+    }];
     totalCost = singleProduct.price + deliveryCost;
   }
   else {
-    products = [...cartProducts];
+    products = [];
+    for(let i = 0; i < cartProducts.length; i++){
+      products.push({
+        product: cartProducts[i].id,
+        quantity: cartProducts[i].quantity
+      })
+    }
     totalCost =  selectTotalPrice(cartProducts, deliveryCost);
   }
 
   const handleSubmit = (values) => {
     const fromBuy = history.location.state? true: false;
-
-    postOrder({
-      ...values,
+    const shippingAddress = {
+      customer: values.customer,
+      mobile: values.mobile,
       country: values.country.value,
       district: values.district.value,
-      products: products,
-      deliveryCost,
-      totalCost: totalCost,
+      thana: values.thana,
+      region: values.region,
+      postalCode: values.postalCode,
+      homeLocation: values.homeLocation
+    }
+    postOrder({
+      shippingAddress,
+      products,
+      payment: {
+        method: values.paymentMethod,
+      }
     }, fromBuy);
     removeSingleProduct();
     history.push('/home');
@@ -101,7 +106,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                     <Row className="form-group">
                       <Label htmlFor="name" md={3}>Name</Label>
                       <Col md={9}>
-                        <Control.text model=".name" id="name" name="name"
+                        <Control.text model=".customer" id="name" name="name"
                           placeholder="Name"
                           className="form-control"
                           defaultValue={userInformation.name}
@@ -162,7 +167,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                         <Control.text model=".country" id="country" name="country"
                           className="form-control"
                           disabled
-                          defaultValue={{ "value": "bangladesh", "label": "Bangladesh" }}
+                          defaultValue={{ "value": userInformation.address.country, "label": userInformation.address.country }}
                           component={ReduxFormSelect}
                           validators={{
                             requiredObject
@@ -183,7 +188,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Label htmlFor="district" md={3}>District</Label>
                       <Col md={9}>
                         <Control.select model=".district" id="district" name="district"
-                          defaultValue={userInformation.district}
+                          defaultValue={{ "value": userInformation.address.district, "label": userInformation.address.district}}
                           className="form-control"
                           validators={{
                             requiredObject
@@ -209,7 +214,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Col md={9}>
                         <Control.text model=".thana" id="thana" name="thana"
                           className="form-control"
-                          defaultValue={userInformation.thana}
+                          defaultValue={userInformation.address.thana}
                           placeholder="Your thana name"
                           style={{
                             fontSize: "small"
@@ -235,7 +240,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Col md={9}>
                         <Control.text model=".region" id="region" name="region"
                           className="form-control"
-                          defaultValue={userInformation.region}
+                          defaultValue={userInformation.address.region}
                           placeholder="Your region in the thana"
                           style={{
                             fontSize: "small"
@@ -262,7 +267,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Col md={9}>
                         <Control.text model=".postalCode" id="postalCode" name="postalCode"
                           className="form-control"
-                          defaultValue={userInformation.postalCode}
+                          defaultValue={userInformation.address.postalCode.toString()}
                           placeholder="Postal Code"
                           style={{
                             fontSize: "small"
@@ -289,7 +294,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Label htmlFor="homeLocation" md={3}>Home Location</Label>
                       <Col md={9}>
                         <Control.text model=".homeLocation" id="homeLocation" name="homeLocation"
-                          defaultValue={userInformation.homeLocation}
+                          defaultValue={userInformation.address.homeLocation}
                           className="form-control"
                           placeholder="Street name/no, house name/no"
                           style={{

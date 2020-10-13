@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/css/Header.css';
 import {
+	Form,
 	UncontrolledCollapse,
 	Container,
 	NavbarBrand,
@@ -8,24 +9,25 @@ import {
 	NavItem,
 	Nav,
 	NavbarToggler,
-	Row,
 	InputGroup,
 	Input,
-	InputGroupAddon,
-    Button,
 } from 'reactstrap';
-import {LocalForm} from 'react-redux-form';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Badge } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-function Header({totalProducts, auth , logoutUser }) {
-    const handleSubmit = (values) => {
-        console.log('submiting form: ' + JSON.stringify(values))
-    }
+function Header({fetchSearchProducts, totalProducts, auth , logoutUser }) {
+	const history = useHistory();
+	const [input, setInput] = useState('')
 
+    const handleSubmit = (e) => {
+		e.preventDefault();
+		fetchSearchProducts(input)
+		history.push('/search')
+	}
+	
     return (
 			<div className='header'>
 				<Navbar dark expand='md' className='header__navbar'>
@@ -41,21 +43,23 @@ function Header({totalProducts, auth , logoutUser }) {
 						</Link>
 						<Nav className='header__navbar__nav__search'>
 							<NavItem className='header__navbar__nav__search__item'>
-								<form onSubmit={(values) => handleSubmit(values)}>
+								<Form onSubmit={handleSubmit}>
 									<InputGroup>
 										<Input
 											id='searchInput'
 											placeholder='Search for products'
 											className='header__search__input'
+											value={input}
+											onChange={(e) => setInput(e.target.value)}
 										/>
-										<button
+										<button 
 											type='submit'
 											className='header__search__icon'
 										>
 											<SearchIcon style={{ fontSize: 30, color: '#1B1924' }} />
 										</button>
 									</InputGroup>
-								</form>
+								</Form>
 							</NavItem>
 						</Nav>
 						<UncontrolledCollapse
@@ -71,7 +75,7 @@ function Header({totalProducts, auth , logoutUser }) {
                             </NavItem>
                         </Nav> */}
 							<Nav navbar className='header__navbar__nav__right'>
-								{!auth.isAuthenticated ? (
+								{auth.isAuthenticated ? (
 									<NavItem className=' header__navbar__container__profile'>
 										<NavLink className='nav-link' to='/profile'>
 											<AccountCircleIcon fontSize='medium' />
@@ -95,7 +99,7 @@ function Header({totalProducts, auth , logoutUser }) {
 									) : (
 										<span
 											onClick={() =>
-												logoutUser(auth.creds ? auth.creds.remember : false)
+												logoutUser(auth.creds ? auth.creds.remember : false, history)
 											}
 											className='nav-link mt-1 logout__span'
 										>

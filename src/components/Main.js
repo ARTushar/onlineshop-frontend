@@ -1,14 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../assets/css/Main.css';
-import { Switch, Route, Redirect, withRouter, useLocation } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter, useLocation, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Home from './Home';
 import Header from './Header';
 import Footer from './Footer';
-import Videos from './Videos';
 import Profile from './Profile';
 import Cart from './Cart';
-import Purchase from './Purchase';
 import ProductDetails from './ProductDetails';
 import LoginRegister from './LoginRegister';
 import Search from './Search';
@@ -17,7 +15,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,10 +31,17 @@ const mapDispatchToProps = (dispatch) => ({
   addSingleProduct: (product) => dispatch(addSingleProduct(product)),
   removeSingleProduct: () => dispatch(removeSingleProduct()),
   loginUser: (creds, remember) => dispatch(loginUser(creds, remember)),
-  logoutUser: (remember) => dispatch(logoutUser(remember)),
+  logoutUser: (remember, history) => dispatch(logoutUser(remember, history)),
   registerUser: (user) => dispatch(registerUser(user)),
   clearRegsiter: () => dispatch(clearRegsiter()),
   loginUserThirdParty: (creds, provider, history) => dispatch(loginUserThirdParty(creds, provider, history)),
+  fetchHomeProducts: () => dispatch(fetchHomeProducts()),
+  fetchSearchProducts: (searchInput) => dispatch(fetchSearchProducts(searchInput)),
+  setCurrentSlug: (currentSlug) => dispatch(setCurrentSlug(currentSlug)),
+  deleteProductDetails: () => dispatch(deleteProductDetails()),
+  fetchSelectedOrder: (orders, orderId) => dispatch(fetchSelectedOrder(orders, orderId)),
+  fetchProfile: () => dispatch(fetchProfile()),
+  updateProfile: (profile) => dispatch(updateProfile(profile))
 });
 
 const mapStateToProps = (state) => {
@@ -49,7 +54,11 @@ const mapStateToProps = (state) => {
     orders: state.order.orders,
     singleProduct: state.order.singleProduct,
     auth: state.auth,
-    register: state.register
+    register: state.register,
+    homeProducts: state.products.homeProducts,
+    searchProducts: state.products.searchProducts,
+    currentSlug: state.products.currentSlug,
+    selectedOrder: state.order.selectedOrder,
   };
 };
 
@@ -57,44 +66,64 @@ function Main(props) {
   const location = useLocation();
   // console.log(location.pathname);
 
-  const ProductDetailsWithSlug = ({ match }) => {
+  const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(prop) => (
+      props.auth.isAuthenticated
+        ? <Component {...prop} />
+        : <Redirect to={{
+          pathname: '/home',
+          state: { from: location }
+        }} />
+    )} />
+  );
+
+  const ProductDetailsWithSlug = () => {
     // console.log('match: l' + JSON.stringify(match));
     // console.log('before state : ' + props.selectedProduct);
-    props.fetchProductDetails(match.params.slug);
     // console.log('after state : ' + props.selectedProduct);
+    const { slug } = useParams();
     return (
-      <React.Fragment>
-        <Header  logoutUser={props.logoutUser} auth={props.auth}  totalProducts={props.cart.products.length} />
+      <>
+        <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
         <CartContext.Provider value={{
           addToCart: props.addToCart,
-          addSingleProduct: props.addSingleProduct
+          addSingleProduct: props.addSingleProduct,
+          slug,
+          currentSlug: props.currentSlug,
+          setCurrentSlug: props.setCurrentSlug,
+          fetchProductDetails: props.fetchProductDetails,
+          deleteProductDetails: props.deleteProductDetails,
         }}>
           <ProductDetails selectedProduct={props.selectedProduct} addToWishlist={props.addToWishlist} />
         </CartContext.Provider>
         <Footer />
-      </React.Fragment>
+      </>
     );
   }
 
-  const OrderInvoiceComponent = ({ match }) => (
-    <>
-      <Header logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
-      <OrderInvoice order_no={match.params.order_no} orders={props.orders} />
-      <Footer />
-    </>
-  );
+  const OrderInvoiceComponent = () => {
+    const { order_no } = useParams();
+    return (
+      <React.Fragment>
+        <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+        <OrderInvoice order_no={order_no} selectedOrder={props.selectedOrder} orders={props.orders} fetchSelectedOrder={props.fetchSelectedOrder} />
+        <Footer />
+      </React.Fragment>
+    );
+  };
 
   return (
     <div className="main">
       <Switch>
         <Route path="/home">
-          <Header logoutUser={props.logoutUser} auth={props.auth}  totalProducts={props.cart.products.length} />
-          <Home />
+          <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+          <Home homeProducts={props.homeProducts} fetchHomeProducts={props.fetchHomeProducts} />
           <Footer />
         </Route>
         <Route path="/product/:slug" component={ProductDetailsWithSlug} />
+
         <Route path="/cart" >
-          <Header logoutUser={props.logoutUser} auth={props.auth}  totalProducts={props.cart.products.length} />
+          <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <CartContext.Provider value={{
             removeFromCart: props.removeFromCart,
             cartProducts: props.cart.products,
@@ -109,38 +138,54 @@ function Main(props) {
 
         </Route>
         <Route path="/checkout">
-          <Header logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
-          <Checkout
-            cartProducts={props.cart.products}
-            deliveryCost={props.cart.deliveryCost}
-            userInformation={props.user}
-            postOrder={props.postOrder}
-            singleProduct={props.singleProduct}
-            removeSingleProduct={props.removeSingleProduct}
-          />
-          <Footer />
+          {props.auth.isAuthenticated ? (
+            <>
+              <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+              <Checkout
+                cartProducts={props.cart.products}
+                deliveryCost={props.cart.deliveryCost}
+                userInformation={props.user.profileInformation}
+                postOrder={props.postOrder}
+                singleProduct={props.singleProduct}
+                removeSingleProduct={props.removeSingleProduct}
+              />
+              <Footer />
+            </>) : (
+              <Redirect to="/login" />
+            )
+          }
         </Route>
-        <Route path="/purchase">
-          <Header logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+        {/* <Route path="/purchase">
+          <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Purchase />
           <Footer />
-        </Route>
+        </Route> */}
         <Route path="/profile">
-          <Header logoutUser={props.logoutUser}  auth={props.auth}  totalProducts={props.cart.products.length} />
-          <UserContext.Provider value={{
-            wishlistProducts: props.wishlist.products,
-            removeFromWishlist: props.removeFromWishlist,
-            orders: props.orders,
-          }}>
-            <Profile />
-          </UserContext.Provider>
-          <Footer />
+          {props.auth.isAuthenticated ? (
+            <>
+              <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+              <UserContext.Provider value={{
+                wishlistProducts: props.wishlist.products,
+                removeFromWishlist: props.removeFromWishlist,
+                orders: props.orders,
+                user: props.user,
+                fetchProfile: props.fetchProfile,
+                updateProfile: props.updateProfile,
+              }}>
+                <Profile />
+              </UserContext.Provider>
+              <Footer />
+            </>
+          ) : (
+              <Redirect to='/home' />
+            )
+          }
         </Route>
-        <Route path="/videos">
-          <Header logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+        {/* <Route path="/videos">
+          <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Videos />
           <Footer />
-        </Route>
+        </Route> */}
         <Route exact path="/login">
           <AuthContext.Provider value={{
             loginUser: props.loginUser,
@@ -163,11 +208,11 @@ function Main(props) {
           </AuthContext.Provider>
         </Route>
         <Route path="/search">
-          <Header  logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
-          <Search />
+          <Header fetchSearchProducts={props.fetchSearchProducts} fetchSearchProducts={props.fetchSearchProducts} searchProducts={props.searchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+          <Search searchProducts={props.searchProducts} />
           <Footer />
         </Route>
-        <Route path="/order/:order_no" component={OrderInvoiceComponent} />
+        <PrivateRoute path="/order/:order_no" component={OrderInvoiceComponent} />
 
         <Redirect to='/home' />
       </Switch>

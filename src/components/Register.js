@@ -4,13 +4,12 @@ import '../assets/css/Register.css';
 import CallIcon from '@material-ui/icons/Call';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import PersonIcon from '@material-ui/icons/Person';
-import firebase, { auth } from 'firebase/app';
+import firebase from 'firebase/app';
 import {
   Button,
   Card,
   CardBody,
   FormGroup,
-  Input,
   InputGroupAddon,
   InputGroupText,
   InputGroup,
@@ -19,7 +18,7 @@ import {
 } from "reactstrap";
 import { Link, useHistory } from "react-router-dom";
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { AuthContext, UserContext } from '../Context/context';
+import { AuthContext } from '../Context/context';
 
 import isMobilePhone from 'validator/lib/isMobilePhone';
 const required = (val) => val && val.length;
@@ -99,7 +98,6 @@ function Register() {
 
   const serverError = (val) => errMess ? false : true;
 
-  
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -132,6 +130,7 @@ function Register() {
               <Button onClick={handleGoogleLogin} outline className="register__title__button shadow">
                 <img
                   src={require('../assets/icons/google.svg')}
+                  alt="Google"
                 />
                 <strong>Google</strong>
               </Button>
@@ -139,6 +138,7 @@ function Register() {
                 <img
                   className="facebook__icon"
                   src={require('../assets/icons/facebook.svg')}
+                  alt="Facebook"
                 />
                 <strong>Facebook</strong>
               </Button>

@@ -63,7 +63,7 @@ function Cart() {
             <RemoveShoppingCartIcon style={{ textAlign: "center", fontSize: "100px" }} />
           </div>
           <Row className="cart__no__product__message">
-            <span>NO PRODUCTS IN THE CART 😒</span>
+            <span>NO PRODUCTS IN THE CART <span role="img" aria-label="Not satisfied">😒</span></span>
           </Row>
           <Row className="justify-content-center">
             <Button role="a" href="/home" className="cart__no__product__button">

@@ -1,27 +1,20 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import '../assets/css/OrderTotal.css';
-// import { OrderContext } from '../Context/context';
-// import { selectSubTotalPrice } from '../redux/order';
 import CurrencyFormat from 'react-currency-format';
 
 
 function OrderTotal({order}) {
 
-  // const orderContext = React.useContext(OrderContext);
-  // const deliveryCost = orderContext.deliveryCost;
-  // const subTotal = selectSubTotalPrice(orderContext.orderProducts);
-  const deliveryCost = 60;
-  const subTotal = order.totalCost - order.deliveryCost;
-  const total = order.totalCost;
-  const shippingAddress = order.homeLocation + ", " + order.region + ", " +
-    order.thana + ", " + order.district + "-" + order.postalCode + ", " + order.country;
+  const subTotal = order.subTotalCost;
+  const shippingAddress = order.shippingAddress.homeLocation + ", " + order.shippingAddress.region + ", " +
+    order.shippingAddress.thana + ", " + order.shippingAddress.district + (order.shippingAddress.postalCode? ("-" + order.shippingAddress.postalCode): "") + ", " + order.shippingAddress.country;
 
   return (
     <div className="ordertotal">
       <Container className="ordertotal__container">
         <Row className="ordertotal__heading">
-          <span>Order Summary ({order.serialNo})</span>
+          <span>Order Summary ({order._id})</span>
         </Row>
         <hr />
         <Row className="ordertotal__name">
@@ -30,7 +23,7 @@ function OrderTotal({order}) {
           </Col>
           <Col xs={9} lg={8} className="ordertotal__name__value">
             <span>
-              {order.name}
+              {order.shippingAddress.customer}
             </span>
           </Col>
         </Row>
@@ -65,7 +58,7 @@ function OrderTotal({order}) {
             <span>Delivery Cost</span>
           </Col>
           <Col xs={9} lg={8} className="ordertotal__delivery__value">
-            <span>৳{deliveryCost}</span>
+            <span>৳{order.deliveryCost}</span>
           </Col>
         </Row>
         <hr />
@@ -77,7 +70,7 @@ function OrderTotal({order}) {
 
             <CurrencyFormat
               decimalScale={2}
-              value={subTotal + deliveryCost}
+              value={subTotal + order.deliveryCost}
               displayType={"text"}
               prefix="৳"
               thousandSeparator={true}
@@ -99,10 +92,24 @@ function OrderTotal({order}) {
             <span>Payment Method</span>
           </Col>
           <Col className="ordertotal__payment__value">
-            <span>{order.paymentMethod}</span>
+            <span>{order.payment.method}</span>
           </Col>
         </Row>
         <hr />
+        {/* {order.payment.transactionId ? (
+          // <>
+            <Row className="ordertotal__payment">
+              <Col xs="3" className="ordertotal__payment__heading">
+                <span>Transaction ID</span>
+              </Col>
+              <Col className="ordertotal__payment__value">
+                <span>{order.payment.transactionId}</span>
+              </Col>
+            </Row>
+            // <hr />
+          ) :
+          ({})
+        } */}
         <Row className="ordertotal__status">
           <Col xs="3" className="ordertotal__status__heading">
             <span>Order Status</span>

@@ -3,16 +3,11 @@ import {
 	Card,
 	CardBody,
 	CardImg,
-	CardSubtitle,
 	Row,
 	Col,
 	CardTitle,
-	Button,
-	Container,
-	CardLink
 } from 'reactstrap';
 import '../assets/css/Product.css';
-import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
 
 function Product({ id, image, title, price, discountPrice, rating, number, slug }) {

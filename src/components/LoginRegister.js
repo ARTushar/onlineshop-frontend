@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/css/LoginRegister.css';
-import {  Container, NavbarBrand, Row} from 'reactstrap';
+import {  Container, Row} from 'reactstrap';
 import Login from './Login';
 import Register from './Register';
 import { Link } from 'react-router-dom';
