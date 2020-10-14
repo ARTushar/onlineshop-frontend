@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
 	Row,
 	Col,
@@ -13,13 +13,25 @@ import ClearIcon from '@material-ui/icons/Clear';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 
-function OrderProduct({ id, image, title, price, q, slug }) {
-  const [rivewButtonState, setRivewButtonState] = useState(false);
+function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postReview, orderId, clearReviewPosted }) {
+  const [reviewButtonState, setReviewButtonState] = useState(false);
 
-	const handleRivew = (rivew) => {
-		alert('adding rivew: ' + rivew.message + ' rating: ' + rivew.rating);
-		setRivewButtonState(!rivewButtonState);
+	const handleReview = (review) => {
+		// alert('adding review: ' + review.message + ' rating: ' + review.rating);
+		postReview({
+			rating: review.rating,
+			description: review.message,
+			orderId: orderId
+		}, id)
+		setReviewButtonState(!reviewButtonState);
 	};
+
+	useEffect(()=> {
+		if(reviewPosted){
+			alert("Your review has been posted!");
+			clearReviewPosted();
+		}
+	}, [reviewPosted])
 
   return (
 		<React.Fragment>
@@ -40,10 +52,10 @@ function OrderProduct({ id, image, title, price, q, slug }) {
 				<td className='orderproduct__quantity'>
 					<span>{q}</span>
 				</td>
-				<td className='orderproduct__rivewButton'>
+				<td className='orderproduct__reviewButton'>
 					<Button
 						onClick={() => {
-							setRivewButtonState(!rivewButtonState);
+							setReviewButtonState(!reviewButtonState);
 						}}
 						style={{
 							backgroundColor: '#FF7F50',
@@ -52,8 +64,8 @@ function OrderProduct({ id, image, title, price, q, slug }) {
 							minWidth: '90px',
 						}}
 					>
-						{!rivewButtonState ? (
-							<span>Give Rivew</span>
+						{!reviewButtonState ? (
+							<span>Give Review</span>
 						) : (
 							<ClearIcon></ClearIcon>
 						)}
@@ -62,8 +74,8 @@ function OrderProduct({ id, image, title, price, q, slug }) {
 			</tr>
 			<tr>
 				<td colSpan='5'>
-					{rivewButtonState && (
-						<LocalForm model='rivew' onSubmit={(values) => handleRivew(values)}>
+					{reviewButtonState && (
+						<LocalForm model='review' onSubmit={(values) => handleReview(values)}>
 							<Row className='form-group'>
 								<Col md={10}>
 									<Control.textarea
@@ -71,7 +83,7 @@ function OrderProduct({ id, image, title, price, q, slug }) {
 										model='.message'
 										id='message'
 										name='message'
-										placeholder='Type the rivew message'
+										placeholder='Type the review message'
 										validators={{
 											required,
 											maxLength: maxLength(150),
@@ -111,7 +123,7 @@ function OrderProduct({ id, image, title, price, q, slug }) {
 											fontSize: '12px',
 										}}
 									>
-										Submit Rivew
+										Submit Review
 									</Button>
 								</Col>
 							</Row>

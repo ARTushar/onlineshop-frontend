@@ -196,6 +196,7 @@ export const postQuestion = (question, productId) => dispatch => {
     })
 }
 
+
 /**
  * cart 
  */
@@ -373,6 +374,62 @@ export const removeSingleProduct = () => ({
   type: ActionTypes.REMOVE_SINGLE_PRODUCT
 })
 
+const updateOrderAfterReview = (orderId, productId) => ({
+  type: ActionTypes.UPDATE_GIVEN_REVIEW,
+  orderId,
+  productId
+});
+
+
+/**
+ * reviews 
+ */
+
+const setReviewPosted = () => ({
+  type: ActionTypes.SET_REVIEW_POSTED
+})
+
+export const clearReviewPosted = () => ({
+  type: ActionTypes.CLEAR_REVIEW_POSTED
+})
+
+export const postReview = (review , productId) => dispatch => {
+
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+  const orderId = review.orderId;
+
+  axios({
+    method: 'POST',
+    url: 'products/' + productId + "/reviews",
+    baseURL: baseUrl,
+    data: review,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      if(response.status){
+        dispatch(setReviewPosted());
+        // dispatch(updateOrderAfterReview(orderId, productId));
+      }
+    })
+    .catch(error => {
+      console.log(error.message);
+    })
+}
+
 
 /**
  * user information
@@ -524,7 +581,6 @@ export const loginUser = (creds, remember) => (dispatch) => {
           localStorage.removeItem('creds');
         }
         dispatch(receiveLogin(response));
-        dispatch(fetchOrders());
       } else {
         let error = new Error('Error ' + response.status);
         error.response = response;

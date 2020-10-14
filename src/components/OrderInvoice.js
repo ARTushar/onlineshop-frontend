@@ -6,7 +6,7 @@ import OrderProductSmall from './OrderProductSmall';
 import OrderProduct from './OrderProduct';
 import { Redirect } from 'react-router-dom';
 
-function OrderInvoice({ order_no, orders }) {
+function OrderInvoice({ order_no, orders, reviewPosted, postReview, clearReviewPosted }) {
   const  order = orders.filter(order => order._id == order_no)[0];
 
 
@@ -29,6 +29,10 @@ function OrderInvoice({ order_no, orders }) {
                     title={orderproduct.product.title}
                     price={orderproduct.product.price / 100}
                     q={orderproduct.quantity}
+                    orderId={order_no}
+                    reviewPosted={reviewPosted}
+                    postReview={postReview}
+                    clearReviewPosted={clearReviewPosted}
                   />
                 ))}
               </div>
@@ -52,6 +56,10 @@ function OrderInvoice({ order_no, orders }) {
                       title={orderproduct.product.title}
                       price={orderproduct.product.price / 100}
                       q={orderproduct.quantity}
+                      orderId={order_no}
+                      reviewPosted={reviewPosted}
+                      postReview={postReview}
+                      clearReviewPosted={clearReviewPosted}
                     />
                   ))}
                 </tbody>

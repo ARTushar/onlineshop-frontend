@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 import '../assets/css/OrderProductSmall.css';
@@ -8,13 +8,25 @@ import ClearIcon from '@material-ui/icons/Clear';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 
-function OrderProductSmall({ id, image, title, price, q, maxq }) {
-  const [rivewButtonState, setRivewButtonState] = useState(false);
+function OrderProductSmall({ id, image, title, price, q, maxq, reviewPosted, postReview, orderId, clearReviewPosted }) {
+  const [reviewButtonState, setReviewButtonState] = useState(false);
 
-	const handleRivew = (rivew) => {
-		alert('adding rivew: ' + rivew.message + ' rating: ' + rivew.rating);
-		setRivewButtonState(!rivewButtonState);
+	const handleReview = (review) => {
+		// alert('adding review: ' + review.message + ' rating: ' + review.rating);
+		postReview({
+			rating: review.rating,
+			description: review.message,
+			orderId: orderId
+		}, id)
+
+		setReviewButtonState(!reviewButtonState);
 	};
+	useEffect(()=> {
+		if(reviewPosted){
+			clearReviewPosted();
+			alert("Your review has been posted!");
+		}
+	}, [reviewPosted])
 
   return (
 		<>
@@ -70,7 +82,7 @@ function OrderProductSmall({ id, image, title, price, q, maxq }) {
 			<Row>
 				<Button
 					onClick={() => {
-						setRivewButtonState(!rivewButtonState);
+						setReviewButtonState(!reviewButtonState);
 					}}
 					style={{
 						backgroundColor: '#FF7F50',
@@ -79,14 +91,14 @@ function OrderProductSmall({ id, image, title, price, q, maxq }) {
 						minWidth: '90px',
 					}}
 				>
-					{!rivewButtonState ? (
-						<span>Give Rivew</span>
+					{!reviewButtonState ? (
+						<span>Give Review</span>
 					) : (
 						<ClearIcon></ClearIcon>
 					)}
 				</Button>
-				{rivewButtonState && (
-					<LocalForm model='rivew' onSubmit={(values) => handleRivew(values)}>
+				{reviewButtonState && (
+					<LocalForm model='review' onSubmit={(values) => handleReview(values)}>
 						<Row className='form-group'>
 							<Col md={10}>
 								<Control.textarea
@@ -94,7 +106,7 @@ function OrderProductSmall({ id, image, title, price, q, maxq }) {
 									model='.message'
 									id='message'
 									name='message'
-									placeholder='Type the rivew message'
+									placeholder='Type the review message'
 									validators={{
 										required,
 										maxLength: maxLength(150),
@@ -134,7 +146,7 @@ function OrderProductSmall({ id, image, title, price, q, maxq }) {
 										fontSize: '12px',
 									}}
 								>
-									Submit Rivew
+									Submit Review
 								</Button>
 							</Col>
 						</Row>

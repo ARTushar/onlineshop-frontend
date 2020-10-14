@@ -15,7 +15,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -44,6 +44,9 @@ const mapDispatchToProps = (dispatch) => ({
   updateProfile: (profile) => dispatch(updateProfile(profile)),
   postQuestion: (question, productId) => dispatch(postQuestion(question, productId)),
   clearQuestionPosted: () => dispatch(clearQuestionPosted()),
+  postReview: (review, productId) => dispatch(postReview(review, productId)),
+  clearReviewPosted: () => dispatch(clearReviewPosted()),
+  fetchOrders: () => dispatch(fetchOrders()),
 });
 
 const mapStateToProps = (state) => {
@@ -61,7 +64,9 @@ const mapStateToProps = (state) => {
     searchProducts: state.products.searchProducts,
     currentSlug: state.products.currentSlug,
     selectedOrder: state.order.selectedOrder,
-    questionPosted: state.products.questionPosted
+    questionPosted: state.products.questionPosted,
+    reviewPosted: state.order.reviewPosted,
+    ordersLoading: state.order.isLoading
   };
 };
 
@@ -113,7 +118,7 @@ function Main(props) {
     return (
       <React.Fragment>
         <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
-        <OrderInvoice order_no={order_no} selectedOrder={props.selectedOrder} orders={props.orders} fetchSelectedOrder={props.fetchSelectedOrder} />
+        <OrderInvoice clearReviewPosted={props.clearReviewPosted} reviewPosted={props.reviewPosted} postReview={props.postReview} order_no={order_no} orders={props.orders} />
         <Footer />
       </React.Fragment>
     );
@@ -177,6 +182,8 @@ function Main(props) {
                 user: props.user,
                 fetchProfile: props.fetchProfile,
                 updateProfile: props.updateProfile,
+                fetchOrders: props.fetchOrders,
+                ordersLoading: props.ordersLoading
               }}>
                 <Profile />
               </UserContext.Provider>
