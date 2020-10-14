@@ -6,7 +6,7 @@ import ProductDetailsReviewsAndRatings from './ProductDetailsReviewsAndRatings';
 
 import { CartContext } from '../Context/context';
 import CurrencyFormat from 'react-currency-format';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 
 import '../assets/css/ProductDetails.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -22,6 +22,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 	const history = useHistory();
   const [askQuestionButtonState, setAskQuestionButtonState] = useState(false);
   console.log("most foul" + cartContext.slug);
+  const location = useLocation();
   useEffect(() => {
     if (cartContext.slug !== cartContext.currentSlug) {
       cartContext.setCurrentSlug(cartContext.slug);
@@ -42,9 +43,16 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
     return avg_rating;
   }
   const handleAskQuestion = (newQuestion) => {
-    alert('adding question: ' + newQuestion);
     setAskQuestionButtonState(!askQuestionButtonState);
+    cartContext.postQuestion(newQuestion, selectedProduct._id)
   };
+
+  useEffect(() => {
+    if (cartContext.questionPosted) {
+      alert("Yay your question is posted");
+      cartContext.clearQuestionPosted();
+    }
+  }, [cartContext.questionPosted])
 
   const getValue = (val) => (val <= 1 ? 1 : val >= maxq ? maxq : val);
 
@@ -261,6 +269,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 									</h5>
                 </Col>
                 <Col md></Col>
+                {cartContext.isAuthenticated?(
                 <Button
                   onClick={() => {
                     setAskQuestionButtonState(!askQuestionButtonState);
@@ -277,7 +286,14 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
                   ) : (
                       <ClearIcon></ClearIcon>
                     )}
-                </Button>
+                </Button>):(
+                    <span><span className="stretched-link" onClick={() => {
+                      history.push({
+                        pathname: '/login',
+                        state: { fromProduct: true, productLocation: location.pathname },
+                      })
+                    }}>Login</span> to ask a question</span>
+                  )}
               </Row>
 
               {askQuestionButtonState && (

@@ -8,11 +8,18 @@ export const Products = (
     homeProducts: [],
     searchProducts: [],
     errMess: null,
-    currentSlug: ''
+    currentSlug: '',
+    questionPosted: false,
   }, 
   action
 ) => {
   switch (action.type) {
+    case ActionTypes.SET_QUESTION_POSTED:
+      return {...state, questionPosted: true }
+    
+    case ActionTypes.CLEAR_QUESTION_POSTED:
+        return {...state, questionPosted: false}
+
     case ActionTypes.SET_CURRENT_SLUG:
       return {...state, currentSlug: action.currentSlug}
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   Button,
   Row,
@@ -11,10 +11,10 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import isEmail from 'validator/lib/isEmail';
 import ReduxFormSelect from './ReduxFormSelect';
 import '../assets/css/UserInformation.css';
-import { CartContext, UserContext } from '../Context/context';
+import { UserContext } from '../Context/context';
 
 const required = (val) => val && val.length;
-const requiredObject = (val) => val.value && val.value.length
+// const requiredObject = (val) => val.value && val.value.length
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => !(val) || (val.length >= len);
 const validMobile = (val) => (
@@ -58,7 +58,7 @@ function UserInformation() {
     if (!hasLoaded) {
       userContext.fetchProfile();
     }
-  }, [])
+  }, [hasLoaded])
 
   if (userContext.user.isLoading || !userContext.user.hasLoaded) {
     return (

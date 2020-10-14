@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import '../assets/css/Main.css';
 import { Switch, Route, Redirect, withRouter, useLocation, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -41,7 +41,9 @@ const mapDispatchToProps = (dispatch) => ({
   deleteProductDetails: () => dispatch(deleteProductDetails()),
   fetchSelectedOrder: (orders, orderId) => dispatch(fetchSelectedOrder(orders, orderId)),
   fetchProfile: () => dispatch(fetchProfile()),
-  updateProfile: (profile) => dispatch(updateProfile(profile))
+  updateProfile: (profile) => dispatch(updateProfile(profile)),
+  postQuestion: (question, productId) => dispatch(postQuestion(question, productId)),
+  clearQuestionPosted: () => dispatch(clearQuestionPosted()),
 });
 
 const mapStateToProps = (state) => {
@@ -59,6 +61,7 @@ const mapStateToProps = (state) => {
     searchProducts: state.products.searchProducts,
     currentSlug: state.products.currentSlug,
     selectedOrder: state.order.selectedOrder,
+    questionPosted: state.products.questionPosted
   };
 };
 
@@ -93,6 +96,10 @@ function Main(props) {
           setCurrentSlug: props.setCurrentSlug,
           fetchProductDetails: props.fetchProductDetails,
           deleteProductDetails: props.deleteProductDetails,
+          postQuestion: props.postQuestion,
+          questionPosted: props.questionPosted,
+          clearQuestionPosted: props.clearQuestionPosted,
+          isAuthenticated: props.auth.isAuthenticated
         }}>
           <ProductDetails selectedProduct={props.selectedProduct} addToWishlist={props.addToWishlist} />
         </CartContext.Provider>
@@ -128,7 +135,6 @@ function Main(props) {
             removeFromCart: props.removeFromCart,
             cartProducts: props.cart.products,
             updateQuantity: props.updateQuantity,
-            updateDeliveryCost: props.updateDeliveryCost,
             deliveryCost: props.cart.deliveryCost,
             updateDeliveryCost: props.updateDeliveryCost,
           }}>
@@ -208,7 +214,7 @@ function Main(props) {
           </AuthContext.Provider>
         </Route>
         <Route path="/search">
-          <Header fetchSearchProducts={props.fetchSearchProducts} fetchSearchProducts={props.fetchSearchProducts} searchProducts={props.searchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+          <Header fetchSearchProducts={props.fetchSearchProducts} searchProducts={props.searchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Search searchProducts={props.searchProducts} />
           <Footer />
         </Route>

@@ -89,9 +89,7 @@ function Login() {
   }
 
   useEffect(() => {
-    if (auth.isAuthenticated) {
-      history.push('/home');
-    } else if (auth.errMess) {
+    if (auth.errMess) {
       if (auth.errMess.name === 'IncorrectUsernameError')
         setErrMess('Mobile Number is incorrect');
       else if (auth.errMess.name === 'IncorrectPasswordError')
@@ -111,22 +109,22 @@ function Login() {
               <p>Sign in with</p>
             </Row>
             <Row className="login__title__option">
-              
-
-                <Button onClick={handleGoogleLogin} outline className="login__title__button shadow">
-                  <img
-                    src={require('../assets/icons/google.svg')}
-                  />
-                  <strong>Google</strong>
-                </Button>
 
 
-                <Button onClick={handleFacebookLogin} outline className="login__title__button shadow">
-                  <img
-                    className="facebook__icon"
-                    src={require('../assets/icons/facebook.svg')}
-                  />
-                  <strong>Facebook</strong>
+              <Button onClick={handleGoogleLogin} outline className="login__title__button shadow">
+                <img
+                  src={require('../assets/icons/google.svg')}
+                />
+                <strong>Google</strong>
+              </Button>
+
+
+              <Button onClick={handleFacebookLogin} outline className="login__title__button shadow">
+                <img
+                  className="facebook__icon"
+                  src={require('../assets/icons/facebook.svg')}
+                />
+                <strong>Facebook</strong>
               </Button>
 
               {/* <FacebookLogin 

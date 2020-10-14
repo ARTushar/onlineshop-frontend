@@ -150,6 +150,56 @@ export const fetchSearchProducts = (searchInput) => (dispatch) => {
     })
 }
 
+/**
+ * Question Answers 
+ */
+
+const setQuestionPosted = () => ({
+  type: ActionTypes.SET_QUESTION_POSTED
+})
+
+export const clearQuestionPosted = () => ({
+  type: ActionTypes.CLEAR_QUESTION_POSTED
+})
+
+export const postQuestion = (question, productId) => dispatch => {
+
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+
+  axios({
+    method: 'POST',
+    url: 'products/' + productId + "/questions",
+    baseURL: baseUrl,
+    data: question,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+  })
+    .then(response => {
+      if(response.status)
+        dispatch(setQuestionPosted())
+    })
+    .catch(error => {
+      console.log(error.message);
+    })
+}
+
+/**
+ * cart 
+ */
+
 export const addToCart = (product) => ({
   type: ActionTypes.ADD_TO_CART,
   payload: product
@@ -517,7 +567,11 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
       if (response.success) {
         localStorage.setItem('token', response.token);
         dispatch(receiveLogin(response));
-        history.push('/home')
+        if (history.location.state) {
+          console.log('location: ' + JSON.stringify(history.location.state.productLocation));
+          history.push(history.location.state.productLocation)
+        } else
+          history.push('/home')
         dispatch(fetchOrders());
       } else {
         let error = new Error('Error ' + response.status);
@@ -526,7 +580,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
       }
     })
     .catch(error => {
-      if(error.response)
+      if (error.response)
         dispatch(loginError(error.response.data.err));
       else dispatch(loginError(error.message));
     })
@@ -548,10 +602,10 @@ export const receiveLogoutRemember = () => ({
 export const logoutUser = (remember, history) => (dispatch) => {
   dispatch(requestLogout());
   localStorage.removeItem('token');
-  if(remember)
+  if (remember)
     dispatch(receiveLogoutRemember());
   else dispatch(receiveLogout());
-  history.push('home');
+  history.push('/home');
   dispatch(removeOrders());
   dispatch(removeProfile());
 }
@@ -591,7 +645,7 @@ export const registerUser = (user) => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
       if (response.success) {
         dispatch(receiveRegister());
@@ -602,7 +656,7 @@ export const registerUser = (user) => (dispatch) => {
       }
     })
     .catch(error => {
-      if(error.response)
+      if (error.response)
         dispatch(registerError(error.response.data.err))
       else dispatch(registerError(error.message));
     })

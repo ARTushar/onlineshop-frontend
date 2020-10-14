@@ -53,13 +53,14 @@ function Home({ fetchHomeProducts, homeProducts }) {
                 (product) => {
                   return (
                     <Col
+                      key={product._id}
                       xs={{ size: 5 }}
                       md={{ size: 4 }}
                       xl={{ size: 3 }}
                       className='home__main__product'
                     >
                       <Product
-                        id={product.id}
+                        id={product._id}
                         title={product.title}
                         price={product.price}
                         discountPrice={
