@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import '../assets/css/Checkout.css';
 import {
@@ -29,16 +29,19 @@ const validMobile = (val) => (
       (val.substring(0, 2) === '88' ? isMobilePhone("+" + val) :
         isMobilePhone("+88" + val)))
 );
-const isPostalCode = (val) => !val || val.match(/^[1-9][0-9]{3}$/)
+const isPostalCode = (val) => !val || val.match(/^[1-9][0-9]{3}$/);
+
+const getBkashCharge = (val) => val * 1.85 * 0.01
 
 const RadioButton = (props) => (
   <RadioGroup onChange={val => props.onChange(val)}>
+    <FormControlLabel value="bkash" control={<Radio size="small" />} label={<span style={{ fontSize: 'small', fontWeight: "500" }}>Bkash</span>} />
     <FormControlLabel value="cashOnDelivery" control={<Radio size="small" />} label={<span style={{ fontSize: 'small', fontWeight: "500" }}>Cash On Delivery</span>} />
     <FormControlLabel value="onlinePayment" control={<Radio size="small" />} label={<span style={{ fontSize: 'small', fontWeight: "500" }}>Online Payment</span>} />
   </RadioGroup>
 );
 
-function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, singleProduct, removeSingleProduct}) {
+function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, singleProduct, removeSingleProduct }) {
 
   const districts = [{ value: 'noakhali', label: "noakhali" }, {
     value: 'dhaka', label: "dhaka"
@@ -46,10 +49,13 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
 
   let products;
   let totalCost;
+  const bkashMobileNumber = '01864510094';
+
+  const [isShown, setIsShown] = useState(false);
 
   const history = useHistory();
 
-  if (history.location.state){
+  if (history.location.state) {
     products = [{
       product: singleProduct.id,
       quantity: singleProduct.quantity
@@ -58,17 +64,21 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
   }
   else {
     products = [];
-    for(let i = 0; i < cartProducts.length; i++){
+    for (let i = 0; i < cartProducts.length; i++) {
       products.push({
         product: cartProducts[i].id,
         quantity: cartProducts[i].quantity
       })
     }
-    totalCost =  selectTotalPrice(cartProducts, deliveryCost);
+    totalCost = selectTotalPrice(cartProducts, deliveryCost);
   }
 
   const handleSubmit = (values) => {
-    const fromBuy = history.location.state? true: false;
+    console.log(values);
+    let transactionId = '';
+    if(values.paymentMethod === 'bkash')
+      transactionId = values.transactionId;
+    const fromBuy = history.location.state ? true : false;
     const shippingAddress = {
       customer: values.customer,
       mobile: values.mobile,
@@ -84,17 +94,24 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
       products,
       payment: {
         method: values.paymentMethod,
+        transactionId 
       }
     }, fromBuy);
     removeSingleProduct();
     history.push('/home');
   }
 
+  const requiredId = (val) => !isShown || (val && val.length);
+
   return (
     <div className="checkout">
       <Container className="checkout__container">
         {history.location.state || cartProducts.length !== 0 ? (
-          <LocalForm validateOn="submit" model="order" onSubmit={(values) => handleSubmit(values)}>
+          <LocalForm validateOn="submit" model="order" validators={{
+            '': {
+              requiredTransactionId: (vals) => requiredId(vals.transactionId)
+            }
+          }} onSubmit={(values) => handleSubmit(values)}>
             <Row className="checkout__row">
               <Col md="6" xl={{ size: "5", offset: "1" }} className="checkout__information">
                 <Card className="checkout__card">
@@ -188,7 +205,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Label htmlFor="district" md={3}>District</Label>
                       <Col md={9}>
                         <Control.select model=".district" id="district" name="district"
-                          defaultValue={{ "value": userInformation.address.district, "label": userInformation.address.district}}
+                          defaultValue={{ "value": userInformation.address.district, "label": userInformation.address.district }}
                           className="form-control"
                           validators={{
                             requiredObject
@@ -366,6 +383,19 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Control.radio
                         model=".paymentMethod"
                         component={RadioButton}
+                        // getValue={(e) => {
+                        //   if (e.target.value === 'bkash') {
+                        //     setIsShown(true);
+                        //   } else {
+                        //     setIsShown(false)
+                        //   }
+                        // }}
+                        onChange={(e) => {
+                          console.log(e.target.value)
+                          if(e.target.value === 'bkash'){
+                            setIsShown(true);
+                          } else setIsShown(false)
+                        }}
                         validators={{
                           required
                         }}
@@ -379,6 +409,51 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                         required: 'Required',
                       }}
                     />
+                    <Row className="form-group" hidden={!isShown}>
+                      <Label htmlFor="transactionId" xs={12}>Please send total <CurrencyFormat
+                        value={totalCost}
+                        displayType="text"
+                        decimalScale={2}
+                        prefix="৳"
+                        thousandSeparator={true}
+                        className="checkout__total__payment"
+                      /> + <CurrencyFormat
+                          value={getBkashCharge(totalCost)}
+                          displayType="text"
+                          decimalScale={2}
+                          prefix="৳"
+                          thousandSeparator={true}
+                          className="checkout__total__payment"
+                        /> (Bkash Charge) = <CurrencyFormat
+                          value={totalCost + getBkashCharge(totalCost)}
+                          displayType="text"
+                          decimalScale={2}
+                          prefix="৳"
+                          thousandSeparator={true}
+                          className="checkout__total__payment"
+                        /> to <span className="checkout__total__payment">{bkashMobileNumber}</span> and then write the transaction id below</Label>
+                      <Col xs={12}>
+                        <Control.text model=".transactionId" id="transactionId" name="transactionId"
+                          className="form-control"
+                          placeholder="Transaction ID"
+                          style={{
+                            fontSize: "small"
+                          }}
+                          validators={{
+
+                          }}
+                        />
+                        <Errors
+                          className="text-danger"
+                          model="."
+                          show="touched"
+                          messages={{
+                            // requireId: 'Required'
+                            requiredTransactionId: 'Please write the transaction ID'
+                          }}
+                        />
+                      </Col>
+                    </Row>
                     <Row className="form-group checkout__button">
                       <Col xs="12" >
                         {/* <Link style={{

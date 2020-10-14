@@ -96,8 +96,8 @@ function OrderTotal({order}) {
           </Col>
         </Row>
         <hr />
-        {/* {order.payment.transactionId ? (
-          // <>
+        {order.payment.transactionId.length? (
+          <>
             <Row className="ordertotal__payment">
               <Col xs="3" className="ordertotal__payment__heading">
                 <span>Transaction ID</span>
@@ -106,10 +106,10 @@ function OrderTotal({order}) {
                 <span>{order.payment.transactionId}</span>
               </Col>
             </Row>
-            // <hr />
-          ) :
-          ({})
-        } */}
+            <hr />
+          </>
+        ) : (null)
+        }
         <Row className="ordertotal__status">
           <Col xs="3" className="ordertotal__status__heading">
             <span>Order Status</span>
