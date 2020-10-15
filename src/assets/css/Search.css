@@ -3,7 +3,12 @@
 }
 
 .search__container {
-    max-width: inherit;
+    max-width: 1500px;
+}
+
+.search__main__filter {
+    padding: 1px 0px 10px 10px;
+    margin: 0px;
 }
 
 .search__main__products {
@@ -13,8 +18,7 @@
 .search__main__product {
     font-size: smaller;
     font-weight: 500;
-    max-width: 250px;
-    height: 315px;
+    max-width: 200px;
     margin: 10px;
     padding: 0px;
 }

@@ -5,6 +5,7 @@ const Order = (state = {
   orders: [],
   singleProduct: null,
   isLoading: false,
+  orderLoaded: false,
   errMess: null,
   selectedOrder: null,
   reviewPosted: false
@@ -29,7 +30,7 @@ const Order = (state = {
       return { ...state, isLoading: true }
 
     case ActionTypes.FETCH_ORDERS_SUCCESS:
-      return { ...state, isLoading: false, errMess: null }
+      return { ...state, isLoading: false, errMess: null, orderLoaded: true }
 
     case ActionTypes.FETCH_ORDERS_FAILURE:
       return { ...state, isLoading: false, errMess: action.errMess }

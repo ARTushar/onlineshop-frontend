@@ -284,7 +284,8 @@ const orderSuccess = () => ({
 const orderFailure = (errMess) => ({
   type: ActionTypes.FETCH_ORDERS_FAILURE,
   errMess
-})
+});
+
 
 export const fetchSelectedOrder = (orders, orderId) => (dispatch) => {
   console.log("fetching selected Order");
@@ -550,7 +551,7 @@ export const loginError = (message) => ({
   message
 })
 
-export const loginUser = (creds, remember) => (dispatch) => {
+export const loginUser = (creds, remember, history) => (dispatch) => {
   dispatch(requestLogin(creds));
   
   return axios({
@@ -581,6 +582,7 @@ export const loginUser = (creds, remember) => (dispatch) => {
           localStorage.removeItem('creds');
         }
         dispatch(receiveLogin(response));
+        history.push('/home');
       } else {
         let error = new Error('Error ' + response.status);
         error.response = response;

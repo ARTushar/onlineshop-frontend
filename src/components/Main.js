@@ -17,6 +17,7 @@ import { UserContext, CartContext, AuthContext } from '../Context/context';
 
 import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
+import ScrollToTop from './ScrollToTop';
 
 const mapDispatchToProps = (dispatch) => ({
   resetSignUpForm: () => dispatch(actions.reset('user')),
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
   postOrder: (order, fromBuy) => dispatch(postOrder(order, fromBuy)),
   addSingleProduct: (product) => dispatch(addSingleProduct(product)),
   removeSingleProduct: () => dispatch(removeSingleProduct()),
-  loginUser: (creds, remember) => dispatch(loginUser(creds, remember)),
+  loginUser: (creds, remember, history) => dispatch(loginUser(creds, remember, history)),
   logoutUser: (remember, history) => dispatch(logoutUser(remember, history)),
   registerUser: (user) => dispatch(registerUser(user)),
   clearRegsiter: () => dispatch(clearRegsiter()),
@@ -57,6 +58,7 @@ const mapStateToProps = (state) => {
     wishlist: state.wishlist,
     user: state.user,
     orders: state.order.orders,
+    orderLoaded: state.order.orderLoaded,
     singleProduct: state.order.singleProduct,
     auth: state.auth,
     register: state.register,
@@ -126,6 +128,7 @@ function Main(props) {
 
   return (
     <div className="main">
+      <ScrollToTop />
       <Switch>
         <Route path="/home">
           <Header fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
@@ -183,7 +186,7 @@ function Main(props) {
                 fetchProfile: props.fetchProfile,
                 updateProfile: props.updateProfile,
                 fetchOrders: props.fetchOrders,
-                ordersLoading: props.ordersLoading
+                orderLoaded: props.orderLoaded
               }}>
                 <Profile />
               </UserContext.Provider>

@@ -1,15 +1,16 @@
-/* .product {
-    font-size: smaller;
+.product {
+    /* font-size: smaller;
     font-weight: 500;
     max-width: 250px;
     height: 315px;
     margin: 10px;
-    padding: 0px;
-} */
+    padding: 0px; */
+    max-width: 200px;
+}
 
 
 .product__card__image {
-    height: 150px;
+    height: 120px;
     object-fit: contain;
     margin-bottom: 15px;
     padding-top: 5px;
@@ -24,7 +25,7 @@
 }
 
 .product__card__body {
-    height: 150px;
+    height: 140px;
 }
 .product__card__title {
     font-weight: 600;

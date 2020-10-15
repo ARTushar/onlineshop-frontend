@@ -51,7 +51,7 @@ function Login() {
     loginUser({
       username: values.username,
       password: values.password
-    }, values.remember
+    }, values.remember, history
     );
   };
 

@@ -271,7 +271,7 @@ function UserInformation() {
               <Control.text model=".postalCode" id="postalCode" name="postalCode"
                 className="form-control"
                 placeholder="Postal Code"
-                defaultValue={user.address.postalCode.toString()}
+                defaultValue={user.address.postalCode && user.address.postalCode.toString()}
                 style={{
                   fontSize: "small"
                 }}

@@ -4,6 +4,7 @@ import '../assets/css/Search.css';
 import Product from './Product';
 import Filter from './Filter';
 import Sort from './Sort';
+import FilterSidebar from './FilterSidebar';
 
 function Search({ searchProducts }) {
   useEffect(() => {
@@ -14,12 +15,12 @@ function Search({ searchProducts }) {
     <div className='search'>
       <Container className='search__container'>
         <Row className='search__main'>
-          {/* <Col md={{ size: 3 }} lg="2" className="search__main__filter"> */}
-          {/* <Filter /> */}
+          {/* <Col xs={1} className="search__main__filter"> */}
+          {/* <FilterSidebar /> */}
           {/* </Col> */}
           <Col className=''>
             <Row className="justify-content-end">
-              <Filter />
+              <FilterSidebar />
               <Sort />
             </Row>
             <Row className='search__main__products'>

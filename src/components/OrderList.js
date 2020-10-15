@@ -12,14 +12,14 @@ function OrderList() {
   const orders = userContext.orders;
 
   useEffect(() => {
-    if (orders.length === 0) {
+    if (!userContext.orderLoaded) {
       userContext.fetchOrders();
     }
-  }, [orders])
+  }, [userContext.orderLoaded])
 
   const history = useHistory();
 
-  if (userContext.ordersLoading || orders.length == 0) {
+  if (userContext.ordersLoading || !userContext.orderLoaded) {
     return (
       <div>
         <Container>
