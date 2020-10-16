@@ -10,8 +10,8 @@ function Sort() {
     return (
         <Col className="sort">
             <UncontrolledButtonDropdown direction="down" size="sm" className="sort__rating">
-                        <DropdownToggle caret style={{backgroundColor: "HighlightText", fontSize: "small" }} >
-                           <span>Sort by</span>
+                        <DropdownToggle caret >
+                           <span className="sort__span">Sort by</span>
                         </DropdownToggle>
                         <DropdownMenu style={{fontSize: "small", width: "20px"}} className="sort__rating__dropdownmenu">
                             <DropdownItem onClick={()=> changeSortType('priceHigh')}>Price high to low</DropdownItem>

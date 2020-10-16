@@ -7,6 +7,7 @@
 .home__jumbotron {
     padding: 5px;
     background: inherit;
+    margin-bottom: 0px;
     /* background-color: aliceblue; */
 }
 .home__jumbotron__container {

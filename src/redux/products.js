@@ -10,6 +10,8 @@ export const Products = (
     errMess: null,
     currentSlug: '',
     questionPosted: false,
+    currentSearched: '',
+    filteredProducts: []
   }, 
   action
 ) => {
@@ -22,6 +24,9 @@ export const Products = (
 
     case ActionTypes.SET_CURRENT_SLUG:
       return {...state, currentSlug: action.currentSlug}
+    
+    case ActionTypes.SET_CURRENT_SEARCHED:
+      return {...state, currentSearched: action.currentSearched}
 
     case ActionTypes.ADD_PRODUCT_DETAILS:
       return { ...state, selectedProduct: action.selectedProduct };
@@ -33,7 +38,7 @@ export const Products = (
       return { ...state, homeProducts: action.payload }
 
     case ActionTypes.ADD_SEARCH_PRODUCTS:
-      return { ...state, searchProducts: action.payload }
+      return { ...state, searchProducts: action.payload, filteredProducts: action.payload }
 
     case ActionTypes.FETCH_REQUEST:
       return { ...state, isLoading: true }
@@ -43,6 +48,14 @@ export const Products = (
 
     case ActionTypes.FETCH_SUCCESS:
       return { ...state, isLoading: false, errMess: null }
+    
+    // case ActionTypes.FILTER_SEARCH_PRODUCTS:
+    //   return {
+    //     ...state, filteredProducts: state.filteredProducts.filter((product) => {
+    //       product.price >= action.minPrice && product.price <= action.maxPrice
+    //       && (product.)
+    //     })
+    //   }
 
     default:
       return state;

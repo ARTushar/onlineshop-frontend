@@ -36,15 +36,17 @@ function OrderList() {
           <Row className="orderlist__row">
             <Table responsive bordered striped hover className="orderlist__table">
               <thead>
+                <tr>
                 <th>ORDER NO</th>
                 <th>DATE</th>
                 <th>TOTAL PRODUCTS</th>
                 <th>TOTAL COST</th>
                 <th>STATUS</th>
+                </tr>
               </thead>
               <tbody>
                 {orders.map(orderproduct => (
-                  <tr onClick={() => history.push(`/order/${orderproduct._id}`)}>
+                  <tr key={orderproduct._id} onClick={() => history.push(`/order/${orderproduct._id}`)}>
                     <td className="orderlist__orderno">
                       <span>{orderproduct._id}</span>
                     </td>

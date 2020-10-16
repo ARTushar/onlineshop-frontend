@@ -284,7 +284,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Col md={9}>
                         <Control.text model=".postalCode" id="postalCode" name="postalCode"
                           className="form-control"
-                          defaultValue={userInformation.address.postalCode.toString()}
+                          defaultValue={userInformation.address.postalCode && userInformation.address.postalCode.toString()}
                           placeholder="Postal Code"
                           style={{
                             fontSize: "small"

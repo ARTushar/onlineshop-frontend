@@ -38,7 +38,7 @@ function Home({ fetchHomeProducts, homeProducts }) {
             {Object.entries(homeProducts).map(
               (cateogryProduct) => {
                 return (
-                  <>
+                  <React.Fragment key={cateogryProduct}>
                     <Col xs={12} className="home__main__category">
                       <span className="home__main__category__heading">{cateogryProduct[0]}</span>
                       <hr className="home__main__underline" />
@@ -69,7 +69,7 @@ function Home({ fetchHomeProducts, homeProducts }) {
                         )
                       }
                     )}
-                  </>
+                  </React.Fragment>
                 );
               }
             )}

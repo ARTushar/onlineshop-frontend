@@ -105,6 +105,7 @@ export const fetchHomeProducts = () => (dispatch) => {
     .then(response => {
       for(let i = 0; i < response.length; i++){
         response[i].price = response[i].price / 100;
+        console.log(response[i].price);
       }
       dispatch(addHomeProducts(response));
       dispatch(fetchSuccess());

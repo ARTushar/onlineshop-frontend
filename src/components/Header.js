@@ -36,11 +36,11 @@ function Header({fetchSearchProducts, totalProducts, auth , logoutUser }) {
 							id='toggler'
 							style={{ border: '0px', fontSize: '', outline: 'none' }}
 						/>
-						<Link to='/home'>
-							<NavbarBrand className='header__navbar__container__logo' href='/'>
+						{/* <NavLink to='/home'> */}
+							<NavbarBrand className='header__navbar__container__logo' href='/home'>
 								<img src='/images/logo8.png' alt='logo' />
 							</NavbarBrand>
-						</Link>
+						{/* </NavLink> */}
 						<Nav className='header__navbar__nav__search'>
 							<NavItem className='header__navbar__nav__search__item'>
 								<Form onSubmit={handleSubmit}>
@@ -78,7 +78,7 @@ function Header({fetchSearchProducts, totalProducts, auth , logoutUser }) {
 								{auth.isAuthenticated ? (
 									<NavItem className=' header__navbar__container__profile'>
 										<NavLink className='nav-link' to='/profile'>
-											<AccountCircleIcon fontSize='medium' />
+											<AccountCircleIcon  />
 										</NavLink>
 									</NavItem>
 								) : (
@@ -87,7 +87,7 @@ function Header({fetchSearchProducts, totalProducts, auth , logoutUser }) {
 								<NavItem className='header__navbar__container__cart'>
 									<NavLink className='nav-link' to='/cart'>
 										<Badge badgeContent={totalProducts} color='secondary'>
-											<ShoppingCartIcon fontSize='medium' />
+											<ShoppingCartIcon />
 										</Badge>
 									</NavLink>
 								</NavItem>
