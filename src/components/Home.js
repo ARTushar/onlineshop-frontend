@@ -62,7 +62,7 @@ function Home({ fetchHomeProducts, homeProducts }) {
                                 product.price * product.discount * 0.01) / 100
                               }
                               rating={product.rating}
-                              image={product.image}
+                              image={product.images[0].image}
                               slug={product.slug}
                             />
                           </Col>

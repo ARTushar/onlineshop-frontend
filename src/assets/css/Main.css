@@ -5,5 +5,4 @@
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    background-color: linear-gradient(to left, #8942a8, #ba382f);
 }
