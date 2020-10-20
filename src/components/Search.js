@@ -5,11 +5,34 @@ import Product from './Product';
 import Filter from './Filter';
 import Sort from './Sort';
 import FilterSidebar from './FilterSidebar';
+import Loading from './Loading';
+import FindInPageIcon from '@material-ui/icons/FindInPage';
 
-function Search({ searchProducts }) {
+function Search({productsLoading, productsError, searchProducts }) {
   useEffect(() => {
     console.log("changed")
   }, [searchProducts])
+
+  if(productsLoading){
+    return <Loading />
+  }
+
+  if (searchProducts.length == 0) {
+    return (
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px"
+      }}>
+        <FindInPageIcon style={{ textAlign: "center", fontSize: "100px" }} />
+        <span style={{
+          fontWeight: 700,
+          // fontSize: "large"
+        }}>There is no product that matches the search criteria <span role="img" aria-label="Not satisfied">😒</span></span>
+      </div>
+    );
+  }
 
   return (
     <div className='search'>
@@ -39,7 +62,7 @@ function Search({ searchProducts }) {
                       price={product.price}
                       discountPrice={product.price - product.price * product.discount * .01}
                       rating={product.rating}
-                      image={product.image}
+                      image={product.images[0].image}
                       slug={product.slug}
                     />
                   </Col>

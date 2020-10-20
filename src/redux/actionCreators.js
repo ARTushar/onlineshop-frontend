@@ -11,6 +11,11 @@ export const setCurrentSlug= (currentSlug) => ({
   currentSlug
 })
 
+export const setCurrentSearched = (currentSearched) => ({
+  type: ActionTypes.SET_CURRENT_SEARCHED,
+  currentSearched 
+})
+
 export const fetchProductRequest = () => ({
   type: ActionTypes.FETCH_REQUEST
 })
@@ -134,6 +139,7 @@ export const fetchSearchProducts = (searchInput) => (dispatch) => {
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
         error.response = response;
+        setCurrentSearched(null);
         throw error;
       }
     }, error => {
