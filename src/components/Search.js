@@ -21,15 +21,18 @@ function Search({productsLoading, productsError, searchProducts }) {
     return (
       <div style={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        textAlign: "center",
         padding: "20px"
       }}>
         <FindInPageIcon style={{ textAlign: "center", fontSize: "100px" }} />
         <span style={{
           fontWeight: 700,
           // fontSize: "large"
-        }}>There is no product that matches the search criteria <span role="img" aria-label="Not satisfied">😒</span></span>
+        }}>There is no product that matches the search criteria </span>
+        <span role="img" aria-label="Not satisfied">😒</span>
       </div>
     );
   }
