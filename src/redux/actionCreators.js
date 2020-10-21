@@ -3,18 +3,39 @@ import axios from 'axios';
 import { baseUrl } from '../shared/baseUrl';
 import { PRODUCTS_DETAILS } from '../shared/productDetails';
 
+const calculateAvgRating = (reviews) => {
+  if(!reviews) return 0;
+  let avg_rating = 0;
+  reviews.map((rev) => {
+    avg_rating += rev.rating;
+  });
+  if (reviews.length > 0) {
+    avg_rating = avg_rating / reviews.length;
+  }
+  return avg_rating;
+};
+
 /**
  * products 
  */
-export const setCurrentSlug= (currentSlug) => ({
+export const setCurrentSlug = (currentSlug) => ({
   type: ActionTypes.SET_CURRENT_SLUG,
   currentSlug
 })
 
 export const setCurrentSearched = (currentSearched) => ({
   type: ActionTypes.SET_CURRENT_SEARCHED,
-  currentSearched 
+  currentSearched
 })
+
+export const filterProducts = (minPrice, maxPrice, rating) => ({
+  type: ActionTypes.FILTER_SEARCH_PRODUCTS,
+  minPrice,
+  maxPrice,
+  rating
+})
+
+// export const sortProducts = (from)
 
 export const fetchProductRequest = () => ({
   type: ActionTypes.FETCH_REQUEST
@@ -34,12 +55,12 @@ export const addHomeProducts = (products) => ({
 })
 
 const addProductDetails = (selected_product) => ({
-	type: ActionTypes.ADD_PRODUCT_DETAILS,
-	selectedProduct: selected_product,
+  type: ActionTypes.ADD_PRODUCT_DETAILS,
+  selectedProduct: selected_product,
 });
 
 export const deleteProductDetails = () => ({
-	type: ActionTypes.DELETE_PRODUCT_DETAILS
+  type: ActionTypes.DELETE_PRODUCT_DETAILS
 });
 
 export const addSearchProducts = (products) => ({
@@ -61,7 +82,7 @@ export const fetchProductDetails = (slug) => (dispatch) => {
 
   return axios({
     method: 'GET',
-    url: 'products/product/'+slug,
+    url: 'products/product/' + slug,
     baseURL: baseUrl
   })
     .then(response => {
@@ -75,7 +96,7 @@ export const fetchProductDetails = (slug) => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
       response.price = response.price / 100;
       dispatch(addProductDetails(response));
@@ -106,12 +127,14 @@ export const fetchHomeProducts = () => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
-      for(let i = 0; i < response.length; i++){
-        response[i].price = response[i].price / 100;
-        console.log(response[i].price);
-      }
+      Object.entries(response).map(categoryProduct =>{
+        categoryProduct[1].map(product => {
+          product.price /= 100;
+          product.averageRating = calculateAvgRating(product.reviews);
+        })
+      })
       dispatch(addHomeProducts(response));
       dispatch(fetchSuccess());
     })
@@ -144,10 +167,11 @@ export const fetchSearchProducts = (searchInput) => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
-      for(let i = 0; i < response.length; i++){
+      for (let i = 0; i < response.length; i++) {
         response[i].price = response[i].price / 100;
+        response[i].averageRating = calculateAvgRating(response[i].reviews);
       }
       dispatch(addSearchProducts(response));
       dispatch(fetchSuccess());
@@ -193,9 +217,9 @@ export const postQuestion = (question, productId) => dispatch => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
-      if(response.status)
+      if (response.status)
         dispatch(setQuestionPosted())
     })
     .catch(error => {
@@ -323,7 +347,7 @@ export const fetchOrders = () => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
       dispatch(addAllOrders(response));
       dispatch(orderSuccess());
@@ -360,7 +384,7 @@ export const postOrder = (order, fromBuy) => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
       dispatch(addOrder(response));
       dispatch(orderSuccess());
@@ -369,7 +393,7 @@ export const postOrder = (order, fromBuy) => (dispatch) => {
       dispatch(orderFailure(error.message));
     })
 
-  if(!fromBuy)
+  if (!fromBuy)
     dispatch(deleteCart());
 }
 
@@ -401,7 +425,7 @@ export const clearReviewPosted = () => ({
   type: ActionTypes.CLEAR_REVIEW_POSTED
 })
 
-export const postReview = (review , productId) => dispatch => {
+export const postReview = (review, productId) => dispatch => {
 
   const bearer = 'Bearer ' + localStorage.getItem('token');
   const orderId = review.orderId;
@@ -426,9 +450,9 @@ export const postReview = (review , productId) => dispatch => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
-      if(response.status){
+      if (response.status) {
         dispatch(setReviewPosted());
         // dispatch(updateOrderAfterReview(orderId, productId));
       }
@@ -493,7 +517,7 @@ export const fetchProfile = () => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
       dispatch(addProfile(response))
       dispatch(fetchProfileSuccess());
@@ -529,7 +553,7 @@ export const updateProfile = (profile) => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
       dispatch(addProfile(response))
       dispatch(fetchProfileSuccess());
@@ -560,7 +584,7 @@ export const loginError = (message) => ({
 
 export const loginUser = (creds, remember, history) => (dispatch) => {
   dispatch(requestLogin(creds));
-  
+
   return axios({
     method: 'POST',
     url: 'users/login',
@@ -578,7 +602,7 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
       if (response.success) {
         localStorage.setItem('token', response.token);
@@ -597,13 +621,13 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
       }
     })
     .catch(error => {
-      if(error.response)
+      if (error.response)
         dispatch(loginError(error.response.data.err));
       else dispatch(loginError(error.message));
     })
 };
 
-export const requestLoginThirdParty= () => ({
+export const requestLoginThirdParty = () => ({
   type: ActionTypes.LOGIN_REQUEST
 })
 
@@ -627,7 +651,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
       }
     }, error => {
       throw error;
-  })
+    })
     .then(response => {
       if (response.success) {
         localStorage.setItem('token', response.token);

@@ -8,17 +8,19 @@ import FilterSidebar from './FilterSidebar';
 import Loading from './Loading';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 
-function Search({productsLoading, productsError, searchProducts }) {
+function Search({filterProducts, productsLoading, productsError, filteredProducts }) {
   useEffect(() => {
     console.log("changed")
-  }, [searchProducts])
+  }, [filteredProducts])
 
   if(productsLoading){
     return <Loading />
   }
 
-  if (searchProducts.length == 0) {
+  if (filteredProducts.length == 0) {
     return (
+      <div>
+        <FilterSidebar filterProducts={filterProducts} />
       <div style={{
         display: "flex",
         flexDirection: "column",
@@ -34,6 +36,7 @@ function Search({productsLoading, productsError, searchProducts }) {
         }}>There is no product that matches the search criteria </span>
         <span role="img" aria-label="Not satisfied">😒</span>
       </div>
+      </div>
     );
   }
 
@@ -46,11 +49,11 @@ function Search({productsLoading, productsError, searchProducts }) {
           {/* </Col> */}
           <Col className=''>
             <Row className="justify-content-end">
-              <FilterSidebar />
+              <FilterSidebar filterProducts={filterProducts} />
               <Sort />
             </Row>
             <Row className='search__main__products'>
-              {searchProducts && searchProducts.map((product) => {
+              {filteredProducts && filteredProducts.map((product) => {
 
                 return (
                   <Col
@@ -64,7 +67,7 @@ function Search({productsLoading, productsError, searchProducts }) {
                       title={product.title}
                       price={product.price}
                       discountPrice={product.price - product.price * product.discount * .01}
-                      rating={product.rating}
+                      rating={product.averageRating}
                       image={product.images[0].image}
                       slug={product.slug}
                     />

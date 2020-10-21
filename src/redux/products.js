@@ -1,3 +1,4 @@
+import { actionTypes } from 'react-redux-form';
 import * as ActionTypes from './ActionTypes';
 
 
@@ -49,13 +50,21 @@ export const Products = (
     case ActionTypes.FETCH_SUCCESS:
       return { ...state, isLoading: false, errMess: null }
     
-    // case ActionTypes.FILTER_SEARCH_PRODUCTS:
-    //   return {
-    //     ...state, filteredProducts: state.filteredProducts.filter((product) => {
-    //       product.price >= action.minPrice && product.price <= action.maxPrice
-    //       && (product.)
-    //     })
-    //   }
+    case ActionTypes.FILTER_SEARCH_PRODUCTS:
+      let min, max;
+      if(action.minPrice === '') min = 0;
+      else min = parseInt(action.minPrice);
+      if(action.maxPrice === '') max = Infinity;
+      else max = parseInt(action.maxPrice);
+
+      return {
+        ...state, filteredProducts: state.searchProducts.filter((product) =>{ 
+          const discountedPrice = product.price - product.price * product.discount * 0.01;
+          console.log(discountedPrice, product.averageRating);
+          return discountedPrice >= min && discountedPrice <= max 
+          && product.averageRating >= action.rating
+        })
+      }
 
     default:
       return state;

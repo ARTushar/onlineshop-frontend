@@ -4,9 +4,6 @@ import {
   Col,
   Container,
   Jumbotron,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
 } from 'reactstrap';
 import '../assets/css/Home.css';
 import Loading from './Loading';
@@ -14,11 +11,8 @@ import Product from './Product';
 
 function Home({productsLoading, prouductsError, fetchHomeProducts, homeProducts }) {
 
-
-
   useEffect(() => {
     if (homeProducts.length === 0) {
-      console.log("home use effect");
       fetchHomeProducts();
     }
   }, [])
@@ -29,7 +23,7 @@ function Home({productsLoading, prouductsError, fetchHomeProducts, homeProducts 
       <Jumbotron className="home__jumbotron">
         <Container className="home__jumbotron__container">
           <Row className="home__jumbotron__container__row">
-            <img src='/images/banner3.jpg' />
+            <img src='/images/banner7.jpg' />
           </Row>
         </Container>
       </Jumbotron>
@@ -60,12 +54,12 @@ function Home({productsLoading, prouductsError, fetchHomeProducts, homeProducts 
                               <Product
                                 id={product._id}
                                 title={product.title}
-                                price={product.price / 100}
+                                price={product.price}
                                 discountPrice={
-                                  (product.price -
-                                    product.price * product.discount * 0.01) / 100
+                                  product.price -
+                                  product.price * product.discount * 0.01
                                 }
-                                rating={product.rating}
+                                rating={product.averageRating}
                                 image={product.images[0].image}
                                 slug={product.slug}
                               />

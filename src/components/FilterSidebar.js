@@ -1,14 +1,29 @@
 import React from 'react';
 import { ProSidebar, SidebarContent, Menu, MenuItem, SubMenu, SidebarHeader} from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import {Input, ButtonToggle, UncontrolledCollapse } from 'reactstrap';
+import {Input, Button as Button2, ButtonToggle, UncontrolledCollapse } from 'reactstrap';
 import { Drawer, Button } from '@material-ui/core';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
-function FilterSidebar() {
+
+function FilterSidebar({filterProducts}) {
   const [minPrice, setMinPrice] = React.useState("");
   const [maxPrice, setMaxPrice] = React.useState("");
-  const [rating, setRating] = React.useState()
+  const [rating, setRating] = React.useState(0)
   const [open, setOpen] = React.useState(false);
+  const [errMess, setErrMess] = React.useState(null);
+
+  const applyFilter = () => {
+    if (minPrice !== '' && maxPrice !== '' && minPrice > maxPrice) {
+      setErrMess('Minimum Price cannot be greater than maximum price');
+      return;
+    }
+
+    filterProducts(minPrice, maxPrice, rating);
+
+  }
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -25,10 +40,10 @@ function FilterSidebar() {
     <React.Fragment>
       <Button style={{
       }} onClick={toggleDrawer(true)}>Filter</Button>
-          <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
-            <ProSidebar style={{
-            zIndex: 100000
-          }}>
+      <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+        <ProSidebar style={{
+          zIndex: 100000
+        }}>
           <SidebarHeader style={{
             padding: "10px",
             textWeight: "600"
@@ -61,26 +76,30 @@ function FilterSidebar() {
               </SubMenu>
               <SubMenu title="Rating">
                 <MenuItem onClick={() => {
-                  // setRatingSubmenuOpen(!ratingSubmenuOpen)
+                  setRating(0)
+                }} >0 or more</MenuItem>
+                <MenuItem onClick={() => {
                   setRating(1)
-                }} >1+</MenuItem>
+                }} >1 or more</MenuItem>
                 <MenuItem onClick={() => {
-                  // setRatingSubmenuOpen(!ratingSubmenuOpen)
                   setRating(2)
-                }}>2+</MenuItem>
+                }}>2 or more</MenuItem>
                 <MenuItem onClick={() => {
-                  // setRatingSubmenuOpen(!ratingSubmenuOpen)
                   setRating(3)
-                }}>3+</MenuItem>
+                }}>3 or more</MenuItem>
                 <MenuItem onClick={() => {
-                  // setRatingSubmenuOpen(!ratingSubmenuOpen)
                   setRating(4)
-                }}>4+</MenuItem>
+                }}>4 or more</MenuItem>
                 <MenuItem onClick={() => {
-                  // setRatingSubmenuOpen(!ratingSubmenuOpen)
                   setRating(5)
                 }}>5</MenuItem>
               </SubMenu>
+              <MenuItem>
+                <Button2 onClick={applyFilter} style={{
+                  width: "100%",
+                  marginTop: "10px"
+                }}>Apply Filter</Button2>
+              </MenuItem>
             </Menu>
           </SidebarContent>
         </ProSidebar>
