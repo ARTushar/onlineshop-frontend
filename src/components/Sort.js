@@ -1,26 +1,25 @@
 import React from 'react';
 import '../assets/css/Sort.css';
-import { Col, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Col, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Label } from 'reactstrap';
+import Select from 'react-select';
 
-function Sort() {
-    const [sortType, setSortType] = React.useState('popularity');
+function Sort({sortProducts}) {
+  const options = [
+    { value: 'bestMatch', label: 'Best Match'},
+    { value: 'priceLow', label: 'Price Low to High'},
+    { value: 'priceHigh', label: 'Price High to Low'}
+  ]
 
-    const changeSortType = (type) => setSortType(type);
+  const handleSort = (val) => {
+    console.log(val);
+    sortProducts(val.value);
+  }
 
-    return (
-        <Col className="sort">
-            <UncontrolledButtonDropdown direction="down" size="sm" className="sort__rating">
-                        <DropdownToggle caret >
-                           <span className="sort__span">Sort by</span>
-                        </DropdownToggle>
-                        <DropdownMenu style={{fontSize: "small", width: "20px"}} className="sort__rating__dropdownmenu">
-                            <DropdownItem onClick={()=> changeSortType('priceHigh')}>Price high to low</DropdownItem>
-                            <DropdownItem onClick={()=> changeSortType('priceLow')}>Price low to high</DropdownItem>
-                            <DropdownItem onClick={()=> changeSortType('popularity')}>Popularity</DropdownItem>
-                        </DropdownMenu>
-                    </UncontrolledButtonDropdown>
-        </Col>
-    )
+  return (
+    <Col xs={6} sm={8}  className="sort p-0">
+      <Select onChange={handleSort} isSearchable={false} defaultValue={options[0]} options={options} />
+    </Col>
+  )
 }
 
 export default Sort;

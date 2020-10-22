@@ -35,7 +35,10 @@ export const filterProducts = (minPrice, maxPrice, rating) => ({
   rating
 })
 
-// export const sortProducts = (from)
+export const sortProducts = (sortType) => ({
+  type: ActionTypes.SORT_SEARCH_PRODUCTS,
+  sortType
+})
 
 export const fetchProductRequest = () => ({
   type: ActionTypes.FETCH_REQUEST

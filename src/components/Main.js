@@ -15,7 +15,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders, setCurrentSearched, filterProducts } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders, setCurrentSearched, filterProducts, sortProducts } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 import ScrollToTop from './ScrollToTop';
 
@@ -50,6 +50,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchOrders: () => dispatch(fetchOrders()),
   setCurrentSearched: (currentSearched) => dispatch(setCurrentSearched(currentSearched)),
   filterProducts: (minPrice, maxPrice, rating) => dispatch(filterProducts(minPrice, maxPrice, rating)),
+  sortProducts: (sortType) => dispatch(sortProducts(sortType)),
 });
 
 const mapStateToProps = (state) => {
@@ -231,7 +232,7 @@ function Main(props) {
         </Route>
         <Route path="/search">
           <Header setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
-          <Search filterProducts={props.filterProducts} productsLoading={props.productsLoading} productsError={props.productsError} filteredProducts={props.filteredProducts} />
+          <Search sortProducts={props.sortProducts} filterProducts={props.filterProducts} productsLoading={props.productsLoading} productsError={props.productsError} filteredProducts={props.filteredProducts} />
           <Footer />
         </Route>
         <PrivateRoute path="/order/:order_no" component={OrderInvoiceComponent} />

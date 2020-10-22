@@ -8,7 +8,7 @@ import FilterSidebar from './FilterSidebar';
 import Loading from './Loading';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 
-function Search({filterProducts, productsLoading, productsError, filteredProducts }) {
+function Search({sortProducts, filterProducts, productsLoading, productsError, filteredProducts }) {
   useEffect(() => {
     console.log("changed")
   }, [filteredProducts])
@@ -44,17 +44,13 @@ function Search({filterProducts, productsLoading, productsError, filteredProduct
     <div className='search'>
       <Container className='search__container'>
         <Row className='search__main'>
-          {/* <Col xs={1} className="search__main__filter"> */}
-          {/* <FilterSidebar /> */}
-          {/* </Col> */}
           <Col className=''>
-            <Row className="justify-content-end">
+            <Row className="justify-content-between">
               <FilterSidebar filterProducts={filterProducts} />
-              <Sort />
+              <Sort sortProducts={sortProducts}/>
             </Row>
             <Row className='search__main__products'>
               {filteredProducts && filteredProducts.map((product) => {
-
                 return (
                   <Col
                     xs={{ size: 5 }}

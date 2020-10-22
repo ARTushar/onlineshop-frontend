@@ -65,6 +65,23 @@ export const Products = (
           && product.averageRating >= action.rating
         })
       }
+    
+    case ActionTypes.SORT_SEARCH_PRODUCTS:
+      let sortedProducts = [...state.filteredProducts]
+      if (action.sortType === 'priceLow') {
+        sortedProducts.sort((a, b) => {
+          return (a.price - a.price * a.discount * 0.01) - (b.price - b.price * b.discount * 0.01)
+        })
+      } else if (action.sortType === 'priceHigh') {
+        sortedProducts.sort((a, b) => {
+          return -((a.price - a.price * a.discount * 0.01) - (b.price - b.price * b.discount * 0.01))
+        })
+      } else {
+        sortedProducts.sort((a, b) => {
+          return b.score - a.score;
+        })
+      }
+      return {...state, filteredProducts: sortedProducts}
 
     default:
       return state;
