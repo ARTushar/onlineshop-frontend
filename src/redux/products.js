@@ -12,7 +12,8 @@ export const Products = (
     currentSlug: '',
     questionPosted: false,
     currentSearched: '',
-    filteredProducts: []
+    filteredProducts: [],
+    currentCategoryName: ''
   }, 
   action
 ) => {
@@ -28,6 +29,10 @@ export const Products = (
     
     case ActionTypes.SET_CURRENT_SEARCHED:
       return {...state, currentSearched: action.currentSearched}
+
+    case ActionTypes.SET_CURRENT_CATEGORYNAME:
+      return {...state, currentCategoryName: action.currentCategoryName}
+    
 
     case ActionTypes.ADD_PRODUCT_DETAILS:
       return { ...state, selectedProduct: action.selectedProduct };

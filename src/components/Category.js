@@ -4,8 +4,11 @@ import { ProSidebar, SidebarContent, Menu, MenuItem, SubMenu, SidebarHeader} fro
 import 'react-pro-sidebar/dist/css/styles.css';
 import {Input, Button as Button2 } from 'reactstrap';
 import { Drawer, Button } from '@material-ui/core'
+import { useHistory } from 'react-router-dom';
 
 function Category({categories}) {
+
+  const history = useHistory();
 
   const [open, setOpen] = React.useState(false);
 
@@ -37,7 +40,7 @@ function Category({categories}) {
               {categories.map(category => (
                 <SubMenu title={category.name}>
                   {category.subCategory.map(subcat => (
-                    <MenuItem>
+                    <MenuItem onClick={() => history.push('/category/' + subcat)}>
                       {subcat}
                     </MenuItem>
                   ))}

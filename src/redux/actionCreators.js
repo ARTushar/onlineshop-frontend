@@ -78,6 +78,11 @@ export const setCurrentSlug = (currentSlug) => ({
   currentSlug
 })
 
+export const setCurrentCategoryName = (currentCategoryName) => ({
+  type: ActionTypes.SET_CURRENT_CATEGORYNAME,
+  currentCategoryName
+})
+
 export const setCurrentSearched = (currentSearched) => ({
   type: ActionTypes.SET_CURRENT_SEARCHED,
   currentSearched
@@ -196,6 +201,44 @@ export const fetchHomeProducts = () => (dispatch) => {
         })
       })
       dispatch(addHomeProducts(response));
+      dispatch(fetchSuccess());
+    })
+    .catch(error => {
+      if(error.response) dispatch(fetchError(error.response.data))
+      else dispatch(fetchError(error.message));
+    })
+}
+
+export const fetchCategoryProducts = (categoryName) => (dispatch) => {
+  dispatch(fetchProductRequest());
+
+  return axios({
+    method: 'GET',
+    url: 'products',
+    baseURL: baseUrl,
+    params: {
+      categories: categoryName
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        setCurrentSearched(null);
+        throw error;
+      }
+    }, error => {
+      throw error;
+    })
+    .then(response => {
+      for (let i = 0; i < response.length; i++) {
+        response[i].price = response[i].price / 100;
+        response[i].averageRating = calculateAvgRating(response[i].reviews);
+      }
+      dispatch(addSearchProducts(response));
       dispatch(fetchSuccess());
     })
     .catch(error => {

@@ -15,7 +15,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { postProductToWishlist, addToCart, fetchProductDetails, removeFromCart, removeProductFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders, setCurrentSearched, filterProducts, sortProducts, fetchCategories } from '../redux/actionCreators';
+import { postProductToWishlist, addToCart, fetchProductDetails, removeFromCart, removeProductFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders, setCurrentSearched, filterProducts, sortProducts, fetchCategories, fetchCategoryProducts } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 import ScrollToTop from './ScrollToTop';
 import { auth } from 'firebase';
@@ -53,6 +53,7 @@ const mapDispatchToProps = (dispatch) => ({
   filterProducts: (minPrice, maxPrice, rating) => dispatch(filterProducts(minPrice, maxPrice, rating)),
   sortProducts: (sortType) => dispatch(sortProducts(sortType)),
   fetchCategories: () => dispatch(fetchCategories()),
+  fetchCategoryProducts: (categoryName) => dispatch(fetchCategoryProducts(categoryName)),
 });
 
 const mapStateToProps = (state) => {
@@ -149,6 +150,20 @@ function Main(props) {
     );
   };
 
+  const CategoryProducts = () => {
+    const { categoryName } = useParams();
+
+   
+
+    return (
+      <>
+        <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+        <Search fetchCategoryProducts={props.fetchCategoryProducts} categoryName={categoryName} sortProducts={props.sortProducts} filterProducts={props.filterProducts} productsLoading={props.productsLoading} productsError={props.productsError} filteredProducts={props.filteredProducts} />
+        <Footer />
+      </>
+    )
+  }
+
   return (
     <div className="main">
       <ScrollToTop />
@@ -159,7 +174,7 @@ function Main(props) {
           <Footer />
         </Route>
         <Route path="/product/:slug" component={ProductDetailsWithSlug} />
-
+        <Route path="/category/:categoryName" component={CategoryProducts} />
         <Route path="/cart" >
           <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <CartContext.Provider value={{
