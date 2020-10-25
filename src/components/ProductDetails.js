@@ -23,25 +23,14 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
   const cartContext = React.useContext(CartContext);
   const history = useHistory();
   const [askQuestionButtonState, setAskQuestionButtonState] = useState(false);
-  console.log("most foul" + cartContext.slug);
   const location = useLocation();
+
   useEffect(() => {
     if (cartContext.slug !== cartContext.currentSlug) {
       cartContext.setCurrentSlug(cartContext.slug);
       cartContext.fetchProductDetails(cartContext.slug);
     }
   }, [])
-
-  const calculateAvgRating = () => {
-    let avg_rating = 0;
-    selectedProduct.reviews.map((rev) => {
-      avg_rating += rev.rating;
-    });
-    if (selectedProduct.reviews.length > 0) {
-      avg_rating = avg_rating / selectedProduct.reviews.length;
-    }
-    return avg_rating;
-  }
 
   const handleColorFamilyChange = (image) => {
     selectedProduct.images.map((img, idx) => {
@@ -78,7 +67,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
         images: selectedProduct.images,
         slug: selectedProduct.slug,
         discount: selectedProduct.discount,
-        rating: selectedProduct.averageRating,
+        rating: selectedProduct.rating,
       })
     }
   }
@@ -116,11 +105,11 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
               <Row>
                 <h4 className='productDetails__toprow__titlebox__title'>
                   {selectedProduct && selectedProduct.title}
-                </h4>
+                </h4>/
               </Row>
               <Row className='productDetails__toprow__titlebox_rating'>
                 {selectedProduct && selectedProduct.reviews.length > 0
-                  ? Array(Math.round(parseFloat(calculateAvgRating())))
+                  ? Array(Math.round(selectedProduct.rating))
                     .fill()
                     .map((_, i) => (
                       <StarIcon style={{ color: '#fdb900' }}></StarIcon>

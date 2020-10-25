@@ -157,6 +157,7 @@ export const fetchProductDetails = (slug) => (dispatch) => {
     })
     .then(response => {
       response.price = response.price / 100;
+      response.rating = calculateAvgRating(response.reviews);
       dispatch(addProductDetails(response));
       dispatch(fetchSuccess());
     })
@@ -667,6 +668,10 @@ export const fetchProfile = () => (dispatch) => {
     })
     .then(response => {
       const wishList = response.wishList;
+      for(const product of wishList){
+        product.price /= 100;
+        product.rating = calculateAvgRating(product.reviews)
+      }
       delete response.wishList;
       dispatch(addProfile(response, wishList))
       dispatch(fetchProfileSuccess());
