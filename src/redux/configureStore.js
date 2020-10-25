@@ -11,6 +11,7 @@ import Order from './order';
 import { Auth } from './auth';
 import Register from './register';
 import User from './user';
+import Categories from './categories';
 
 const ConfigureStore = () => {
   const persistConfig = {
@@ -29,6 +30,11 @@ const ConfigureStore = () => {
     storage: storageSession
   }
 
+  const categoriesPersistConfig = {
+    key: 'categories',
+    storage: storageSession
+  }
+
   const persistedReducer = persistReducer(persistConfig,
     combineReducers({
       wishlist: Wishlist,
@@ -37,7 +43,8 @@ const ConfigureStore = () => {
       register: Register,
       order: persistReducer(orderPersistConfig, Order),
       user: persistReducer(profilePersistConfig, User),
-      products: Products
+      products: Products,
+      categories: persistReducer(categoriesPersistConfig, Categories)
     }))
 
   const store = createStore(persistedReducer,

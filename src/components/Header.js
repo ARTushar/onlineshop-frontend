@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/css/Header.css';
 import {
 	Form,
@@ -17,8 +17,10 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Badge } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import Category from './Category';
 
-function Header({setCurrentSearched, currentSearched, fetchSearchProducts, totalProducts, auth , logoutUser }) {
+
+function Header({categories, fetchCategories, categoriesLoaded, setCurrentSearched, currentSearched, fetchSearchProducts, totalProducts, auth , logoutUser }) {
 	const history = useHistory();
 	const [input, setInput] = useState('')
 
@@ -33,6 +35,12 @@ function Header({setCurrentSearched, currentSearched, fetchSearchProducts, total
 		}
 	}
 
+	useEffect(() => {
+		if(!categoriesLoaded){
+			fetchCategories()
+		}
+	}, [])
+
 	return (
 		<div className='header'>
 			<Navbar dark expand='md' className='header__navbar'>
@@ -41,12 +49,19 @@ function Header({setCurrentSearched, currentSearched, fetchSearchProducts, total
 						id='toggler'
 						style={{ border: '0px', fontSize: '', outline: 'none' }}
 					/>
-					{/* <NavLink to='/home'> */}
 					<NavbarBrand className='header__navbar__container__logo' href='/home'>
 						<img src='/images/logo8.png' alt='logo' />
 					</NavbarBrand>
-					{/* </NavLink> */}
-					<Nav className='header__navbar__nav__search'>
+					<Nav navbar>
+					<NavItem  className=' header__navbar__container__categories'>
+								<div className='nav-link header__categories'>
+							<Category className="header__navbar__" categories={categories}/>
+								</div>
+							</NavItem>
+					</Nav>
+					
+					<Nav navbar className='header__navbar__nav__search'>
+						
 						<NavItem className='header__navbar__nav__search__item'>
 							<Form onSubmit={handleSubmit}>
 								<InputGroup>
@@ -80,6 +95,7 @@ function Header({setCurrentSearched, currentSearched, fetchSearchProducts, total
                             </NavItem>
                         </Nav> */}
 						<Nav navbar className='header__navbar__nav__right'>
+							
 							{auth.isAuthenticated ? (
 								<NavItem className=' header__navbar__container__profile'>
 									<NavLink className='nav-link' to='/profile'>

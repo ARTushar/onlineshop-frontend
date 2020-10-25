@@ -15,7 +15,7 @@ import Checkout from './Checkout';
 import { actions } from 'react-redux-form';
 import { UserContext, CartContext, AuthContext } from '../Context/context';
 
-import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders, setCurrentSearched, filterProducts, sortProducts } from '../redux/actionCreators';
+import { addToWishlist, addToCart, fetchProductDetails, removeFromCart, removeFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders, setCurrentSearched, filterProducts, sortProducts, fetchCategories } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 import ScrollToTop from './ScrollToTop';
 
@@ -51,6 +51,7 @@ const mapDispatchToProps = (dispatch) => ({
   setCurrentSearched: (currentSearched) => dispatch(setCurrentSearched(currentSearched)),
   filterProducts: (minPrice, maxPrice, rating) => dispatch(filterProducts(minPrice, maxPrice, rating)),
   sortProducts: (sortType) => dispatch(sortProducts(sortType)),
+  fetchCategories: () => dispatch(fetchCategories()),
 });
 
 const mapStateToProps = (state) => {
@@ -74,6 +75,8 @@ const mapStateToProps = (state) => {
     currentSearched: state.products.currentSearched,
     productsLoading: state.products.isLoading,
     productsError: state.products.errMess,
+    categories: state.categories.categories,
+    categoriesLoaded: state.categories.hasLoaded
   };
 };
 
@@ -99,7 +102,7 @@ function Main(props) {
     const { slug } = useParams();
     return (
       <>
-        <Header setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+        <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
         <CartContext.Provider value={{
           addToCart: props.addToCart,
           addSingleProduct: props.addSingleProduct,
@@ -126,7 +129,7 @@ function Main(props) {
     const { order_no } = useParams();
     return (
       <React.Fragment>
-        <Header setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+        <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
         <OrderInvoice clearReviewPosted={props.clearReviewPosted} reviewPosted={props.reviewPosted} postReview={props.postReview} order_no={order_no} orders={props.orders} />
         <Footer />
       </React.Fragment>
@@ -138,14 +141,14 @@ function Main(props) {
       <ScrollToTop />
       <Switch>
         <Route path="/home">
-          <Header setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+          <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Home productsLoading={props.productsLoading} productsError={props.productsError} homeProducts={props.homeProducts} fetchHomeProducts={props.fetchHomeProducts} />
           <Footer />
         </Route>
         <Route path="/product/:slug" component={ProductDetailsWithSlug} />
 
         <Route path="/cart" >
-          <Header setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+          <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <CartContext.Provider value={{
             removeFromCart: props.removeFromCart,
             cartProducts: props.cart.products,
@@ -161,7 +164,7 @@ function Main(props) {
         <Route path="/checkout">
           {props.auth.isAuthenticated ? (
             <>
-              <Header setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+              <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
               <Checkout
                 cartProducts={props.cart.products}
                 deliveryCost={props.cart.deliveryCost}
@@ -184,7 +187,7 @@ function Main(props) {
         <Route path="/profile">
           {props.auth.isAuthenticated ? (
             <>
-              <Header setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+              <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
               <UserContext.Provider value={{
                 wishlistProducts: props.wishlist.products,
                 removeFromWishlist: props.removeFromWishlist,
@@ -231,7 +234,7 @@ function Main(props) {
           </AuthContext.Provider>
         </Route>
         <Route path="/search">
-          <Header setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+          <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Search sortProducts={props.sortProducts} filterProducts={props.filterProducts} productsLoading={props.productsLoading} productsError={props.productsError} filteredProducts={props.filteredProducts} />
           <Footer />
         </Route>

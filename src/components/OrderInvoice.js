@@ -25,7 +25,7 @@ function OrderInvoice({ order_no, orders, reviewPosted, postReview, clearReviewP
                     key={orderproduct.product._id}
                     id={orderproduct.product._id}
                     slug={orderproduct.product.slug}
-                    image={orderproduct.product.image}
+                    image={orderproduct.product.images[0].image}
                     title={orderproduct.product.title}
                     price={orderproduct.product.price / 100}
                     q={orderproduct.quantity}
@@ -52,7 +52,7 @@ function OrderInvoice({ order_no, orders, reviewPosted, postReview, clearReviewP
                       key={orderproduct.product._id}
                       id={orderproduct.product._id}
                       slug={orderproduct.product.slug}
-                      image={orderproduct.product.image}
+                      image={orderproduct.product.images[0].image}
                       title={orderproduct.product.title}
                       price={orderproduct.product.price / 100}
                       q={orderproduct.quantity}

@@ -1,7 +1,16 @@
 import * as ActionTypes from './ActionTypes';
 import axios from 'axios';
 import { baseUrl } from '../shared/baseUrl';
-import { PRODUCTS_DETAILS } from '../shared/productDetails';
+import jwt_decode from 'jwt-decode';
+
+
+const isTokenExpired = () => {
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+
+  return Date.now() < (decoded.exp - 60 ) * 1000;
+
+}
 
 const calculateAvgRating = (reviews) => {
   if(!reviews) return 0;
@@ -106,7 +115,8 @@ export const fetchProductDetails = (slug) => (dispatch) => {
       dispatch(fetchSuccess());
     })
     .catch(error => {
-      dispatch(fetchError(error.message));
+      if(error.response) dispatch(fetchError(error.response.data))
+      else dispatch(fetchError(error.message));
     })
 }
 
@@ -142,7 +152,8 @@ export const fetchHomeProducts = () => (dispatch) => {
       dispatch(fetchSuccess());
     })
     .catch(error => {
-      dispatch(fetchError(error.message));
+      if(error.response) dispatch(fetchError(error.response.data))
+      else dispatch(fetchError(error.message));
     })
 }
 
@@ -180,7 +191,8 @@ export const fetchSearchProducts = (searchInput) => (dispatch) => {
       dispatch(fetchSuccess());
     })
     .catch(error => {
-      dispatch(fetchError(error.message));
+      if(error.response) dispatch(fetchError(error.response.data))
+      else dispatch(fetchError(error.message));
     })
 }
 
@@ -197,6 +209,10 @@ export const clearQuestionPosted = () => ({
 })
 
 export const postQuestion = (question, productId) => dispatch => {
+
+  if(isTokenExpired()){
+    loginUser()
+  }
 
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
@@ -226,7 +242,8 @@ export const postQuestion = (question, productId) => dispatch => {
         dispatch(setQuestionPosted())
     })
     .catch(error => {
-      console.log(error.message);
+      if(error.response) console.log(error.response.data);
+      else console.log(error.message);
     })
 }
 
@@ -322,7 +339,6 @@ const orderFailure = (errMess) => ({
 
 
 export const fetchSelectedOrder = (orders, orderId) => (dispatch) => {
-  console.log("fetching selected Order");
   dispatch(addSelectedOrder(orders.filter(order => order._id == orderId)[0]));
 }
 
@@ -356,6 +372,7 @@ export const fetchOrders = () => (dispatch) => {
       dispatch(orderSuccess());
     })
     .catch(error => {
+      if(error.response) dispatch(orderFailure(error.response.data))
       dispatch(orderFailure(error.message));
     })
 }
@@ -393,7 +410,8 @@ export const postOrder = (order, fromBuy) => (dispatch) => {
       dispatch(orderSuccess());
     })
     .catch(error => {
-      dispatch(orderFailure(error.message));
+      if(error.response) dispatch(orderFailure(error.response.data))
+      else dispatch(orderFailure(error.message));
     })
 
   if (!fromBuy)
@@ -461,7 +479,8 @@ export const postReview = (review, productId) => dispatch => {
       }
     })
     .catch(error => {
-      console.log(error.message);
+      if(error.response) console.log(error.response.data)
+      else console.log(error.message);
     })
 }
 
@@ -527,7 +546,8 @@ export const fetchProfile = () => (dispatch) => {
       dispatch(setLoad());
     })
     .catch(error => {
-      dispatch(fetchProfileFailure(error.message));
+      if(error.response) dispatch(fetchProfileFailure(error.response.data))
+      else dispatch(fetchProfileFailure(error.message));
     })
 }
 
@@ -563,6 +583,7 @@ export const updateProfile = (profile) => (dispatch) => {
 
     })
     .catch(error => {
+      if(error.response) dispatch(fetchProfileFailure(error.response.data))
       dispatch(fetchProfileFailure(error.message));
     })
 }
@@ -664,7 +685,6 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
           history.push(history.location.state.productLocation)
         } else
           history.push('/home')
-        dispatch(fetchOrders());
       } else {
         let error = new Error('Error ' + response.status);
         error.response = response;
@@ -759,3 +779,61 @@ export const clearRegsiter = () => ({
   type: ActionTypes.REGISTER_CLEAR
 });
 
+
+/**
+ * categories
+ */
+
+
+const addCategories = (categories) => ({
+  type: ActionTypes.ADD_CATEGORIES,
+  payload: categories
+})
+
+const requestCategories = () => ({
+  type: ActionTypes.FETCH_CATEGORIES_REQUEST
+})
+
+const fetchCategoriesSuccess = () => ({
+  type: ActionTypes.FETCH_CATEGORIES_SUCCESS
+})
+
+const fetchCategoriesFailure = (errMess) => ({
+  type: ActionTypes.FETCH_CATEGORIES_FAILURE,
+  errMess
+})
+
+const setCategoriesLoaded= () => ({
+  type: ActionTypes.SET_CATEGORY_LOADED
+})
+
+export const fetchCategories = () => (dispatch) => {
+  dispatch(requestCategories());
+
+  return axios({
+    method: 'GET',
+    url: 'categories',
+    baseURL: baseUrl,
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+    })
+    .then(response => {
+      dispatch(addCategories(response))
+      dispatch(fetchCategoriesSuccess());
+      dispatch(setCategoriesLoaded());
+    })
+    .catch(error => {
+      if(error.response) dispatch(fetchCategoriesFailure(error.response.data))
+      else dispatch(fetchCategoriesFailure(error.message));
+    })
+}

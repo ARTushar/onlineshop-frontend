@@ -1,11 +1,8 @@
 import React from 'react';
 import { ProSidebar, SidebarContent, Menu, MenuItem, SubMenu, SidebarHeader} from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import {Input, Button as Button2, ButtonToggle, UncontrolledCollapse } from 'reactstrap';
+import {Input, Button as Button2 } from 'reactstrap';
 import { Drawer, Button } from '@material-ui/core';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 
 function FilterSidebar({filterProducts}) {
