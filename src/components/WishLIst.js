@@ -43,7 +43,7 @@ function WishList() {
                       price={product.price}
                       discountPrice={product.price - product.price * product.discount * .01}
                       rating={product.rating}
-                      image={product.image}
+                      image={product.images[0].image}
                       slug={product.slug}
                     />
                   </Col>

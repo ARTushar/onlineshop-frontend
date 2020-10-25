@@ -68,6 +68,20 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
   const discountPrice =
     selectedProduct?.price -
     selectedProduct?.price * selectedProduct?.discount * 0.01;
+  
+  const handleWishList = () => {
+    if (cartContext.wishList.filter(product => product._id === selectedProduct._id).length === 0) {
+      addToWishlist({
+        id: selectedProduct._id,
+        price: selectedProduct.price,
+        title: selectedProduct.title,
+        images: selectedProduct.images,
+        slug: selectedProduct.slug,
+        discount: selectedProduct.discount,
+        rating: selectedProduct.averageRating,
+      })
+    }
+  }
 
   const handleBuy = () => {
     cartContext.addSingleProduct({
@@ -161,17 +175,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
                     color='secondary'
                   ></FavoriteIcon>
                   <Button
-                    onClick={() =>
-                      addToWishlist({
-                        id: selectedProduct._id,
-                        price: selectedProduct.price,
-                        title: selectedProduct.title,
-                        image: selectedProduct.image,
-                        slug: selectedProduct.slug,
-                        discount: selectedProduct.discount,
-                        rating: selectedProduct.rating,
-                      })
-                    }
+                    onClick={handleWishList}
                     size='sm'
                     className='productDetails__toprow__titlebox__buttonwish'
                   >

@@ -58,7 +58,7 @@ function UserInformation() {
     if (!hasLoaded) {
       userContext.fetchProfile();
     }
-  }, [hasLoaded])
+  }, [])
 
   if (userContext.user.isLoading || !userContext.user.hasLoaded) {
     return (

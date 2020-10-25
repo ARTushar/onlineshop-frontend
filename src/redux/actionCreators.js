@@ -4,12 +4,58 @@ import { baseUrl } from '../shared/baseUrl';
 import jwt_decode from 'jwt-decode';
 
 
-const isTokenExpired = () => {
-  const token = localStorage.getItem('token');
+export const isTokenExpired = (tokenName) => {
+  const token = localStorage.getItem(tokenName);
   const decoded = jwt_decode(token);
 
-  return Date.now() < (decoded.exp - 60 ) * 1000;
+  const hasExpired = Date.now() >= (decoded.exp - 60 ) * 1000;
+  return hasExpired;
+}
 
+const handleTokenExpiration = async () => {
+  console.log('handling token expiration');
+  if(isTokenExpired('token') && !isTokenExpired('refreshToken')){
+    await getNewToken(3);
+  }
+}
+
+const getNewToken = (counter) => {
+  console.log('getting new token : ' + counter);
+  if(!counter) return;
+  const bearer = 'Bearer ' + localStorage.getItem('refreshToken');
+
+  return axios({
+    method: 'GET',
+    url: 'users/token/refresh',
+    baseURL: baseUrl,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+    })
+    .then(response => {
+      if (response.success){
+        console.log('successfully refreshed the token');
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('refreshToken', response.refreshToken);
+      }
+    })
+    .catch(error => {
+      if(error.response) console.log(error.response.data);
+      else console.log(error.message);
+      getNewToken(counter-1);
+    })
 }
 
 const calculateAvgRating = (reviews) => {
@@ -210,10 +256,7 @@ export const clearQuestionPosted = () => ({
 
 export const postQuestion = (question, productId) => dispatch => {
 
-  if(isTokenExpired()){
-    loginUser()
-  }
-
+  handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   axios({
@@ -289,17 +332,94 @@ export const deleteCart = () => ({
 //   payload: product,
 // });
 
+/**
+ * wishlist 
+ */
 
-export const addToWishlist = (product) => ({
+
+const addToWishlist = (product) => ({
   type: ActionTypes.ADD_TO_WISHLIST,
   payload: product
 });
 
 
-export const removeFromWishlist = (productId) => ({
+const removeFromWishlist = (productId) => ({
   type: ActionTypes.REMOVE_FROM_WISHLIST,
   payload: productId
 });
+
+
+export const postProductToWishlist = (product) => (dispatch) => {
+
+  handleTokenExpiration();
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+
+  axios({
+    method: 'POST',
+    url: 'users/wishlist/' + product.id,
+    baseURL: baseUrl,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+    })
+    .then(response => {
+      if (response.success) {
+        dispatch(addToWishlist(product));
+      }
+    })
+    .catch(error => {
+      if(error.response) console.log(error.response.data)
+      else console.log(error.message);
+    })
+}
+
+export const removeProductFromWishlist = (productId) => (dispatch) => {
+
+  handleTokenExpiration();
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+
+  axios({
+    method: 'DELETE',
+    url: 'users/wishlist/' + productId,
+    baseURL: baseUrl,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+    })
+    .then(response => {
+      if (response.success) {
+        dispatch(removeFromWishlist(productId));
+      }
+    })
+    .catch(error => {
+      if(error.response) console.log(error.response.data)
+      else console.log(error.message);
+    })
+}
 
 /**
  * orders
@@ -345,6 +465,7 @@ export const fetchSelectedOrder = (orders, orderId) => (dispatch) => {
 export const fetchOrders = () => (dispatch) => {
   dispatch(requestOrders())
 
+  handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   return axios({
@@ -382,6 +503,7 @@ export const postOrder = (order, fromBuy) => (dispatch) => {
 
   dispatch(requestOrders())
 
+  handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   axios({
@@ -448,6 +570,7 @@ export const clearReviewPosted = () => ({
 
 export const postReview = (review, productId) => dispatch => {
 
+  handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
   const orderId = review.orderId;
 
@@ -493,9 +616,10 @@ const removeProfile = () => ({
   type: ActionTypes.REMOVE_PROFILE
 })
 
-const addProfile = (profile) => ({
+const addProfile = (profile, wishList) => ({
   type: ActionTypes.ADD_PROFILE,
-  payload: profile
+  profileInformation: profile,
+  wishList
 })
 
 const requestProfile = () => ({
@@ -518,6 +642,7 @@ const setLoad = () => ({
 export const fetchProfile = () => (dispatch) => {
   dispatch(requestProfile())
 
+  handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   return axios({
@@ -541,7 +666,9 @@ export const fetchProfile = () => (dispatch) => {
       throw error;
     })
     .then(response => {
-      dispatch(addProfile(response))
+      const wishList = response.wishList;
+      delete response.wishList;
+      dispatch(addProfile(response, wishList))
       dispatch(fetchProfileSuccess());
       dispatch(setLoad());
     })
@@ -554,6 +681,7 @@ export const fetchProfile = () => (dispatch) => {
 export const updateProfile = (profile) => (dispatch) => {
   dispatch(requestProfile())
 
+  handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   return axios({
@@ -598,7 +726,8 @@ export const requestLogin = (creds) => ({
 
 export const receiveLogin = (response) => ({
   type: ActionTypes.LOGIN_SUCCESS,
-  token: response.token
+  token: response.token,
+  refreshToken: response.refreshToken
 });
 
 export const loginError = (message) => ({
@@ -630,6 +759,7 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
     .then(response => {
       if (response.success) {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('refreshToken', response.refreshToken);
         if (remember) {
           creds.remember = remember;
           localStorage.setItem('creds', JSON.stringify(creds));
@@ -679,6 +809,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
     .then(response => {
       if (response.success) {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('refreshToken', response.refreshToken);
         dispatch(receiveLogin(response));
         if (history.location.state) {
           console.log('location: ' + JSON.stringify(history.location.state.productLocation));
@@ -714,6 +845,7 @@ export const receiveLogoutRemember = () => ({
 export const logoutUser = (remember, history) => (dispatch) => {
   dispatch(requestLogout());
   localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
   if (remember)
     dispatch(receiveLogoutRemember());
   else dispatch(receiveLogout());
@@ -837,3 +969,8 @@ export const fetchCategories = () => (dispatch) => {
       else dispatch(fetchCategoriesFailure(error.message));
     })
 }
+
+
+/**
+ * 
+ */

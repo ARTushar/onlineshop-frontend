@@ -37,7 +37,7 @@ const ConfigureStore = () => {
 
   const persistedReducer = persistReducer(persistConfig,
     combineReducers({
-      wishlist: Wishlist,
+      // wishlist: Wishlist,
       cart: Cart,
       auth: Auth,
       register: Register,

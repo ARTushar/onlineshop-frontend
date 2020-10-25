@@ -15,7 +15,7 @@ function OrderList() {
     if (!userContext.orderLoaded) {
       userContext.fetchOrders();
     }
-  }, [userContext.orderLoaded])
+  }, [])
 
   const history = useHistory();
 
