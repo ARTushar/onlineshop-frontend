@@ -486,9 +486,11 @@ export const removeProductFromWishlist = (productId) => (dispatch) => {
     .then(response => {
       if (response.success) {
         dispatch(removeFromWishlist(productId));
+        dispatch(setAlertMessage('You have removed the selected product from your wishlist!', 'success', true));
       }
     })
     .catch(error => {
+      dispatch(setAlertMessage('The selected product coould not be removed from your wishlist! Please try again', 'error', true));
       if (error.response) console.log(error.response.data)
       else console.log(error.message);
     })
@@ -571,7 +573,7 @@ export const fetchOrders = () => (dispatch) => {
     })
 }
 
-export const postOrder = (order, fromBuy) => (dispatch) => {
+export const postOrder = (order, fromBuy, history) => (dispatch) => {
   console.log('Posting an order')
 
   dispatch(requestOrders())
@@ -603,8 +605,12 @@ export const postOrder = (order, fromBuy) => (dispatch) => {
     .then(response => {
       dispatch(addOrder(response));
       dispatch(orderSuccess());
+      history.push('/order/' + response._id);
+      dispatch(setAlertMessage('Yay! Your order has been successfully posted!', 'success', true));
+      dispatch(removeSingleProduct());
     })
     .catch(error => {
+      dispatch(setAlertMessage('Alas! Your order could not be posted! Please try again', 'error', true));
       if (error.response) dispatch(orderFailure(error.response.data))
       else dispatch(orderFailure(error.message));
     })
@@ -671,10 +677,12 @@ export const postReview = (review, productId) => dispatch => {
     .then(response => {
       if (response.status) {
         dispatch(setReviewPosted());
+        dispatch(setAlertMessage('Yay! your review has been posted!', 'success', true));
         // dispatch(updateOrderAfterReview(orderId, productId));
       }
     })
     .catch(error => {
+        dispatch(setAlertMessage('Alas! your review could not be posted! Please try again', 'error', true));
       if (error.response) console.log(error.response.data)
       else console.log(error.message);
     })
@@ -785,11 +793,12 @@ export const updateProfile = (profile) => (dispatch) => {
     .then(response => {
       dispatch(addProfile(response))
       dispatch(fetchProfileSuccess());
-
+      dispatch(setAlertMessage('Yay! your profile has been updated!', 'success', true));
     })
     .catch(error => {
       if (error.response) dispatch(fetchProfileFailure(error.response.data))
       dispatch(fetchProfileFailure(error.message));
+      dispatch(setAlertMessage('Alas! your profile could not be updated! Please try again', 'error', true));
     })
 }
 
@@ -844,6 +853,7 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
           localStorage.removeItem('creds');
         }
         dispatch(receiveLogin(response));
+        dispatch(setAlertMessage('Yay! You have successfully logged in!', 'success', true));
         history.push('/home');
       } else {
         let error = new Error('Error ' + response.status);
@@ -893,6 +903,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
           history.push(history.location.state.productLocation)
         } else
           history.push('/home')
+        dispatch(setAlertMessage('Yay! You have successfully logged in!', 'success', true));
       } else {
         let error = new Error('Error ' + response.status);
         error.response = response;
@@ -900,6 +911,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
       }
     })
     .catch(error => {
+        dispatch(setAlertMessage('Alas! Something went wrong! Please try again', 'error', true));
       if (error.response)
         dispatch(loginError(error.response.data.err));
       else dispatch(loginError(error.message));
@@ -929,6 +941,7 @@ export const logoutUser = (remember, history) => (dispatch) => {
   history.push('/home');
   dispatch(removeOrders());
   dispatch(removeProfile());
+  dispatch(setAlertMessage('You have successfully logged out!', 'success', true));
 }
 
 // register
@@ -970,6 +983,7 @@ export const registerUser = (user) => (dispatch) => {
     .then(response => {
       if (response.success) {
         dispatch(receiveRegister());
+        dispatch(setAlertMessage('Yay! you have successfully registered!', 'success', true));
       } else {
         let error = new Error('Error ' + response.status);
         error.response = response;

@@ -96,9 +96,8 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
         method: values.paymentMethod,
         transactionId 
       }
-    }, fromBuy);
-    removeSingleProduct();
-    history.push('/home');
+    }, fromBuy, history);
+    // removeSingleProduct();
   }
 
   const requiredId = (val) => !isShown || (val && val.length);

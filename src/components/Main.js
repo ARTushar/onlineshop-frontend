@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateDeliveryCost: (cost) => dispatch(updateDeliveryCost(cost)),
   addToWishlist: (product) => dispatch(postProductToWishlist(product)),
   removeFromWishlist: (productId) => dispatch(removeProductFromWishlist(productId)),
-  postOrder: (order, fromBuy) => dispatch(postOrder(order, fromBuy)),
+  postOrder: (order, fromBuy, history) => dispatch(postOrder(order, fromBuy, history)),
   addSingleProduct: (product) => dispatch(addSingleProduct(product)),
   removeSingleProduct: () => dispatch(removeSingleProduct()),
   loginUser: (creds, remember, history) => dispatch(loginUser(creds, remember, history)),

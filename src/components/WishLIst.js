@@ -1,8 +1,7 @@
 import { Button } from '@material-ui/core';
 import React from 'react';
-import { Row, Col, Container, Jumbotron } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 import '../assets/css/WishList.css';
-import { PRODUCTS } from '../shared/products';
 import { Link } from 'react-router-dom';
 import Product from './Product';
 import RemoveCircleSharpIcon from '@material-ui/icons/RemoveCircleSharp';
