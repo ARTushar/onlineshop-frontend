@@ -12,7 +12,6 @@ function OrderProductSmall({ id, image, title, price, q, maxq, reviewPosted, pos
   const [reviewButtonState, setReviewButtonState] = useState(false);
 
 	const handleReview = (review) => {
-		// alert('adding review: ' + review.message + ' rating: ' + review.rating);
 		postReview({
 			rating: review.rating,
 			description: review.message,
@@ -24,9 +23,8 @@ function OrderProductSmall({ id, image, title, price, q, maxq, reviewPosted, pos
 	useEffect(()=> {
 		if(reviewPosted){
 			clearReviewPosted();
-			alert("Your review has been posted!");
 		}
-	}, [reviewPosted])
+	}, [])
 
   return (
 		<>

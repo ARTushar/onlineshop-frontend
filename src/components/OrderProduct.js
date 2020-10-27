@@ -17,7 +17,6 @@ function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postRevi
   const [reviewButtonState, setReviewButtonState] = useState(false);
 
 	const handleReview = (review) => {
-		// alert('adding review: ' + review.message + ' rating: ' + review.rating);
 		postReview({
 			rating: review.rating,
 			description: review.message,
@@ -28,10 +27,9 @@ function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postRevi
 
 	useEffect(()=> {
 		if(reviewPosted){
-			alert("Your review has been posted!");
 			clearReviewPosted();
 		}
-	}, [reviewPosted])
+	}, [])
 
   return (
 		<React.Fragment>
