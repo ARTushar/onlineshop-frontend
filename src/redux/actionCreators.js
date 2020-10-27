@@ -70,6 +70,23 @@ const calculateAvgRating = (reviews) => {
   return avg_rating;
 };
 
+
+/**
+ * alert  
+ */
+
+export const setAlertMessage = (message, alertType, open) => ({
+  type: ActionTypes.SET_ALERT_MESSAGE,
+  message,
+  alertType,
+  open
+});
+
+export const setAlertOpen = (open) => ({
+  type: ActionTypes.SET_ALERT_OPEN,
+  open
+})
+
 /**
  * products 
  */
@@ -325,10 +342,14 @@ export const postQuestion = (question, productId) => dispatch => {
       throw error;
     })
     .then(response => {
-      if (response.status)
+      if (response.status){
         dispatch(setQuestionPosted())
+        dispatch(setAlertMessage('Yay! your question has been posted!', 'success', true));
+        
+      }
     })
     .catch(error => {
+        dispatch(setAlertMessage('Alas! your question has not been posted! Please try again'), 'error', true);
       if(error.response) console.log(error.response.data);
       else console.log(error.message);
     })
@@ -421,11 +442,19 @@ export const postProductToWishlist = (product) => (dispatch) => {
     .then(response => {
       if (response.success) {
         dispatch(addToWishlist(product));
+        dispatch(setAlertMessage('Yay! this product has been added to your wishlist!', 'success', true));
       }
     })
     .catch(error => {
-      if(error.response) console.log(error.response.data)
-      else console.log(error.message);
+      if (error.response) {
+        console.log(error.response.data)
+        dispatch(setAlertMessage('This product is already in the wishlist!', 'error', true));
+      }
+      else {
+        console.log(error.message);
+        dispatch(setAlertMessage(error.message, 'error', true));
+
+      }
     })
 }
 
@@ -460,7 +489,7 @@ export const removeProductFromWishlist = (productId) => (dispatch) => {
       }
     })
     .catch(error => {
-      if(error.response) console.log(error.response.data)
+      if (error.response) console.log(error.response.data)
       else console.log(error.message);
     })
 }
@@ -537,7 +566,7 @@ export const fetchOrders = () => (dispatch) => {
       dispatch(orderSuccess());
     })
     .catch(error => {
-      if(error.response) dispatch(orderFailure(error.response.data))
+      if (error.response) dispatch(orderFailure(error.response.data))
       dispatch(orderFailure(error.message));
     })
 }
@@ -576,7 +605,7 @@ export const postOrder = (order, fromBuy) => (dispatch) => {
       dispatch(orderSuccess());
     })
     .catch(error => {
-      if(error.response) dispatch(orderFailure(error.response.data))
+      if (error.response) dispatch(orderFailure(error.response.data))
       else dispatch(orderFailure(error.message));
     })
 
@@ -646,7 +675,7 @@ export const postReview = (review, productId) => dispatch => {
       }
     })
     .catch(error => {
-      if(error.response) console.log(error.response.data)
+      if (error.response) console.log(error.response.data)
       else console.log(error.message);
     })
 }
@@ -711,7 +740,7 @@ export const fetchProfile = () => (dispatch) => {
     })
     .then(response => {
       const wishList = response.wishList;
-      for(const product of wishList){
+      for (const product of wishList) {
         product.price /= 100;
         product.rating = calculateAvgRating(product.reviews)
       }
@@ -721,7 +750,7 @@ export const fetchProfile = () => (dispatch) => {
       dispatch(setLoad());
     })
     .catch(error => {
-      if(error.response) dispatch(fetchProfileFailure(error.response.data))
+      if (error.response) dispatch(fetchProfileFailure(error.response.data))
       else dispatch(fetchProfileFailure(error.message));
     })
 }
@@ -759,7 +788,7 @@ export const updateProfile = (profile) => (dispatch) => {
 
     })
     .catch(error => {
-      if(error.response) dispatch(fetchProfileFailure(error.response.data))
+      if (error.response) dispatch(fetchProfileFailure(error.response.data))
       dispatch(fetchProfileFailure(error.message));
     })
 }
@@ -983,7 +1012,7 @@ const fetchCategoriesFailure = (errMess) => ({
   errMess
 })
 
-const setCategoriesLoaded= () => ({
+const setCategoriesLoaded = () => ({
   type: ActionTypes.SET_CATEGORY_LOADED
 })
 
@@ -1013,12 +1042,12 @@ export const fetchCategories = () => (dispatch) => {
       dispatch(setCategoriesLoaded());
     })
     .catch(error => {
-      if(error.response) dispatch(fetchCategoriesFailure(error.response.data))
+      if (error.response) dispatch(fetchCategoriesFailure(error.response.data))
       else dispatch(fetchCategoriesFailure(error.message));
     })
 }
 
 
 /**
- * 
+ *
  */

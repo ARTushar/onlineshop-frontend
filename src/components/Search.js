@@ -58,7 +58,8 @@ function Search({fetchCategoryProducts, categoryName, sortProducts, filterProduc
           <Row className="justify-content-center">
             <span style={{
               fontWeight: 700,
-              fontSize: "larger"
+              fontSize: "larger",
+              textTransform: "capitalize",
             }}>{categoryName}</span>
           </Row>
         )}

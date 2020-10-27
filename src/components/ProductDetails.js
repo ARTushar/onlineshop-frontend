@@ -13,6 +13,9 @@ import '../assets/css/ProductDetails.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ClearIcon from '@material-ui/icons/Clear';
 import StarIcon from '@material-ui/icons/Star';
+import CustomizedSnackbar from './CustomizedSnackbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAlertMessage } from '../redux/actionCreators';
 
 const required = (val) => val && val.length;
 
@@ -24,13 +27,6 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
   const history = useHistory();
   const [askQuestionButtonState, setAskQuestionButtonState] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    if (cartContext.slug !== cartContext.currentSlug) {
-      cartContext.setCurrentSlug(cartContext.slug);
-      cartContext.fetchProductDetails(cartContext.slug);
-    }
-  }, [])
 
   const handleColorFamilyChange = (image) => {
     selectedProduct.images.map((img, idx) => {
@@ -46,11 +42,18 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
   };
 
   useEffect(() => {
-    if (cartContext.questionPosted) {
-      alert("Yay your question is posted");
-      cartContext.clearQuestionPosted();
+    if (cartContext.slug !== cartContext.currentSlug) {
+      cartContext.setCurrentSlug(cartContext.slug);
+      cartContext.fetchProductDetails(cartContext.slug);
     }
-  }, [cartContext.questionPosted])
+
+    if (cartContext.questionPosted) {
+      // alert("Yay your question is posted");
+      console.log('yay posted');
+      cartContext.clearQuestionPosted();
+      
+    }
+  }, [])
 
   const getValue = (val) => (val <= 1 ? 1 : val >= maxq ? maxq : val);
 
@@ -69,6 +72,24 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
         discount: selectedProduct.discount,
         rating: selectedProduct.rating,
       })
+    }
+  }
+
+  const cartProducts = useSelector(state => state.cart.products)
+  const dispatch = useDispatch();
+
+  const handleCart = () => {
+    if (cartProducts.filter((product) => product.id === selectedProduct.id).length === 0) {
+      cartContext.addToCart({
+        id: selectedProduct._id,
+        price: discountPrice,
+        title: selectedProduct.title,
+        image: selectedProduct.images[0].image,
+        quantity: quantity,
+      })
+      dispatch(setAlertMessage('Yay! this product has been added to the cart!', 'success', true))
+    } else {
+      dispatch(setAlertMessage('Huh! this product is already in the cart!', 'error', true))
     }
   }
 
@@ -105,7 +126,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
               <Row>
                 <h4 className='productDetails__toprow__titlebox__title'>
                   {selectedProduct && selectedProduct.title}
-                </h4>/
+                </h4>
               </Row>
               <Row className='productDetails__toprow__titlebox_rating'>
                 {selectedProduct && selectedProduct.reviews.length > 0
@@ -229,15 +250,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 
               <Row className='productDetails__toprow__titlebox__buyrow'>
                 <Button
-                  onClick={() =>
-                    cartContext.addToCart({
-                      id: selectedProduct._id,
-                      price: discountPrice,
-                      title: selectedProduct.title,
-                      image: selectedProduct.images[0].image,
-                      quantity: quantity,
-                    })
-                  }
+                  onClick={handleCart}
                   className='productDetails__toprow__titlebox__buttoncart'
                 >
                   ADD TO CART
@@ -302,6 +315,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 
         {/* Question & Answer */}
         <Row className='productDetails__bottomRows'>
+
           <Col>
             <Container className='productDetails__bottomRows__container'>
               <Row className='productDetails__QA__container__header'>

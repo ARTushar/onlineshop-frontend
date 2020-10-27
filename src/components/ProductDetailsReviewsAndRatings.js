@@ -20,7 +20,6 @@ function ProductDetailsReviewsAndRatings({ selectedProduct }) {
   };
   return (
     <div>
-      {
         <React.Fragment>
           <Row>
             <Container>
@@ -58,7 +57,7 @@ function ProductDetailsReviewsAndRatings({ selectedProduct }) {
                         ).length;
                         const total = selectedProduct.reviews.length;
                         return (
-                          <React.Fragment style={{ marginBottom: 5 }}>
+                          <React.Fragment >
                             <Col xs={6} md={4}>
                               {Array(5 - idx)
                                 .fill()
@@ -100,7 +99,6 @@ function ProductDetailsReviewsAndRatings({ selectedProduct }) {
           </Row>
           <hr></hr>
         </React.Fragment>
-      }
 
       {selectedProduct &&
         selectedProduct.reviews.map((rev) => {

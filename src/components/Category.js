@@ -12,6 +12,10 @@ function Category({categories}) {
 
   const [open, setOpen] = React.useState(false);
 
+  const slugify = (name) => {
+    return name.split(' ').join('-');
+  }
+
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
@@ -40,7 +44,7 @@ function Category({categories}) {
               {categories.map(category => (
                 <SubMenu title={category.name}>
                   {category.subCategory.map(subcat => (
-                    <MenuItem onClick={() => history.push('/category/' + subcat)}>
+                    <MenuItem onClick={() => history.push('/category/' + slugify(subcat))}>
                       {subcat}
                     </MenuItem>
                   ))}

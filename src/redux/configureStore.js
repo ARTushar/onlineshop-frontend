@@ -12,6 +12,7 @@ import { Auth } from './auth';
 import Register from './register';
 import User from './user';
 import Categories from './categories';
+import Alert from './alert';
 
 const ConfigureStore = () => {
   const persistConfig = {
@@ -38,6 +39,7 @@ const ConfigureStore = () => {
   const persistedReducer = persistReducer(persistConfig,
     combineReducers({
       // wishlist: Wishlist,
+      alert: Alert,
       cart: Cart,
       auth: Auth,
       register: Register,

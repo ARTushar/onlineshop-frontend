@@ -4,6 +4,8 @@ import RemoveCircleSharpIcon from '@material-ui/icons/RemoveCircleSharp';
 import '../assets/css/CartProductSmall.css';
 import { CartContext } from '../Context/context';
 import CurrencyFormat from 'react-currency-format';
+import { useDispatch } from 'react-redux';
+import { setAlertMessage } from '../redux/actionCreators';
 
 
 function CartProductSmall({ id, image, title, price, q, maxq }) {
@@ -13,6 +15,13 @@ function CartProductSmall({ id, image, title, price, q, maxq }) {
     val <= 1 ? 1 :
       (val >= maxq ? maxq : val)
   );
+
+  const dispatch = useDispatch();
+
+  const handleProductRemove = () => {
+    cartContext.removeFromCart(id);
+    dispatch(setAlertMessage('😭 You have removed the selected product from the cart!', 'warning', true));
+  }
 
   return (
     <>
@@ -30,7 +39,7 @@ function CartProductSmall({ id, image, title, price, q, maxq }) {
               {title}
             </Col>
             <Col xs="2" className="cartproductsmall__remove">
-              <a role="button" onClick={() => cartContext.removeFromCart(id)} className="cartproductsmall__remove__button">
+              <a role="button" onClick={handleProductRemove} className="cartproductsmall__remove__button">
                 <RemoveCircleSharpIcon style={{
                   color: "secondary",
                 }} className="cartproductsmall__remove__icon" />

@@ -151,9 +151,8 @@ function Main(props) {
   };
 
   const CategoryProducts = () => {
-    const { categoryName } = useParams();
-
-   
+    let { categoryName } = useParams();
+    categoryName = categoryName.split('-').join(' ');
 
     return (
       <>

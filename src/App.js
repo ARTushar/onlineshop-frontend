@@ -5,6 +5,7 @@ import ConfigureStore from './redux/configureStore';
 import { Provider, connect } from 'react-redux';
 import Main from './components/Main';
 import { PersistGate } from 'redux-persist/integration/react';
+import CustomizedSnackbar from './components/CustomizedSnackbar';
 
 const {store, persistor} = ConfigureStore();
 
@@ -21,6 +22,7 @@ function App(props) {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
+            <CustomizedSnackbar />
             <Main />
           </BrowserRouter>
         </PersistGate>

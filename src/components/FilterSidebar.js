@@ -3,6 +3,7 @@ import { ProSidebar, SidebarContent, Menu, MenuItem, SubMenu, SidebarHeader} fro
 import 'react-pro-sidebar/dist/css/styles.css';
 import {Input, Button as Button2 } from 'reactstrap';
 import { Drawer, Button } from '@material-ui/core';
+import FilterListIcon from '@material-ui/icons/FilterList';
 
 
 function FilterSidebar({filterProducts}) {
@@ -35,7 +36,13 @@ function FilterSidebar({filterProducts}) {
 
   return (
     <React.Fragment>
-      <Button style={{
+      <Button startIcon={<FilterListIcon />} variant="contained" style={{
+        height: "35px",
+        fonttWeight: "700",
+        fontSize: "small",
+        marginLeft: "5px",
+        backgroundColor: "white",
+        marginTop: "5px"
       }} onClick={toggleDrawer(true)}>Filter</Button>
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <ProSidebar style={{
