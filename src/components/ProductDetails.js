@@ -16,6 +16,7 @@ import StarIcon from '@material-ui/icons/Star';
 import CustomizedSnackbar from './CustomizedSnackbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertMessage } from '../redux/actionCreators';
+import Loading from './Loading';
 
 const required = (val) => val && val.length;
 
@@ -106,6 +107,12 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
       state: { fromBuy: true },
     });
   };
+
+  if(cartContext.productLoading){
+    return (
+      <Loading />
+    )
+  }
 
   return (
     <div className='productDetails'>

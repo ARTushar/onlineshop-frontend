@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import {Button as Button2} from '@material-ui/core';
 import {
   Button,
   Row,
@@ -12,6 +13,8 @@ import isEmail from 'validator/lib/isEmail';
 import ReduxFormSelect from './ReduxFormSelect';
 import '../assets/css/UserInformation.css';
 import { UserContext } from '../Context/context';
+import ChangePassword from './ChangePassword';
+import Loading from './Loading';
 
 const required = (val) => val && val.length;
 // const requiredObject = (val) => val.value && val.value.length
@@ -54,6 +57,8 @@ function UserInformation() {
     })
   }
 
+  const [isChangePassword, setIsChangePassword] = useState(false);
+
   useEffect(() => {
     if (!hasLoaded) {
       userContext.fetchProfile();
@@ -62,25 +67,35 @@ function UserInformation() {
 
   if (userContext.user.isLoading || !userContext.user.hasLoaded) {
     return (
-      <div>
-        <Container>
-          <Row className="justify-content-center">
-            <CircularProgress color="secondary" />
-          </Row>
-        </Container>
-      </div>
+     <Loading />
     )
   } else {
 
     return (
       <div className="userinformation">
-        {/* <Card> */}
-        {/* <CardBody className="userinformation__card__body"> */}
-        <CardTitle className="userinformation__card__title">
-          <span>Your Information</span>
-        </CardTitle>
+        <ChangePassword open={isChangePassword} setOpen={setIsChangePassword} />
+        <Row className="justify-content-between mr-0">
+          <Col xs={6}>
+            <CardTitle xs={6} className="userinformation__card__title">
+              <span>Your Information</span>
+            </CardTitle>
+          </Col>
+          <Col xs={6}>
+            <Button2
+             onClick={() => setIsChangePassword(!isChangePassword)}
+             style={{
+              display: 'flex',
+              marginLeft: 'auto',
+              marginRight: '10px',
+              fontSize: '10px'
+
+            }} variant='contained' align="center" color='primary' size="small">
+              Change Password
+        </Button2>
+          </Col>
+        </Row>
         <LocalForm model="user" onSubmit={(values) => handleSubmit(values)}>
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="name" md={3}>Name</Label>
             <Col md={9}>
               <Control.text model=".name" id="name" name="name"
@@ -107,7 +122,7 @@ function UserInformation() {
             </Col>
           </Row>
 
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="mobile" md={3}>Mobile</Label>
             <Col md={9}>
               <Control.text model=".mobile" id="mobile" name="mobile"
@@ -134,7 +149,7 @@ function UserInformation() {
             </Col>
           </Row>
 
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="email" md={3}>Email</Label>
             <Col md={9}>
               <Control.text model=".email" id="email" name="email"
@@ -164,7 +179,7 @@ function UserInformation() {
             <span>Your Address</span>
           </CardTitle>
 
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="country" md={3}>Country</Label>
             <Col md={9}>
               <Control.text model=".country" id="country" name="country"
@@ -187,7 +202,7 @@ function UserInformation() {
             </Col>
           </Row>
 
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="district" md={3}>District</Label>
             <Col md={9}>
               <Control.select model=".district" id="district" name="district"
@@ -212,7 +227,7 @@ function UserInformation() {
             </Col>
           </Row>
 
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="thana" md={3}>Thana</Label>
             <Col md={9}>
               <Control.text model=".thana" id="thana" name="thana"
@@ -238,7 +253,7 @@ function UserInformation() {
             </Col>
           </Row>
 
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="region" md={3}>Region</Label>
             <Col md={9}>
               <Control.text model=".region" id="region" name="region"
@@ -265,7 +280,7 @@ function UserInformation() {
           </Row>
 
 
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="postalCode" md={3}>Postal Code</Label>
             <Col md={9}>
               <Control.text model=".postalCode" id="postalCode" name="postalCode"
@@ -293,7 +308,7 @@ function UserInformation() {
             </Col>
           </Row>
 
-          <Row className="form-group">
+          <Row className="form-group mr-0">
             <Label htmlFor="homeLocation" md={3}>Home Location</Label>
             <Col md={9}>
               <Control.text model=".homeLocation" id="homeLocation" name="homeLocation"
@@ -320,7 +335,7 @@ function UserInformation() {
             </Col>
           </Row>
           <hr />
-          <Row className="checkout__button">
+          <Row className="checkout__button mr-0 mb-3">
             <Col xs="12" >
 
               <Button className="checkout__button__confirm">
@@ -329,8 +344,6 @@ function UserInformation() {
             </Col>
           </Row>
         </LocalForm>
-
-
       </div>
     )
   }

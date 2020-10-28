@@ -797,11 +797,48 @@ export const updateProfile = (profile) => (dispatch) => {
     })
     .catch(error => {
       if (error.response) dispatch(fetchProfileFailure(error.response.data))
-      dispatch(fetchProfileFailure(error.message));
+      else dispatch(fetchProfileFailure(error.message));
       dispatch(setAlertMessage('Alas! your profile could not be updated! Please try again', 'error', true));
     })
 }
 
+export const changePassword = (password) => (dispatch) => {
+  dispatch(requestProfile())
+
+  handleTokenExpiration();
+  const bearer = 'Bearer ' + localStorage.getItem('token');
+
+  return axios({
+    method: 'PUT',
+    url: 'users/password',
+    baseURL: baseUrl,
+    data: password,
+    headers: {
+      'Authorization': bearer
+    }
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+    })
+    .then(response => {
+      dispatch(fetchProfileSuccess());
+      dispatch(setAlertMessage('Yay! your password has been updated!', 'success', true));
+    })
+    .catch(error => {
+      if (error.response) dispatch(fetchProfileFailure(error.response.data))
+      else dispatch(fetchProfileFailure(error.message));
+      dispatch(setAlertMessage('Alas! your password could not be updated! Please try again', 'error', true));
+    })
+}
 
 // authentication
 

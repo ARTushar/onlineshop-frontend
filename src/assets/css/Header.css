@@ -10,7 +10,6 @@
 }
 
 .header__navbar {
-    /* background-color: blue; */
     margin: 0px;
     margin-left: auto;
     padding: 8px 5px;
@@ -57,11 +56,11 @@
     max-width: 500px;
  }
 
- .header__search__input > div > div {
+.header__search__input > div > div {
      font-size: small;
      font-weight: 500;
  }
- .header__search__icon {
+.header__search__icon {
      width: 50px;
      background-color: #CAC7d7;
      align-items: center;
@@ -70,7 +69,7 @@
      
  }
 
- .header__divider {
+.header__divider {
      /* background: inherit; */
     /* background-color:  #1B1924; */
     height: 5px;
