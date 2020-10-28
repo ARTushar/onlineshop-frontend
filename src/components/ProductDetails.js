@@ -63,7 +63,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
     selectedProduct?.price * selectedProduct?.discount * 0.01;
   
   const handleWishList = () => {
-    if (cartContext.wishList.filter(product => product._id === selectedProduct._id).length === 0) {
+    if (cartContext.wishList.filter(product => product.id === selectedProduct.id).length === 0) {
       addToWishlist({
         id: selectedProduct._id,
         price: selectedProduct.price,
@@ -73,6 +73,8 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
         discount: selectedProduct.discount,
         rating: selectedProduct.rating,
       })
+    } else{
+      dispatch(setAlertMessage('HUH! This product is already in your wishlist!', 'error', true));
     }
   }
 
