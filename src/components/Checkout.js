@@ -58,7 +58,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
     history.push('/home');
   }
 
-  if (history.location.state) {
+  if (history.location.state && singleProduct) {
     products = [{
       product: singleProduct.id,
       quantity: singleProduct.quantity
