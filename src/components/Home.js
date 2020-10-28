@@ -6,6 +6,7 @@ import {
   Jumbotron,
 } from 'reactstrap';
 import '../assets/css/Home.css';
+import HomeCarousel from './HomeCarousel';
 import Loading from './Loading';
 import Product from './Product';
 
@@ -23,7 +24,8 @@ function Home({productsLoading, prouductsError, fetchHomeProducts, homeProducts 
       <Jumbotron className="home__jumbotron">
         <Container className="home__jumbotron__container">
           <Row className="home__jumbotron__container__row">
-            <img src='/images/banner7.jpg' />
+            {/* <img src='/images/banner7.jpg' /> */}
+            <HomeCarousel className='home__carousel'/>
           </Row>
         </Container>
       </Jumbotron>

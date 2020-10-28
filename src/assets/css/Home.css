@@ -1,6 +1,7 @@
 .home {
     /* background-color: #f6d1e6; */
-    background-color: #f2746b;
+    /* background-color: #f2746b; */
+    background-color: aliceblue;
     /* background: linear-gradient(to left, #8942a8, #ba382f); */
 }
 
@@ -11,11 +12,17 @@
     /* background-color: aliceblue; */
 }
 .home__jumbotron__container {
-    max-width: inherit;
+    max-width: 1500px;
 }
 
 .home__jumbotron__container__row {
     justify-content: center;
+}
+
+.home__carousel {
+    max-width: 100%;
+    border: 2px solid black;
+    border-radius: 5px ;
 }
 
 .home__jumbotron__container__row > img {
@@ -34,6 +41,7 @@
     font-weight: 700;
     font-size: large;
     padding: 20px 0px 10px 20px;
+    /* text-align: center; */
     /* border: 1px solid ; */
     /* border-left: 0px; */
     /* border-right: 0px; */
