@@ -105,7 +105,7 @@ function ChangePassword({open, setOpen}) {
   const profileErrorMess = useSelector(state => state.user.errMess);
 
   useEffect(() => {
-    if(profileErrorMess && profileErrorMess.includes('Password')){
+    if(profileErrorMess && typeof profileErrorMess === 'string' && profileErrorMess.includes('Password')){
       setIsOldError(true);
       setOldError('Your password in incorrect!');
     }

@@ -801,6 +801,14 @@ export const updateProfile = (profile) => (dispatch) => {
       if (error.response) dispatch(fetchProfileFailure(error.response.data))
       else dispatch(fetchProfileFailure(error.message));
       dispatch(setAlertMessage('Alas! your profile could not be updated! Please try again', 'error', true));
+
+      if (typeof error.response.data === 'string' && error.response.data.includes('duplicate') && error.response.data.includes('mobile')) {
+        dispatch(setAlertMessage('Alas! There is already an account with the given mobile number! Please try with a new mobile number', 'error', true));
+      } else if (typeof error.response.data === 'string' && error.response.data.includes('duplicate')) {
+        dispatch(setAlertMessage('Alas! There is already an account with the given email! Please try with a new email', 'error', true));
+      } else {
+        dispatch(setAlertMessage('Alas! your profile could not be updated! Please try again', 'error', true));
+      }
     })
 }
 
@@ -838,6 +846,7 @@ export const changePassword = (password) => (dispatch) => {
     .catch(error => {
       if (error.response) dispatch(fetchProfileFailure(error.response.data))
       else dispatch(fetchProfileFailure(error.message));
+
       dispatch(setAlertMessage('Alas! your password could not be updated! Please try again', 'error', true));
     })
 }
@@ -951,7 +960,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
       }
     })
     .catch(error => {
-        dispatch(setAlertMessage('Alas! Something went wrong! Please try again', 'error', true));
+      dispatch(setAlertMessage('Alas! Something went wrong! Please try again', 'error', true));
       if (error.response)
         dispatch(loginError(error.response.data.err));
       else dispatch(loginError(error.message));
