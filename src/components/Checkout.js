@@ -54,9 +54,6 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
   const [isShown, setIsShown] = useState(false);
 
   const history = useHistory();
-  if(!singleProduct){
-    history.push('/home');
-  }
 
   if (history.location.state && singleProduct) {
     products = [{

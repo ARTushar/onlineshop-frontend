@@ -13,7 +13,6 @@ import '../assets/css/ProductDetails.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ClearIcon from '@material-ui/icons/Clear';
 import StarIcon from '@material-ui/icons/Star';
-import CustomizedSnackbar from './CustomizedSnackbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertMessage } from '../redux/actionCreators';
 import Loading from './Loading';
@@ -63,6 +62,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
     selectedProduct?.price * selectedProduct?.discount * 0.01;
   
   const handleWishList = () => {
+    if(cartContext.isAuthenticated){
     if (cartContext.wishList.filter(product => product.id === selectedProduct.id).length === 0) {
       addToWishlist({
         id: selectedProduct._id,
@@ -76,7 +76,11 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
     } else{
       dispatch(setAlertMessage('HUH! This product is already in your wishlist!', 'error', true));
     }
+  } else {
+      dispatch(setAlertMessage('Please log in!', 'error', true));
+
   }
+}
 
   const cartProducts = useSelector(state => state.cart.products)
   const dispatch = useDispatch();
@@ -97,6 +101,9 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
   }
 
   const handleBuy = () => {
+    if(!cartContext.isAuthenticated){
+      dispatch(setAlertMessage('Please log in!', 'error', true))
+    }
     cartContext.addSingleProduct({
       id: selectedProduct._id,
       price: discountPrice,

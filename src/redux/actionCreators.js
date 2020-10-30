@@ -257,6 +257,7 @@ export const fetchCategoryProducts = (categoryName) => (dispatch) => {
       }
       dispatch(addSearchProducts(response));
       dispatch(fetchSuccess());
+      dispatch(setCurrentSearched(''));
     })
     .catch(error => {
       if(error.response) dispatch(fetchError(error.response.data))
@@ -296,6 +297,7 @@ export const fetchSearchProducts = (searchInput) => (dispatch) => {
       }
       dispatch(addSearchProducts(response));
       dispatch(fetchSuccess());
+      dispatch(setCurrentCategoryName(''));
     })
     .catch(error => {
       if(error.response) dispatch(fetchError(error.response.data))
@@ -889,6 +891,7 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
         } else {
           localStorage.removeItem('creds');
         }
+        dispatch(fetchProfile());
         dispatch(receiveLogin(response));
         dispatch(setAlertMessage('Yay! You have successfully logged in!', 'success', true));
         history.push('/home');

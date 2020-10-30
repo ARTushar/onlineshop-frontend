@@ -9,6 +9,8 @@ import {
 } from 'reactstrap';
 import '../assets/css/Product.css';
 import { Link } from 'react-router-dom';
+import Rating from '@material-ui/lab/Rating';
+
 
 function Product({ id, image, title, price, discountPrice, rating, number, slug }) {
   return (
@@ -36,11 +38,10 @@ function Product({ id, image, title, price, discountPrice, rating, number, slug 
                 <strong>৳{discountPrice}</strong>
               </Col>
               <Col className='product__card__rating'>
-                {Array(rating)
-                  .fill()
-                  .map((_, i) => (
-                    <p>🌟</p>
-                  ))}
+                {rating? 
+                  <Rating defaultValue={rating} size='small' readOnly precision={0.5} />
+                  : ('')
+                }
               </Col>
             </Row>
           </CardBody>

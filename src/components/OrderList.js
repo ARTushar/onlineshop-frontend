@@ -5,6 +5,15 @@ import { useHistory } from 'react-router-dom';
 import { UserContext } from '../Context/context';
 import CircularProgress from '@material-ui/core/CircularProgress'
 
+const compareOrder = (a, b) => {
+  let dataA = a.createdAt.toUpperCase();
+  let dataB = b.createdAt.toUpperCase();
+
+  if (dataA < dataB) return 1;
+  if (dataA > dataB) return -1;
+
+  return 0;
+}
 
 function OrderList() {
 
@@ -45,7 +54,7 @@ function OrderList() {
                 </tr>
               </thead>
               <tbody>
-                {orders.map(orderproduct => (
+                {orders.sort(compareOrder).map(orderproduct => (
                   <tr key={orderproduct._id} onClick={() => history.push(`/order/${orderproduct._id}`)}>
                     <td className="orderlist__orderno">
                       <span>{orderproduct._id}</span>
