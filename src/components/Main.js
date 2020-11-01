@@ -13,12 +13,13 @@ import Search from './Search';
 import Checkout from './Checkout';
 
 import { actions } from 'react-redux-form';
-import { UserContext, CartContext, AuthContext } from '../Context/context';
+import { UserContext, CartContext, AuthContext } from '../utils/context';
 
 import { postProductToWishlist, addToCart, fetchProductDetails, removeFromCart, removeProductFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders, setCurrentSearched, filterProducts, sortProducts, fetchCategories, fetchCategoryProducts } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 import ScrollToTop from './ScrollToTop';
 import { auth } from 'firebase';
+import PricacyPolicy from './PricacyPolicy';
 
 const mapDispatchToProps = (dispatch) => ({
   resetSignUpForm: () => dispatch(actions.reset('user')),
@@ -37,7 +38,7 @@ const mapDispatchToProps = (dispatch) => ({
   registerUser: (user) => dispatch(registerUser(user)),
   clearRegsiter: () => dispatch(clearRegsiter()),
   loginUserThirdParty: (creds, provider, history) => dispatch(loginUserThirdParty(creds, provider, history)),
-  fetchHomeProducts: () => dispatch(fetchHomeProducts()),
+  fetchHomeProducts: (limit) => dispatch(fetchHomeProducts(limit)),
   fetchSearchProducts: (searchInput) => dispatch(fetchSearchProducts(searchInput)),
   setCurrentSlug: (currentSlug) => dispatch(setCurrentSlug(currentSlug)),
   deleteProductDetails: () => dispatch(deleteProductDetails()),
@@ -78,7 +79,8 @@ const mapStateToProps = (state) => {
     productsLoading: state.products.isLoading,
     productsError: state.products.errMess,
     categories: state.categories.categories,
-    categoriesLoaded: state.categories.hasLoaded
+    categoriesLoaded: state.categories.hasLoaded,
+    districts: state.districts
   };
 };
 
@@ -180,8 +182,12 @@ function Main(props) {
             removeFromCart: props.removeFromCart,
             cartProducts: props.cart.products,
             updateQuantity: props.updateQuantity,
-            deliveryCost: props.cart.deliveryCost,
+            deliverySelect: props.cart.deliverySelect,
             updateDeliveryCost: props.updateDeliveryCost,
+            hasLoaded: props.districts.hasLoaded,
+            districts: props.districts.districts,
+            deliverySelect: props.cart.deliverySelect,
+            district: props.user.profileInformation.address.district
           }}>
             <Cart />
           </CartContext.Provider>
@@ -194,7 +200,8 @@ function Main(props) {
               <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
               <Checkout
                 cartProducts={props.cart.products}
-                deliveryCost={props.cart.deliveryCost}
+                deliverySelect={props.cart.deliverySelect}
+                updateDeliveryCost={props.updateDeliveryCost}
                 userInformation={props.user.profileInformation}
                 postOrder={props.postOrder}
                 singleProduct={props.singleProduct}
@@ -266,6 +273,11 @@ function Main(props) {
           <Footer />
         </Route>
         <PrivateRoute path="/order/:order_no" component={OrderInvoiceComponent} />
+        <Route path='/policy'>
+          <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
+          <PricacyPolicy />
+          <Footer />
+        </Route>
 
         <Redirect to='/home' />
       </Switch>

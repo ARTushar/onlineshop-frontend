@@ -28,6 +28,7 @@ function OrderInvoice({ order_no, orders, reviewPosted, postReview, clearReviewP
                     image={orderproduct.product.images[0].image}
                     title={orderproduct.product.title}
                     price={orderproduct.product.price / 100}
+                    discount={orderproduct.product.discount}
                     q={orderproduct.quantity}
                     orderId={order_no}
                     reviewPosted={reviewPosted}
@@ -55,6 +56,7 @@ function OrderInvoice({ order_no, orders, reviewPosted, postReview, clearReviewP
                       image={orderproduct.product.images[0].image}
                       title={orderproduct.product.title}
                       price={orderproduct.product.price / 100}
+                      discount={orderproduct.product.discount}
                       q={orderproduct.quantity}
                       orderId={order_no}
                       reviewPosted={reviewPosted}

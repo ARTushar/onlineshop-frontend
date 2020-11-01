@@ -26,7 +26,7 @@ import {
 import { LocalForm, Control, Errors } from "react-redux-form";
 
 import isMobilePhone from 'validator/lib/isMobilePhone';
-import { AuthContext } from "../Context/context";
+import { AuthContext } from "../utils/context";
 const required = (val) => val && val.length;
 const validMobile = (val) => (
   !val ? true: (

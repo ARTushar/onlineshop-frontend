@@ -53,15 +53,12 @@
 }
 
 .carttotal__shipping__location__select {
-    height: 30px;
     font-size: small;
     font-weight: 500;
     margin-top: 5px;
     padding: 5px;
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* color: #0abda0; */
+    width: 95%;
+    max-width: 300px;
 }
 
 .carttotal__shipping__location__option {

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/css/Sort.css';
-import { Col, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Label } from 'reactstrap';
+import { Col } from 'reactstrap';
 import Select from 'react-select';
 
 function Sort({sortProducts}) {
@@ -11,7 +11,6 @@ function Sort({sortProducts}) {
   ]
 
   const handleSort = (val) => {
-    console.log(val);
     sortProducts(val.value);
   }
 

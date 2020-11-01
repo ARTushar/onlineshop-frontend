@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Button, InputGroup, Input } from 'reactstrap';
+import { Container, Row, Col, Button, InputGroup, Input, Badge } from 'reactstrap';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
 import ProductDetailsReviewsAndRatings from './ProductDetailsReviewsAndRatings';
 import ProductDetailsFeaturedImages from './ProductDetailsFeaturedImages';
 
-import { CartContext } from '../Context/context';
+import { CartContext } from '../utils/context';
 import CurrencyFormat from 'react-currency-format';
 import { useHistory, Link, useLocation } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ import Loading from './Loading';
 const required = (val) => val && val.length;
 
 function ProductDetails({ selectedProduct, addToWishlist }) {
-  const maxq = 12;
+  const maxq = selectedProduct ? selectedProduct.quantity: 0;
   const [quantity, setQuantity] = React.useState(1);
   const [colorFamilyImageIndex, setColorFamilyImageIndex] = React.useState(0);
   const cartContext = React.useContext(CartContext);
@@ -86,7 +86,10 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
   const dispatch = useDispatch();
 
   const handleCart = () => {
-    if (cartProducts.filter((product) => product.id === selectedProduct.id).length === 0) {
+    if(maxq && maxq === 0){
+      dispatch(setAlertMessage('Sorry! this product is out of stock!', 'error', true))
+    }
+    else if (cartProducts.filter((product) => product.id === selectedProduct.id).length === 0) {
       cartContext.addToCart({
         id: selectedProduct._id,
         price: discountPrice,
@@ -101,6 +104,10 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
   }
 
   const handleBuy = () => {
+    if(maxq && maxq === 0){
+      dispatch(setAlertMessage('Sorry! this product is out of stock!', 'error', true))
+      return;
+    }
     if(!cartContext.isAuthenticated){
       dispatch(setAlertMessage('Please log in!', 'error', true))
     }
@@ -142,6 +149,11 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
               <Row>
                 <h4 className='productDetails__toprow__titlebox__title'>
                   {selectedProduct && selectedProduct.title}
+                  {' '}
+                  {selectedProduct && selectedProduct.quantity === 0 ?
+                    <Badge color="danger">OUT OF STOCK</Badge>
+                    : (null)
+                  }
                 </h4>
               </Row>
               <Row className='productDetails__toprow__titlebox_rating'>
@@ -295,7 +307,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
                   </span>
                   <span className='productDetails__less__font'>
                     {selectedProduct && selectedProduct.categories.map(category => (
-                      <Link to={'/' + category}>
+                      <Link to={'/category/' + category.split(' ').join('-')}>
                         <span style={{ marginRight: 10 }}>{category}</span>
                       </Link>
                     ))}

@@ -13,7 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 
-function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postReview, orderId, clearReviewPosted }) {
+function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postReview, orderId, clearReviewPosted, discount }) {
   const [reviewButtonState, setReviewButtonState] = useState(false);
 
 	const handleReview = (review) => {
@@ -40,7 +40,7 @@ function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postRevi
 				<td className='orderproduct__title'>{title}</td>
 				<td className='orderproduct__price'>
 					<CurrencyFormat
-						value={price}
+						value={price - price * discount * 0.01}
 						decimalScale={2}
 						displayType='text'
 						thousandSeparator={true}

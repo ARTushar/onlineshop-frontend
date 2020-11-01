@@ -54,7 +54,7 @@ function Search({fetchCategoryProducts, categoryName, sortProducts, filterProduc
     <div className='search'>
       <Container className='search__container'>
 
-        {categoryName && (
+        {/* {categoryName? (
           <Row className="justify-content-center">
             <span style={{
               fontWeight: 700,
@@ -62,7 +62,7 @@ function Search({fetchCategoryProducts, categoryName, sortProducts, filterProduc
               textTransform: "capitalize",
             }}>{categoryName}</span>
           </Row>
-        )}
+        ): null} */}
         <Row className='search__main'>
           <Col className=''>
             <Row className="justify-content-between">

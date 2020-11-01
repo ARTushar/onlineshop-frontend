@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/css/Profile.css';
 
 import PropTypes from 'prop-types';
@@ -9,23 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import UserInformation from './UserInformation';
 import WishList from './WishLIst';
-import { Col, Container, Row } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 import OrderList from './OrderList';
-import { UserContext } from '../Context/context';
-
-
-function useWindowSize() {
-  const [size, setSize] = useState([0, 0]);
-  useLayoutEffect(() => {
-    function updateSize() {
-      setSize([window.innerWidth, window.innerHeight]);
-    }
-    window.addEventListener('resize', updateSize);
-    updateSize();
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-  return size;
-}
+import { UserContext } from '../utils/context';
+import { useWindowSize } from './WindowSize';
 
 
 function TabPanel(props) {

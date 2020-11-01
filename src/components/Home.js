@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Row,
   Col,
@@ -9,14 +10,25 @@ import '../assets/css/Home.css';
 import HomeCarousel from './HomeCarousel';
 import Loading from './Loading';
 import Product from './Product';
+import { useWindowSize } from './WindowSize';
+
+const getBreakpointLimit = (width) => {
+  if(width < 576) return 12;
+  if(width < 768) return 12;
+  if(width < 1100) return 12;
+  if(width < 1320) return 10;
+  return 12;
+}
 
 function Home({productsLoading, prouductsError, fetchHomeProducts, homeProducts }) {
 
+  let [width, height] = useWindowSize();
+
+  const limit = getBreakpointLimit(width);
+
   useEffect(() => {
-    if (homeProducts.length === 0) {
-      fetchHomeProducts();
-    }
-  }, [])
+      fetchHomeProducts(limit);
+  }, [limit])
 
   return (
     <div className='home'>
@@ -40,7 +52,10 @@ function Home({productsLoading, prouductsError, fetchHomeProducts, homeProducts 
                   return (
                     <React.Fragment key={cateogryProduct}>
                       <Col xs={12} className="home__main__category">
+                        <hr />
+                        <Link to={`/category/${cateogryProduct[0].split(' ').join('-')}`} style={{textDecoration: 'inherit'}}>
                         <span className="home__main__category__heading">{cateogryProduct[0]}</span>
+                        </Link>
                         <hr className="home__main__underline" />
                       </Col>
                       {cateogryProduct[1].map(

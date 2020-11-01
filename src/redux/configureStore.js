@@ -13,6 +13,7 @@ import Register from './register';
 import User from './user';
 import Categories from './categories';
 import Alert from './alert';
+import Districts from './districts';
 
 const ConfigureStore = () => {
   const persistConfig = {
@@ -31,6 +32,11 @@ const ConfigureStore = () => {
     storage: storageSession
   }
 
+  const districtsPersistConfig = {
+    key: 'districts',
+    storage: storageSession
+  }
+
   const categoriesPersistConfig = {
     key: 'categories',
     storage: storageSession
@@ -38,7 +44,7 @@ const ConfigureStore = () => {
 
   const persistedReducer = persistReducer(persistConfig,
     combineReducers({
-      // wishlist: Wishlist,
+      districts: persistReducer(districtsPersistConfig, Districts),
       alert: Alert,
       cart: Cart,
       auth: Auth,

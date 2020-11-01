@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Container, Row, Table } from 'reactstrap';
 import '../assets/css/OrderList.css';
 import { useHistory } from 'react-router-dom';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../utils/context';
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 const compareOrder = (a, b) => {

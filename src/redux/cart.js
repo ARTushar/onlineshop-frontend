@@ -1,5 +1,4 @@
 import * as ActionTypes from './ActionTypes';
-import { loadFromLocalStorage } from './localStorage';
 
 export const selectSubTotalPrice = (products) => {
     return products?.reduce((amount, product) => amount + product.price * product.quantity, 0)
@@ -10,10 +9,15 @@ export const selectTotalPrice = (products, deliveryCost) => {
     return subTotal + deliveryCost;
 }
 
+const defaultDeliverySelect = {
+    label: "Dhaka (ঢাকা)",
+    value: 'Dhaka',
+    deliveryCost: 60
+}
 
 const Cart = (state = {
     products: [],
-    deliveryCost: 60
+    deliverySelect: defaultDeliverySelect 
 }, action) => {
     switch (action.type) {
         case ActionTypes.ADD_TO_CART:
@@ -23,22 +27,22 @@ const Cart = (state = {
 
         case ActionTypes.REMOVE_FROM_CART:
             return { ...state, products: state.products.filter((product) => product.id !== action.payload) }
-        
+
         case ActionTypes.UPDATE_QUANTITY:
             let updatedProducts = [...state.products];
             let foundIndex = updatedProducts.findIndex(val => val.id === action.payload.productId);
-            if(foundIndex !== -1){
+            if (foundIndex !== -1) {
                 updatedProducts[foundIndex].quantity = action.payload.quantity;
-                return { ...state, products: updatedProducts};
+                return { ...state, products: updatedProducts };
             } else {
                 console.log('Product not found in the cart\n');
                 return state;
             }
         case ActionTypes.UPDATE_DELIVERY_COST:
-            return {...state, deliveryCost: action.payload}
-        
+            return { ...state, deliverySelect: action.payload }
+
         case ActionTypes.INITIALIZE_CART:
-            return { products: [], deliveryCost: 60 };
+            return { products: [], deliverySelect: defaultDeliverySelect };
 
         default:
             return state;

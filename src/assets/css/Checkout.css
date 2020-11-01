@@ -17,6 +17,11 @@
     font-weight: 700;
 }
 
+.checkout__card__subtitle {
+    margin-bottom: 10px;
+    font-size: small;
+    font-weight: 600;
+}
 
 .checkout__card__body__container {
     max-width: inherit;

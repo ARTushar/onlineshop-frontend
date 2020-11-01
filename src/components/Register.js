@@ -18,7 +18,7 @@ import {
 } from "reactstrap";
 import { Link, useHistory } from "react-router-dom";
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { AuthContext } from '../Context/context';
+import { AuthContext } from '../utils/context';
 
 import isMobilePhone from 'validator/lib/isMobilePhone';
 const required = (val) => val && val.length;

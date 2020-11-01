@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import '../assets/css/Checkout.css';
 import {
@@ -6,7 +6,7 @@ import {
   Card,
   CardBody,
   Row,
-  Col, CardTitle, Container, Label 
+  Col, CardTitle, Container, Label, CardSubtitle 
 } from "reactstrap";
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
@@ -18,6 +18,9 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import ReduxFormSelect from './ReduxFormSelect';
 import CurrencyFormat from 'react-currency-format';
 import { selectTotalPrice } from '../redux/cart';
+import { selectDistricts } from '../redux/districts';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchDistricts } from '../redux/actionCreators';
 
 const required = (val) => val && val.length;
 const requiredObject = (val) => val && val.value && val.value.length
@@ -41,11 +44,10 @@ const RadioButton = (props) => (
   </RadioGroup>
 );
 
-function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, singleProduct, removeSingleProduct }) {
+function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, singleProduct, removeSingleProduct, updateDeliveryCost }) {
 
-  const districts = [{ value: 'noakhali', label: "noakhali" }, {
-    value: 'dhaka', label: "dhaka"
-  }]
+  const {districts, isLoading} = useSelector(state => state.districts)
+  const districtsSelect = selectDistricts(districts);
 
   let products;
   let totalCost;
@@ -60,7 +62,7 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
       product: singleProduct.id,
       quantity: singleProduct.quantity
     }];
-    totalCost = singleProduct.price + deliveryCost;
+    totalCost = singleProduct.price * singleProduct.quantity + deliverySelect.deliveryCost;
   }
   else {
     products = [];
@@ -70,9 +72,17 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
         quantity: cartProducts[i].quantity
       })
     }
-    totalCost = selectTotalPrice(cartProducts, deliveryCost);
+    totalCost = selectTotalPrice(cartProducts, deliverySelect.deliveryCost);
   }
 
+  const hasLoaded = useSelector(state => state.districts.hasLoaded);
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    if(!hasLoaded){
+      dispatch(fetchDistricts());
+    }
+  }, [])
   const handleSubmit = (values) => {
     console.log(values);
     let transactionId = '';
@@ -204,14 +214,15 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
                       <Label htmlFor="district" md={3}>District</Label>
                       <Col md={9}>
                         <Control.select model=".district" id="district" name="district"
-                          defaultValue={{ "value": userInformation.address.district, "label": userInformation.address.district }}
+                          defaultValue={deliverySelect}
                           className="form-control"
                           validators={{
                             requiredObject
                           }}
                           placeholder="Search your district..."
                           component={ReduxFormSelect}
-                          options={districts}
+                          updateDeliveryCost={updateDeliveryCost}
+                          options={districtsSelect}
                         />
 
                         <Errors
@@ -363,6 +374,33 @@ function Checkout({ cartProducts, deliveryCost, userInformation, postOrder, sing
               <Col md="6" xl="5">
                 <Card className="checkout__card">
                   <CardBody className="checkout__card__body">
+                    <CardTitle className="checkout__card__title">
+                      <span>Payment Summary</span>
+                    </CardTitle>
+                    <CardSubtitle className="checkout__card__subtitle mb-2">
+                      <span>Subtotal: </span>
+                      <CurrencyFormat
+                        value={totalCost - deliverySelect.deliveryCost}
+                        displayType="text"
+                        decimalScale={2}
+                        prefix="৳"
+                        thousandSeparator={true}
+                        className="checkout__total__payment"
+                      />
+
+                    </CardSubtitle>
+                    <CardSubtitle className="checkout__card__subtitle mb-3">
+                      <span>Delivery Cost: </span>
+                      <CurrencyFormat
+                        value={deliverySelect.deliveryCost}
+                        displayType="text"
+                        decimalScale={2}
+                        prefix="৳"
+                        thousandSeparator={true}
+                        className="checkout__total__payment"
+                      />
+
+                    </CardSubtitle>
                     <CardTitle className="checkout__card__title">
                       <span>Total Payment: </span>
                       <CurrencyFormat

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Row, Col, InputGroup, Input } from 'reactstrap';
 import RemoveCircleSharpIcon from '@material-ui/icons/RemoveCircleSharp';
 import '../assets/css/CartProductSmall.css';
-import { CartContext } from '../Context/context';
+import { CartContext } from '../utils/context';
 import CurrencyFormat from 'react-currency-format';
 import { useDispatch } from 'react-redux';
 import { setAlertMessage } from '../redux/actionCreators';

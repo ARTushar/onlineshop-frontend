@@ -12,9 +12,11 @@ import isMobilePhone from 'validator/lib/isMobilePhone';
 import isEmail from 'validator/lib/isEmail';
 import ReduxFormSelect from './ReduxFormSelect';
 import '../assets/css/UserInformation.css';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../utils/context';
 import ChangePassword from './ChangePassword';
 import Loading from './Loading';
+import { useSelector } from 'react-redux';
+import { selectDistricts } from '../redux/districts';
 
 const required = (val) => val && val.length;
 // const requiredObject = (val) => val.value && val.value.length
@@ -36,9 +38,8 @@ function UserInformation() {
   const user = userContext.user.profileInformation;
   const hasLoaded = userContext.user.hasLoaded;
 
-  const districts = [{ value: 'noakhali', label: "noakhali" }, {
-    value: 'dhaka', label: "dhaka"
-  }]
+  const { districts, isLoading } = useSelector(state => state.districts)
+  const districtsSelect = selectDistricts(districts);
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -67,7 +68,7 @@ function UserInformation() {
 
   if (userContext.user.isLoading || !userContext.user.hasLoaded) {
     return (
-     <Loading />
+      <Loading />
     )
   } else {
 
@@ -82,14 +83,14 @@ function UserInformation() {
           </Col>
           <Col xs={6}>
             <Button2
-             onClick={() => setIsChangePassword(!isChangePassword)}
-             style={{
-              display: 'flex',
-              marginLeft: 'auto',
-              marginRight: '10px',
-              fontSize: '10px'
+              onClick={() => setIsChangePassword(!isChangePassword)}
+              style={{
+                display: 'flex',
+                marginLeft: 'auto',
+                marginRight: '10px',
+                fontSize: '10px'
 
-            }} variant='contained' align="center" color='primary' size="small">
+              }} variant='contained' align="center" color='primary' size="small">
               Change Password
         </Button2>
           </Col>
@@ -207,13 +208,13 @@ function UserInformation() {
             <Col md={9}>
               <Control.select model=".district" id="district" name="district"
                 className="form-control"
-                defaultValue={{ value: user.address.district, label: user.address.district }}
+                defaultValue={districtsSelect.find(v => v.value.toLowerCase() === user.address.district.toLowerCase())}
                 validators={{
                   // requiredObject
                 }}
                 placeholder="Search your district..."
                 component={ReduxFormSelect}
-                options={districts}
+                options={districtsSelect}
               />
 
               <Errors

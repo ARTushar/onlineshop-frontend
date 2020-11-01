@@ -5,7 +5,7 @@ import '../assets/css/WishList.css';
 import { Link } from 'react-router-dom';
 import Product from './Product';
 import RemoveCircleSharpIcon from '@material-ui/icons/RemoveCircleSharp';
-import { UserContext } from '../Context/context';
+import { UserContext } from '../utils/context';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 function WishList() {

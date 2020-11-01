@@ -1,15 +1,38 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Container, Row, Col, Table, Button } from 'reactstrap';
 import '../assets/css/Cart.css';
 import CartTotal from './CartTotal';
 import CartProduct from './CartProduct';
 import CartProductSmall from './CartProductSmall';
-import { CartContext } from '../Context/context';
+import { CartContext } from '../utils/context';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDistricts, updateDeliveryCost } from '../redux/actionCreators';
+import { selectDistricts } from '../redux/districts';
 
 
 function Cart() {
-  const cartProducts = React.useContext(CartContext).cartProducts;
+  const cartContext = React.useContext(CartContext)
+  const cartProducts = cartContext.cartProducts;
+
+  const deliverySelect = cartContext.deliverySelect;
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log('i am here');
+    if(!cartContext.hasLoaded){
+      dispatch(fetchDistricts());
+      console.log('what the hell')
+    } else {
+      console.log('yoyo yoyo ' + cartContext.district)
+      if(cartContext.district && cartContext.district.toLowerCase() !== deliverySelect.value.toLowerCase()){
+        const districtsSelect = selectDistricts(cartContext.districts);
+        const val = districtsSelect.find(v => v.value.toLowerCase() === cartContext.district.toLowerCase());
+        if(val)
+          dispatch(updateDeliveryCost(val));
+      }
+    }
+  }, [])
   return (
     <div className='cart'>
       <Container className="cart__container">

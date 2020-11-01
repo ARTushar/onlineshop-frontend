@@ -39,9 +39,10 @@
 
 .home__main__category {
     font-weight: 700;
-    font-size: large;
+    font-size: larger;
     padding: 20px 0px 10px 20px;
-    /* text-align: center; */
+    text-align: center;
+    color: #f50057;
     /* border: 1px solid ; */
     /* border-left: 0px; */
     /* border-right: 0px; */

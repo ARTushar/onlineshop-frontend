@@ -42,9 +42,9 @@ function Category({categories}) {
           <SidebarContent>
             <Menu iconShape="square">
               {categories.map(category => (
-                <SubMenu title={category.name}>
+                <SubMenu key={category.name} title={category.name}>
                   {category.subCategory.map(subcat => (
-                    <MenuItem onClick={() => history.push('/category/' + slugify(subcat))}>
+                    <MenuItem key={subcat} onClick={() => history.push('/category/' + slugify(subcat))}>
                       {subcat}
                     </MenuItem>
                   ))}

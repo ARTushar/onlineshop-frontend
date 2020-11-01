@@ -1,31 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Input, Row, Col, Button } from 'reactstrap';
 import '../assets/css/CartTotal.css';
 import { Link } from 'react-router-dom'
-import { CartContext } from '../Context/context';
+import { CartContext } from '../utils/context';
 import { selectSubTotalPrice } from '../redux/cart';
+import { selectDistricts } from '../redux/districts';
 import CurrencyFormat from 'react-currency-format';
-
+import { useSelector } from 'react-redux';
+import Select from 'react-select';
 
 function CartTotal() {
 
   const cartContext = React.useContext(CartContext);
-  const deliveryCost = cartContext.deliveryCost;
+  const deliverySelect = cartContext.deliverySelect;
   const updateDeliveryCost = cartContext.updateDeliveryCost;
   const subTotal = selectSubTotalPrice(cartContext.cartProducts);
-  const districts = {
-    'Dhaka': 60,
-    'Chittangong': 100,
-    'Noakhali': 100,
-    'Feni': 90
-  };
-  const [deliveryDistrict, setDeliveryDistrict] = React.useState('Dhaka');
+  const {districts, isLoading} = useSelector(state => state.districts)
+  const districtsSelect = selectDistricts(districts);
 
-  const setCurrentDistrict = (e) => {
-    setDeliveryDistrict(e.target.value);
-    updateDeliveryCost(districts[e.target.value])
+  const handleDeliveryCost = (v) => {
+    updateDeliveryCost(v);
   }
-
 
   return (
     <div className="carttotal">
@@ -57,22 +52,31 @@ function CartTotal() {
             <Row className="carttotal__shipping__info">
               <Col xs="12" className="carttotal__shipping__cost">
                 <span className="carttotal__shipping__cost__heading">Home Delivery: </span>
-                <span className="carttotal__shipping__cost__value">৳{deliveryCost}</span>
+                <span className="carttotal__shipping__cost__value">৳{deliverySelect.deliveryCost}</span>
               </Col>
               <Col xs="12" className="carttotal__shipping__to">
                 <span>Shipping to: </span>
               </Col>
-              <Col className="carttotal__shipping__location">
-                <Input
+              <Col xs="12" className="carttotal__shipping__location">
+                <Select
+                  options={districtsSelect}
+                  isSearchable
+                  isLoading={isLoading}
+                  defaultValue={deliverySelect}
+                  onChange={handleDeliveryCost}
+                  className="carttotal__shipping__location__select"
+                />
+                {/* <Input
                   type="select"
                   placeholder="Select delivery location"
                   onChange={setCurrentDistrict}
                   className="carttotal__shipping__location__select"
                 >
-                  {Object.keys(districts).map(district =>
-                    <option className="carttotal__shipping__location__option">{district}</option>
+                  {districts.map(district =>
+                    <option className="carttotal__shipping__location__option">{district.name}</option>
                   )}
-                </Input>
+                  
+                </Input> */}
               </Col>
             </Row>
           </Col>
@@ -86,7 +90,7 @@ function CartTotal() {
 
             <CurrencyFormat
               decimalScale={2}
-              value={subTotal + deliveryCost}
+              value={subTotal + deliverySelect.deliveryCost}
               displayType={"text"}
               prefix="৳"
               thousandSeparator={true}

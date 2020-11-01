@@ -125,8 +125,9 @@ export const fetchProductDone = () => ({
   type: ActionTypes.FETCH_SUCCESS
 })
 
-export const fetchProductFailure = () => ({
-  type: ActionTypes.FETCH_FAILURE
+export const fetchProductFailure = (errMess) => ({
+  type: ActionTypes.FETCH_FAILURE,
+  errMess
 })
 
 export const addHomeProducts = (products) => ({
@@ -189,14 +190,17 @@ export const fetchProductDetails = (slug) => (dispatch) => {
     })
 }
 
-export const fetchHomeProducts = () => (dispatch) => {
+export const fetchHomeProducts = (limit) => (dispatch) => {
   console.log("fetching ");
   dispatch(fetchProductRequest());
 
   return axios({
     method: 'GET',
     url: 'products/home',
-    baseURL: baseUrl
+    baseURL: baseUrl,
+    params: {
+      limit: limit
+    }
   })
     .then(response => {
       console.log(response);
@@ -381,9 +385,9 @@ export const updateQuantity = (productId, quantity) => ({
   }
 });
 
-export const updateDeliveryCost = (cost) => ({
+export const updateDeliveryCost = (payload) => ({
   type: ActionTypes.UPDATE_DELIVERY_COST,
-  payload: cost
+  payload
 });
 
 export const deleteCart = () => ({
@@ -1112,5 +1116,54 @@ export const fetchCategories = () => (dispatch) => {
 
 
 /**
- *
+ * districts
  */
+
+export const fetchDistrictsRequest = () => ({
+  type: ActionTypes.FETCH_DISTRICTS_REQUEST
+})
+
+export const fetchDistrictsDone = () => ({
+  type: ActionTypes.FETCH_DISTRICTS_SUCCESS
+})
+
+export const fetchDistrictsFailure = (errMess) => ({
+  type: ActionTypes.FETCH_DISTRICTS_FAILURE,
+  errMess
+})
+
+export const addDistricts = (districts) => ({
+  type: ActionTypes.ADD_DISTRICTS,
+  payload: districts 
+})
+
+
+export const fetchDistricts = () => (dispatch) => {
+  dispatch(fetchDistrictsRequest());
+
+  return axios({
+    method: 'GET',
+    url: 'locations',
+    baseURL: baseUrl
+  })
+    .then(response => {
+      console.log(response);
+      if (response && response.status === 200 && response.statusText === 'OK') {
+        return response.data;
+      } else {
+        let error = new Error('Error ' + response.status + ": " + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }, error => {
+      throw error;
+    })
+    .then(response => {
+      dispatch(addDistricts(response));
+      dispatch(fetchDistrictsDone());
+    })
+    .catch(error => {
+      if(error.response) dispatch(fetchDistrictsFailure(error.response.data))
+      else dispatch(fetchDistrictsFailure(error.message));
+    })
+}
