@@ -4,14 +4,17 @@
     background-color:  #10000c;
     color: white;
     padding: 10px;
+    font-size: small;
 }
 
 .footer__container {
-    max-width: inherit;
+    max-width: 1500px;
 }
 .footer__row {
+    justify-content: center;
 }
-.footer_left {
+.footer__left {
+    font-weight: 600;
 }
 
 .footer__copyright {
@@ -22,7 +25,17 @@
 }
 
 .footer__right__address {
+    font-size: small;
 }
+
+.footer__right__address__heading {
+    font-weight: 600;
+}
+
+.footer__left__social__icon{
+    margin-bottom: 8px;
+}
+
 
 .footer__right__address > address > a{
     color: #f4f3f4;

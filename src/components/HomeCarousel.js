@@ -13,12 +13,12 @@ function HomeCarousel() {
       showStatus={false}
       >
       <div>
-        <img src='/images/banner2.jpg'
+        <img src='/images/banner7.jpg'
           alt="banner 1" />
         {/* <p className='legend'>Legend 1</p> */}
       </div>
       <div>
-        <img src='/images/banner4.jpg'
+        <img src='/images/banner7.jpg'
           alt="banner 2" />
         {/* <p className='legend'>Legend 2</p> */}
       </div>
