@@ -9,14 +9,11 @@ import {
   NavItem,
   Nav,
   NavbarToggler,
-  InputGroup,
-  Input,
 } from 'reactstrap';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Badge } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
 import Category from './Category';
 import SearchBar from 'material-ui-search-bar';
 
