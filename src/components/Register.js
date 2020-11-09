@@ -101,7 +101,7 @@ function Register() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      history.push('/home');
+      history.push('/');
       return;
     }
     if (register.hasRegsitered) {
@@ -110,7 +110,7 @@ function Register() {
         password: creds.password
       }, false);
       clearRegsiter();
-      history.push('/home')
+      history.push('/')
     } else if (register.errMess) {
       if (register.errMess.name === 'UserExistsError') {
         setErrMess("There is already an account with this mobile number")

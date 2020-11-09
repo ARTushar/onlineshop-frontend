@@ -497,7 +497,7 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
                         {/* <Link style={{
                           width: "inherit"
 
-                        }} to='/home'> */}
+                        }} to='/'> */}
                         <Button type="submit" className="checkout__button__confirm">
                           Confirm Order
                         </Button>

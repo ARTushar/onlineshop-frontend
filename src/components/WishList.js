@@ -60,7 +60,7 @@ function WishList() {
                     <span>NO PRODUCTS IN THE WISHLIST 😒</span>
                   </Row>
                   <Row className="justify-content-center">
-                    <Link to="/home" style={{textDecoration: "inherit", color: "inherit"}}>
+                    <Link to="/" style={{textDecoration: "inherit", color: "inherit"}}>
                       <Button role="a" className="wishlist__no__product__button">
                         RETURN TO SHOP
                                 </Button>

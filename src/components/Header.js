@@ -47,7 +47,7 @@ function Header({ categories, fetchCategories, categoriesLoaded, setCurrentSearc
             id='toggler'
             style={{ border: '0px', fontSize: '', outline: 'none' }}
           />
-          <NavbarBrand className='header__navbar__container__logo' href='/home'>
+          <NavbarBrand className='header__navbar__container__logo' href='/'>
             <img src='/images/logo8.png' alt='logo' />
           </NavbarBrand>
           <Nav navbar>

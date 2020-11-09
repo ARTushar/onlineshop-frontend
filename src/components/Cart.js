@@ -89,7 +89,7 @@ function Cart() {
             <span>NO PRODUCTS IN THE CART <span role="img" aria-label="Not satisfied">😒</span></span>
           </Row>
           <Row className="justify-content-center">
-            <Button role="a" href="/home" className="cart__no__product__button">
+            <Button role="a" href="/" className="cart__no__product__button">
               RETURN TO SHOP
                                 </Button>
           </Row>

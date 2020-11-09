@@ -92,7 +92,7 @@ function Main(props) {
       props.auth.isAuthenticated
         ? <Component {...prop} />
         : <Redirect to={{
-          pathname: '/home',
+          pathname: '/',
           state: { from: location }
         }} />
     )} />
@@ -168,7 +168,7 @@ function Main(props) {
     <div className="main">
       <ScrollToTop />
       <Switch>
-        <Route path="/home">
+        <Route path="/">
           <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Home productsLoading={props.productsLoading} productsError={props.productsError} homeProducts={props.homeProducts} fetchHomeProducts={props.fetchHomeProducts} />
           <Footer />
@@ -235,7 +235,7 @@ function Main(props) {
               <Footer />
             </>
           ) : (
-              <Redirect to='/home' />
+              <Redirect to='/' />
             )
           }
         </Route>
@@ -277,7 +277,7 @@ function Main(props) {
           <Footer />
         </Route>
 
-        <Redirect to='/home' />
+        <Redirect to='/' />
       </Switch>
     </div>
   );

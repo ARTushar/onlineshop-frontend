@@ -16,7 +16,7 @@ function LoginRegister({type, loginUser}) {
         <div className="loginregister">
             <Container className="loginregister__container">
                 <Row className="loginregister__logo">
-                    <Link to='/home'>
+                    <Link to='/'>
                         <img className="loginregister__logo__img"
                             src="/images/logo8.png"
                             alt="logo"
