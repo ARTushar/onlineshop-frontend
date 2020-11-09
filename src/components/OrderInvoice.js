@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React from 'react';
 import '../assets/css/OrderInvoice.css';
 import { Container, Row, Col, Table } from 'reactstrap';
 import OrderTotal from './OrderTotal';

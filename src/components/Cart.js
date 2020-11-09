@@ -6,7 +6,7 @@ import CartProduct from './CartProduct';
 import CartProductSmall from './CartProductSmall';
 import { CartContext } from '../utils/context';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchDistricts, updateDeliveryCost } from '../redux/actionCreators';
 import { selectDistricts } from '../redux/districts';
 

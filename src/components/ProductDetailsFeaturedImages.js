@@ -1,5 +1,4 @@
 import React from 'react';
-import {Row} from 'reactstrap';
 
 function ProductDetailsFeaturedImages({ selectedProduct }) {
 	return (

@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import '../assets/css/Login.css';
 import { Link, useHistory } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import { FACEBOOKAPP_ID, GOOGLE_CLIENT_ID } from '../shared/appId';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-
-import config from '../assets/config';
 
 // reactstrap components
 import CallIcon from '@material-ui/icons/Call';
@@ -16,7 +12,6 @@ import {
   Card,
   CardBody,
   FormGroup,
-  Input,
   InputGroupAddon,
   InputGroupText,
   InputGroup,

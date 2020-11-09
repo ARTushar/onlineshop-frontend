@@ -221,6 +221,7 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
                           }}
                           placeholder="Search your district..."
                           component={ReduxFormSelect}
+                          isLoading={isLoading}
                           updateDeliveryCost={updateDeliveryCost}
                           options={districtsSelect}
                         />

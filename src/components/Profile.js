@@ -8,10 +8,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import UserInformation from './UserInformation';
-import WishList from './WishLIst';
+import WishList from './WishList';
 import { Container, Row } from 'reactstrap';
 import OrderList from './OrderList';
-import { UserContext } from '../utils/context';
 import { useWindowSize } from './WindowSize';
 
 
@@ -93,7 +92,6 @@ function Profile() {
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const userContext = React.useContext(UserContext)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

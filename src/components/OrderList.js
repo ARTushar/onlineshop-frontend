@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Table as TableBoostrap } from 'reactstrap';
 import '../assets/css/OrderList.css';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../utils/context';
-import CircularProgress from '@material-ui/core/CircularProgress'
 
 import PropTypes from 'prop-types';
-import { lighten, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,8 +14,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 
 function createData(orderNo, date, totalProducts, totalCost, status) {
   return { orderNo, date, totalProducts, totalCost, status: status.toUpperCase()};
@@ -103,26 +99,6 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-const useToolbarStyles = makeStyles((theme) => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-  highlight:
-    theme.palette.type === 'light'
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
-  title: {
-    flex: '1 1 100%',
-    textAlign: 'center'
-  },
-}));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -192,7 +168,6 @@ function OrderList() {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -202,34 +177,6 @@ function OrderList() {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-
-    setSelected(newSelected);
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -240,8 +187,6 @@ function OrderList() {
     setPage(0);
   };
 
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
@@ -256,10 +201,8 @@ function OrderList() {
           >
             <EnhancedTableHead
               classes={classes}
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
@@ -273,7 +216,6 @@ function OrderList() {
                       cursor: "pointer"
                     }}
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
                       role="checkbox"
                       tabIndex={-1}
                       key={row.orderNo}
@@ -316,58 +258,6 @@ function OrderList() {
     </div>
   );
 
-  // if (userContext.ordersLoading || !userContext.orderLoaded) {
-  //   return (
-  //     <div>
-  //       <Container>
-  //         <Row className="justify-content-center">
-  //           <CircularProgress color="secondary" />
-  //         </Row>
-  //       </Container>
-  //     </div>
-  //   )
-  // } else {
-  //   return (
-  //     // <div className="orderlist">
-  //     //   <Container className="orderlist__container">
-  //     //     <Row className="orderlist__row">
-  //           <Table responsive bordered striped hover className="orderlist__table">
-  //             <thead>
-  //               <tr>
-  //                 <th>ORDER NO</th>
-  //                 <th>DATE</th>
-  //                 <th>TOTAL PRODUCTS</th>
-  //                 <th>TOTAL COST</th>
-  //                 <th>STATUS</th>
-  //               </tr>
-  //             </thead>
-  //             <tbody>
-  //               {orders.sort(compareOrder).map(orderproduct => (
-  //                 <tr key={orderproduct._id} onClick={() => history.push(`/order/${orderproduct._id}`)}>
-  //                   <td className="orderlist__orderno">
-  //                     <span>{orderproduct._id}</span>
-  //                   </td>
-  //                   <td className="orderlist__date">
-  //                     <span>{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: "2-digit" }).format(new Date(orderproduct.createdAt))}</span>
-  //                   </td>
-  //                   <td className="orderlist__totalproducts">
-  //                     <span>{orderproduct.products.length}</span>
-  //                   </td>
-  //                   <td className="orderlist__totalcost">
-  //                     <span>{orderproduct.subTotalCost + orderproduct.deliveryCost}</span>
-  //                   </td>
-  //                   <td className="orderlist__status">
-  //                     <span>{orderproduct.status}</span>
-  //                   </td>
-  //                 </tr>
-  //               ))}
-  //             </tbody>
-  //           </Table>
-  //     //     {/* </Row> */}
-  //     //   {/* </Container > */}
-  //     // </div >
-  //   )
-  // }
 }
 
 export default OrderList;

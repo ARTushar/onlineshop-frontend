@@ -3,11 +3,10 @@ import {Button as Button2} from '@material-ui/core';
 import {
   Button,
   Row,
-  Col, CardTitle, Label, Container
+  Col, CardTitle, Label
 } from "reactstrap";
 import { LocalForm, Control, Errors } from 'react-redux-form';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
 import isMobilePhone from 'validator/lib/isMobilePhone';
 import isEmail from 'validator/lib/isEmail';
 import ReduxFormSelect from './ReduxFormSelect';
@@ -214,6 +213,7 @@ function UserInformation() {
                 }}
                 placeholder="Search your district..."
                 component={ReduxFormSelect}
+                isLoading={isLoading}
                 options={districtsSelect}
               />
 

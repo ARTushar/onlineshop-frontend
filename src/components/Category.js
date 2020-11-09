@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../assets/css/Category.css';
 import { ProSidebar, SidebarContent, Menu, MenuItem, SubMenu, SidebarHeader} from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import {Input, Button as Button2 } from 'reactstrap';
-import { Drawer, Button } from '@material-ui/core'
+import { Drawer } from '@material-ui/core'
 import { useHistory } from 'react-router-dom';
 
 function Category({categories}) {

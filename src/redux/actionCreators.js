@@ -634,11 +634,11 @@ export const removeSingleProduct = () => ({
   type: ActionTypes.REMOVE_SINGLE_PRODUCT
 })
 
-const updateOrderAfterReview = (orderId, productId) => ({
+/* const updateOrderAfterReview = (orderId, productId) => ({
   type: ActionTypes.UPDATE_GIVEN_REVIEW,
   orderId,
   productId
-});
+}); */
 
 
 /**
@@ -657,7 +657,6 @@ export const postReview = (review, productId) => dispatch => {
 
   handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
-  const orderId = review.orderId;
 
   axios({
     method: 'POST',

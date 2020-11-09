@@ -10,7 +10,7 @@ const Register = (state = {
             return { ...state, isLoading: true };
         
         case ActionTypes.REGISTER_SUCCESS:
-            return { ... state,
+            return { ...state,
                 isLoading: false,
                 hasRegsitered: true,
                 errMess: null

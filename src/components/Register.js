@@ -96,7 +96,7 @@ function Register() {
       .catch(err => console.log(err.message));
   }
 
-  const serverError = (val) => errMess ? false : true;
+  // const serverError = (val) => errMess ? false : true;
 
 
   useEffect(() => {

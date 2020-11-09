@@ -18,7 +18,6 @@ import { UserContext, CartContext, AuthContext } from '../utils/context';
 import { postProductToWishlist, addToCart, fetchProductDetails, removeFromCart, removeProductFromWishlist, updateDeliveryCost, updateQuantity, postOrder, addSingleProduct, removeSingleProduct, loginUser, logoutUser, registerUser, clearRegsiter, loginUserThirdParty, fetchHomeProducts, setCurrentSlug, fetchSearchProducts, deleteProductDetails, fetchSelectedOrder, fetchProfile, updateProfile, postQuestion, clearQuestionPosted, postReview, clearReviewPosted, fetchOrders, setCurrentSearched, filterProducts, sortProducts, fetchCategories, fetchCategoryProducts } from '../redux/actionCreators';
 import OrderInvoice from './OrderInvoice';
 import ScrollToTop from './ScrollToTop';
-import { auth } from 'firebase';
 import PricacyPolicy from './PricacyPolicy';
 
 const mapDispatchToProps = (dispatch) => ({
@@ -186,7 +185,6 @@ function Main(props) {
             updateDeliveryCost: props.updateDeliveryCost,
             hasLoaded: props.districts.hasLoaded,
             districts: props.districts.districts,
-            deliverySelect: props.cart.deliverySelect,
             district: props.user.profileInformation.address.district
           }}>
             <Cart />

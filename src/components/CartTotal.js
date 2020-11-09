@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Container, Input, Row, Col, Button } from 'reactstrap';
+import React  from 'react';
+import { Container, Row, Col, Button } from 'reactstrap';
 import '../assets/css/CartTotal.css';
 import { Link } from 'react-router-dom'
 import { CartContext } from '../utils/context';
