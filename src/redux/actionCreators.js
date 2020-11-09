@@ -34,7 +34,7 @@ const getNewToken = (counter) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -168,7 +168,7 @@ export const fetchProductDetails = (slug) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -204,7 +204,7 @@ export const fetchHomeProducts = (limit) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -243,7 +243,7 @@ export const fetchCategoryProducts = (categoryName) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -283,7 +283,7 @@ export const fetchSearchProducts = (searchInput) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -337,7 +337,7 @@ export const postQuestion = (question, productId) => dispatch => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -435,7 +435,7 @@ export const postProductToWishlist = (product) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -479,7 +479,7 @@ export const removeProductFromWishlist = (productId) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -559,7 +559,7 @@ export const fetchOrders = () => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -598,7 +598,7 @@ export const postOrder = (order, fromBuy, history) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -669,7 +669,7 @@ export const postReview = (review, productId) => dispatch => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -741,7 +741,7 @@ export const fetchProfile = () => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -785,7 +785,7 @@ export const updateProfile = (profile) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -832,7 +832,7 @@ export const changePassword = (password) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -883,7 +883,7 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -935,7 +935,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -1022,7 +1022,7 @@ export const registerUser = (user) => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -1092,7 +1092,7 @@ export const fetchCategories = () => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);
@@ -1147,7 +1147,7 @@ export const fetchDistricts = () => (dispatch) => {
   })
     .then(response => {
       console.log(response);
-      if (response && response.status === 200 && response.statusText === 'OK') {
+      if (response && response.status === 200) {
         return response.data;
       } else {
         let error = new Error('Error ' + response.status + ": " + response.statusText);

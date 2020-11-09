@@ -168,7 +168,7 @@ function Main(props) {
     <div className="main">
       <ScrollToTop />
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           <Header categories={props.categories} fetchCategories={props.fetchCategories} categoriesLoaded={props.categoriesLoaded} setCurrentSearched={props.setCurrentSearched} currentSearched={props.currentSearched} fetchSearchProducts={props.fetchSearchProducts} logoutUser={props.logoutUser} auth={props.auth} totalProducts={props.cart.products.length} />
           <Home productsLoading={props.productsLoading} productsError={props.productsError} homeProducts={props.homeProducts} fetchHomeProducts={props.fetchHomeProducts} />
           <Footer />
