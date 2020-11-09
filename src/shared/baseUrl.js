@@ -1,1 +1,1 @@
-export const baseUrl = 'http://192.168.31.178:3001';
+export const baseUrl = 'https://api-dot-nipuns-gallery-bd.el.r.appspot.com';
