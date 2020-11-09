@@ -59,6 +59,9 @@ function FilterSidebar({filterProducts}) {
               <SubMenu title="Price">
                 <MenuItem>
                   <Input
+                    style={{
+                      fontSize: "small"
+                    }}
                     placeholder='Minimum Price'
                     className='filter__price__limit'
                     value={minPrice}
@@ -69,6 +72,10 @@ function FilterSidebar({filterProducts}) {
                 </MenuItem>
                 <MenuItem>
                   <Input
+                    style={{
+                      fontSize: "small"
+                    }}
+                    size="small"
                     placeholder='Maximum Price'
                     className='filter__price__limit'
                     value={maxPrice}
