@@ -12,7 +12,6 @@ import { useHistory, Link, useLocation } from 'react-router-dom';
 import '../assets/css/ProductDetails.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ClearIcon from '@material-ui/icons/Clear';
-import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertMessage } from '../redux/actionCreators';
 import Loading from './Loading';

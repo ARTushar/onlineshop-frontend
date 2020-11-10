@@ -84,7 +84,8 @@ const useStyles = makeStyles((theme) => ({
     outline: "none"
   },
   tabPanel: {
-    width: "-webkit-fill-available"
+    width: "-webkit-fill-available",
+    width: "-moz-available"
   }
 }));
 
