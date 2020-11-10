@@ -906,7 +906,12 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
         dispatch(fetchProfile());
         dispatch(receiveLogin(response));
         dispatch(setAlertMessage('Yay! You have successfully logged in!', 'success', true));
-        history.push('/home');
+        if (history.location.state) {
+          // console.log('location: ' + JSON.stringify(history.location.state.productLocation));
+          history.push(history.location.state.productLocation)
+        } else {
+          history.push('/home')
+        }
       } else {
         let error = new Error('Error ' + response.status);
         error.response = response;
@@ -1133,7 +1138,7 @@ export const fetchDistrictsFailure = (errMess) => ({
 
 export const addDistricts = (districts) => ({
   type: ActionTypes.ADD_DISTRICTS,
-  payload: districts 
+  payload: districts
 })
 
 
@@ -1162,7 +1167,7 @@ export const fetchDistricts = () => (dispatch) => {
       dispatch(fetchDistrictsDone());
     })
     .catch(error => {
-      if(error.response) dispatch(fetchDistrictsFailure(error.response.data))
+      if (error.response) dispatch(fetchDistrictsFailure(error.response.data))
       else dispatch(fetchDistrictsFailure(error.message));
     })
 }

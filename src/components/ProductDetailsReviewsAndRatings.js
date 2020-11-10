@@ -5,19 +5,11 @@ import {
   Col,
   Progress,
 } from 'reactstrap';
+import Rating from '@material-ui/lab/Rating';
 import StarIcon from '@material-ui/icons/Star';
 
 function ProductDetailsReviewsAndRatings({ selectedProduct }) {
-  const calculateAvgRating = () => {
-    let avg_rating = 0;
-    selectedProduct.reviews.map((rev) => {
-      avg_rating += rev.rating;
-    });
-    if (selectedProduct.reviews.length > 0) {
-      avg_rating = avg_rating / selectedProduct.reviews.length;
-    }
-    return avg_rating;
-  };
+  
   return (
     <div>
         <React.Fragment>
@@ -27,78 +19,69 @@ function ProductDetailsReviewsAndRatings({ selectedProduct }) {
               <Row>
                 <Col xs={12} md={4} style={{ marginBottom: 10 }}>
                   <Container>
-                    <Row style={{ fontSize: '28px', fontWeight: 400 }}>
-                      {calculateAvgRating()}/5
+                  <Row style={{ fontSize: '28px', fontWeight: 400 }}>
+                    {selectedProduct.rating}/5
 										</Row>
-                    <Row>
-                      {Array(Math.round(parseFloat(calculateAvgRating())))
-                        .fill()
-                        .map((_, i) => (
-                          <StarIcon
-                            style={{
-                              color: '#fdb900',
-                              fontSize: '28px',
-                            }}
-                          ></StarIcon>
-                        ))}
-                    </Row>
-                    <Row style={{ fontSize: '14px', fontWeight: 300 }}>
-                      {selectedProduct.reviews.length} ratings
-										</Row>
-                  </Container>
-                </Col>
-                <Col xs={12} md={6}>
                   <Row>
-                    {Array(5)
-                      .fill()
-                      .map((_, idx) => {
-                        const count = selectedProduct.reviews.filter(
-                          (rev) => rev.rating == 5 - idx
-                        ).length;
-                        const total = selectedProduct.reviews.length;
-                        return (
-                          <React.Fragment >
-                            <Col xs={6} md={4}>
-                              {Array(5 - idx)
-                                .fill()
-                                .map((_, i) => (
-                                  <StarIcon
-                                    style={{
-                                      color: '#fdb900',
-                                      fontSize: '18px',
-                                    }}
-                                  ></StarIcon>
-                                ))}
-                              {Array(idx)
-                                .fill()
-                                .map((_, i) => (
-                                  <StarIcon
-                                    style={{
-                                      color: 'lightgray',
-                                      fontSize: '18px',
-                                    }}
-                                  ></StarIcon>
-                                ))}
-                            </Col>
-                            <Col xs={4} md={6}>
-                              <Progress
-                                value={(count * 100) / total}
-                                color='warning'
-                              />
-                            </Col>
-                            <Col xs={2} md={2}>
-                              {count}
-                            </Col>
-                          </React.Fragment>
-                        );
-                      })}
+                    <Rating defaultValue={selectedProduct.rating} size='medium' readOnly precision={0.5} />
                   </Row>
-                </Col>
-              </Row>
-            </Container>
-          </Row>
-          <hr></hr>
-        </React.Fragment>
+                  <Row style={{ fontSize: '14px', fontWeight: 300 }}>
+                    {selectedProduct.reviews.length} ratings
+										</Row>
+                </Container>
+              </Col>
+              <Col xs={12} md={6}>
+                <Row>
+                  {Array(5)
+                    .fill()
+                    .map((_, idx) => {
+                      const count = selectedProduct.reviews.filter(
+                        (rev) => rev.rating == 5 - idx
+                      ).length;
+                      const total = selectedProduct.reviews.length;
+                      return (
+                        <React.Fragment >
+                          <Col xs={6} md={4}>
+                            {Array(5 - idx)
+                              .fill()
+                              .map((_, i) => (
+                                <StarIcon
+                                  style={{
+                                    color: '#fdb900',
+                                    fontSize: '18px',
+                                  }}
+                                ></StarIcon>
+                              ))}
+                            {Array(idx)
+                              .fill()
+                              .map((_, i) => (
+                                <StarIcon
+                                  style={{
+                                    color: 'lightgray',
+                                    fontSize: '18px',
+                                  }}
+                                ></StarIcon>
+                              ))}
+                          </Col>
+                          <Col xs={4} md={6}>
+                            <Progress
+                              value={(count * 100) / total}
+                              color='warning'
+                            />
+                          </Col>
+                          <Col xs={2} md={2}>
+                            {count}
+                          </Col>
+                        </React.Fragment>
+                      );
+                    })}
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        </Row>
+        <hr></hr>
+      </React.Fragment>
 
       {selectedProduct &&
         selectedProduct.reviews.map((rev) => {

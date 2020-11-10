@@ -16,6 +16,8 @@ import StarIcon from '@material-ui/icons/Star';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAlertMessage } from '../redux/actionCreators';
 import Loading from './Loading';
+import Rating from '@material-ui/lab/Rating';
+
 
 const required = (val) => val && val.length;
 
@@ -158,7 +160,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
                 </h4>
               </Row>
               <Row className='productDetails__toprow__titlebox_rating'>
-                {selectedProduct && selectedProduct.reviews.length > 0
+                {/* {selectedProduct && selectedProduct.reviews.length > 0
                   ? Array(Math.round(selectedProduct.rating))
                     .fill()
                     .map((_, i) => (
@@ -168,7 +170,10 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
                     .fill()
                     .map((_, i) => (
                       <StarIcon style={{ color: 'lightgray' }}></StarIcon>
-                    ))}
+                    ))} */}
+                {selectedProduct &&
+                  <Rating defaultValue={selectedProduct.rating} size='medium' readOnly precision={0.5} />
+                }
               </Row>
               <Row className='productDetails__toprow__titlebox_pricerow'>
                 <Col sm={3} md={4} lg={3} className='p-0'>
@@ -342,6 +347,20 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
           </Col>
         </Row>
 
+        {/* Featured Images */}
+        <Row className='productDetails__bottomRows'>
+          <Col>
+            <Container className='productDetails__bottomRows__container'>
+              <h5>Featured Images</h5>
+              <hr></hr>
+              {selectedProduct && (
+                <ProductDetailsFeaturedImages
+                  selectedProduct={selectedProduct}
+                />
+              )}
+            </Container>
+          </Col>
+        </Row>
         {/* Question & Answer */}
         <Row className='productDetails__bottomRows'>
 
@@ -436,58 +455,59 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
                 </LocalForm>
               )}
               <hr></hr>
-              {selectedProduct && selectedProduct.questionAns ? (
-                selectedProduct.questionAns.map((qa) => {
-                  return (
-                    <Container>
-                      <Row style={{ marginBottom: 10 }}>
-                        <Col xs='2' md='1'>
-                          <h6>Q: </h6>
-                        </Col>
-                        <Col>
-                          <Row style={{ fontWeight: 400, fontSize: 14 }}>
-                            {qa.q}
-                          </Row>
-                          <Row>
-                            <Row>
-                              <Col style={{ fontSize: 12, fontWeight: 300 }}>
-                                {qa.user + ' - '}
-                              </Col>
+              {selectedProduct && selectedProduct.questionAnswers ? (
+                selectedProduct.questionAnswers.map((qa) => (
+                  qa.answer ?
+                    (
+                      <Container>
+                        <Row style={{ marginBottom: 10 }}>
+                          <Col xs='2' md='1'>
+                            <h6>Q: </h6>
+                          </Col>
+                          <Col>
+                            <Row style={{ fontWeight: 400, fontSize: 14 }}>
+                              {qa.question}
                             </Row>
                             <Row>
-                              <Col style={{ fontSize: 12, fontWeight: 300 }}>
-                                {new Intl.DateTimeFormat('en-US', {
-                                  year: 'numeric',
-                                  month: 'short',
-                                  day: '2-digit',
-                                }).format(new Date(Date.parse(qa.qtime)))}{' '}
-                              </Col>
+                              <Row>
+                                <Col style={{ fontSize: 12, fontWeight: 300 }}>
+                                  {qa.author.name + ' - '}
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col style={{ fontSize: 12, fontWeight: 300 }}>
+                                  {new Intl.DateTimeFormat('en-US', {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: '2-digit',
+                                  }).format(new Date(Date.parse(qa.createdAt)))}{' '}
+                                </Col>
+                              </Row>
                             </Row>
-                          </Row>
-                        </Col>
-                      </Row>
+                          </Col>
+                        </Row>
 
-                      <Row>
-                        <Col xs='2' md='1'>
-                          <h6>A: </h6>
-                        </Col>
-                        <Col>
-                          <Row style={{ fontWeight: 400, fontSize: 14 }}>
-                            {qa.a}
-                          </Row>
-                          <Row style={{ fontSize: 12, fontWeight: 300 }}>
-                            {new Intl.DateTimeFormat('en-US', {
-                              year: 'numeric',
-                              month: 'short',
-                              day: '2-digit',
-                            }).format(new Date(Date.parse(qa.qtime)))}{' '}
-                          </Row>
-                        </Col>
-                      </Row>
-                      <hr></hr>
-                    </Container>
-                  );
-                })
+                        <Row>
+                          <Col xs='2' md='1'>
+                            <h6>A: </h6>
+                          </Col>
+                          <Col>
+                            <Row style={{ fontWeight: 400, fontSize: 14 }}>
+                              {qa.answer}
+                            </Row>
+                            <Row style={{ fontSize: 12, fontWeight: 300 }}>
+                              {new Intl.DateTimeFormat('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: '2-digit',
+                              }).format(new Date(Date.parse(qa.updatedAt)))}{' '}
+                            </Row>
+                          </Col>
+                        </Row>
+                        <hr></hr>
+                      </Container>
+                    ) : (null)
+                ))
               ) : (
                   <Row
                     style={{
@@ -518,20 +538,6 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
           </Col>
         </Row>
 
-        {/* Featured Images */}
-        <Row className='productDetails__bottomRows'>
-          <Col>
-            <Container className='productDetails__bottomRows__container'>
-              <h5>Featured Images</h5>
-              <hr></hr>
-              {selectedProduct && (
-                <ProductDetailsFeaturedImages
-                  selectedProduct={selectedProduct}
-                />
-              )}
-            </Container>
-          </Col>
-        </Row>
       </Container>
     </div>
   );
