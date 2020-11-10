@@ -4,7 +4,7 @@ import { Row, Col, Container } from 'reactstrap';
 import CallIcon from '@material-ui/icons/Call';
 import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
-import YouTubeIcon from '@material-ui/icons/YouTube';
+// import YouTubeIcon from '@material-ui/icons/YouTube';
 import { Link } from 'react-router-dom';
 
 function Footer() {
@@ -20,9 +20,13 @@ function Footer() {
                                     fontSize: 'inherit'
                                 }} to='/policy'>Privacy Policy</Link>
                             </Col>
-                            <Col xs={{ size: 12 }} className="p-0 mb-2">
+                            {/* <Col xs={{ size: 12 }} className="p-0 mb-2">
                                 <span>Payment System</span>
-                            </Col>
+                            </Col> */}
+                            {/* <Col xs={{ size: 12 }} className="mb-2">
+                                <span>Cash On Delivery </span>
+                                <span>Bkash</span>
+                            </Col> */}
                         </Row>
                         <Row className="footer__left__sociallink">
                             <Col xs={{ size: 12 }} className="p-0 m mb-1">
@@ -30,7 +34,7 @@ function Footer() {
                             </Col>
                             <Col xs={{ size: 12 }} className="footer__left__social__icon">
                                 <a href="https://www.facebook.com/groups/nipunsgallery"><FacebookIcon style={{fontSize: 30, color: "#3b5998",}} /></a>
-                                <a href=""> <YouTubeIcon style={{fontSize: 30, color: "#FF0000"}} /></a>
+                                {/* <a href=""> <YouTubeIcon style={{fontSize: 30, color: "#FF0000"}} /></a> */}
                             </Col>
                         </Row>
                         <Row className="footer__left__sociallink_icon"></Row>
@@ -43,8 +47,8 @@ function Footer() {
                             <Col sm={{ size: 12 }} className="footer__right__address">
                                 <address className="">
                                     Jatrabari, Dhaka, Bangladesh<br />
-                                    <CallIcon />: +8801864510094<br />
-                                    <EmailIcon />: <a href="mailto:tushar27156@gmail.com"> tushar27156@gmail.com</a>
+                                    <CallIcon />: +8801974716315<br />
+                                    <EmailIcon />: <a href="mailto:nipunsgallery@gmail.com"> nipunsgallery@gmail.com</a>
                                 </address>
                             </Col>
                         </Row>

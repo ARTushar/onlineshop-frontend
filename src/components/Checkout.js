@@ -51,7 +51,7 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
 
   let products;
   let totalCost;
-  const bkashMobileNumber = '01864510094';
+  const bkashMobileNumber = '01974716315';
 
   const [isShown, setIsShown] = useState(false);
 
