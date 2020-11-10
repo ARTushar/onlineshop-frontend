@@ -13,14 +13,14 @@ export const isTokenExpired = (tokenName) => {
 }
 
 const handleTokenExpiration = async () => {
-  console.log('handling token expiration');
+  // console.log('handling token expiration');
   if(isTokenExpired('token') && !isTokenExpired('refreshToken')){
     await getNewToken(3);
   }
 }
 
 const getNewToken = (counter) => {
-  console.log('getting new token : ' + counter);
+  // console.log('getting new token : ' + counter);
   if(!counter) return;
   const bearer = 'Bearer ' + localStorage.getItem('refreshToken');
 
@@ -33,7 +33,7 @@ const getNewToken = (counter) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -167,7 +167,7 @@ export const fetchProductDetails = (slug) => (dispatch) => {
     baseURL: baseUrl
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -191,7 +191,7 @@ export const fetchProductDetails = (slug) => (dispatch) => {
 }
 
 export const fetchHomeProducts = (limit) => (dispatch) => {
-  console.log("fetching ");
+  // console.log("fetching ");
   dispatch(fetchProductRequest());
 
   return axios({
@@ -203,7 +203,7 @@ export const fetchHomeProducts = (limit) => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -242,7 +242,7 @@ export const fetchCategoryProducts = (categoryName) => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -270,7 +270,7 @@ export const fetchCategoryProducts = (categoryName) => (dispatch) => {
 }
 
 export const fetchSearchProducts = (searchInput) => (dispatch) => {
-  console.log("fetching : " + JSON.stringify(searchInput));
+  // console.log("fetching : " + JSON.stringify(searchInput));
   dispatch(fetchProductRequest());
 
   return axios({
@@ -282,7 +282,7 @@ export const fetchSearchProducts = (searchInput) => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -336,7 +336,7 @@ export const postQuestion = (question, productId) => dispatch => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -434,7 +434,7 @@ export const postProductToWishlist = (product) => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -478,7 +478,7 @@ export const removeProductFromWishlist = (productId) => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -558,7 +558,7 @@ export const fetchOrders = () => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -580,7 +580,7 @@ export const fetchOrders = () => (dispatch) => {
 }
 
 export const postOrder = (order, fromBuy, history) => (dispatch) => {
-  console.log('Posting an order')
+  // console.log('Posting an order')
 
   dispatch(requestOrders())
 
@@ -597,7 +597,7 @@ export const postOrder = (order, fromBuy, history) => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -740,7 +740,7 @@ export const fetchProfile = () => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -784,7 +784,7 @@ export const updateProfile = (profile) => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -831,7 +831,7 @@ export const changePassword = (password) => (dispatch) => {
     }
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -882,7 +882,7 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
     data: creds
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -926,7 +926,7 @@ export const requestLoginThirdParty = () => ({
 
 export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
   dispatch(requestLoginThirdParty());
-  console.log(creds);
+  // console.log(creds);
   return axios({
     method: 'POST',
     url: 'users/' + provider + "/token",
@@ -934,7 +934,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
     data: creds
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -951,7 +951,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
         localStorage.setItem('refreshToken', response.refreshToken);
         dispatch(receiveLogin(response));
         if (history.location.state) {
-          console.log('location: ' + JSON.stringify(history.location.state.productLocation));
+          // console.log('location: ' + JSON.stringify(history.location.state.productLocation));
           history.push(history.location.state.productLocation)
         } else
           history.push('/home')
@@ -1021,7 +1021,7 @@ export const registerUser = (user) => (dispatch) => {
     data: user
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -1091,7 +1091,7 @@ export const fetchCategories = () => (dispatch) => {
     baseURL: baseUrl,
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {
@@ -1146,7 +1146,7 @@ export const fetchDistricts = () => (dispatch) => {
     baseURL: baseUrl
   })
     .then(response => {
-      console.log(response);
+      // console.log(response);
       if (response && response.status === 200) {
         return response.data;
       } else {

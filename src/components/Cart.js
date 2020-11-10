@@ -19,12 +19,12 @@ function Cart() {
   
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('i am here');
+    // console.log('i am here');
     if(!cartContext.hasLoaded){
       dispatch(fetchDistricts());
-      console.log('what the hell')
+      // console.log('what the hell')
     } else {
-      console.log('yoyo yoyo ' + cartContext.district)
+      // console.log('yoyo yoyo ' + cartContext.district)
       if(cartContext.district && cartContext.district.toLowerCase() !== deliverySelect.value.toLowerCase()){
         const districtsSelect = selectDistricts(cartContext.districts);
         const val = districtsSelect.find(v => v.value.toLowerCase() === cartContext.district.toLowerCase());

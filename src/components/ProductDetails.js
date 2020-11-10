@@ -49,7 +49,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
 
     if (cartContext.questionPosted) {
       // alert("Yay your question is posted");
-      console.log('yay posted');
+      // console.log('yay posted');
       cartContext.clearQuestionPosted();
       
     }

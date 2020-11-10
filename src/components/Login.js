@@ -42,7 +42,7 @@ function Login() {
   const [errMess, setErrMess] = useState();
 
   const handleLogin = (values) => {
-    console.log("creds: " + JSON.stringify(values))
+    // console.log("creds: " + JSON.stringify(values))
     loginUser({
       username: values.username,
       password: values.password
@@ -54,14 +54,14 @@ function Login() {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(googleAuthProvider)
       .then(result => {
-        console.log(result);
+        // console.log(result);
         firebase.auth().currentUser.getIdToken(true)
           .then(idToken => {
             loginUserThirdParty({
               idToken
             }, 'google', history)
           }, err => {
-            console.log(err);
+            // console.log(err);
           });
       })
       .catch(err => console.log(err.message));

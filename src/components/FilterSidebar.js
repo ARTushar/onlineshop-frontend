@@ -30,9 +30,9 @@ function FilterSidebar({filterProducts}) {
     setOpen(open);
   };
 
-  React.useEffect(() => {
-    console.log(`minPrice: ${minPrice} maxPrice: ${maxPrice} rating: ${rating}`);
-  })
+  // React.useEffect(() => {
+  //   console.log(`minPrice: ${minPrice} maxPrice: ${maxPrice} rating: ${rating}`);
+  // })
 
   return (
     <React.Fragment>

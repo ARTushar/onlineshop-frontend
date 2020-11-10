@@ -84,7 +84,7 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
     }
   }, [])
   const handleSubmit = (values) => {
-    console.log(values);
+    // console.log(values);
     let transactionId = '';
     if(values.paymentMethod === 'bkash')
       transactionId = values.transactionId;
@@ -429,7 +429,7 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
                         //   }
                         // }}
                         onChange={(e) => {
-                          console.log(e.target.value)
+                          // console.log(e.target.value)
                           if(e.target.value === 'bkash'){
                             setIsShown(true);
                           } else setIsShown(false)

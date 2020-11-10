@@ -53,21 +53,21 @@ function Register() {
   // });
 
   const handleSubmit = (values) => {
-    console.log(values);
+    // console.log(values);
     registerUser({
       name: values.name,
       mobile: values.mobile,
       password: values.password
     });
     setCreds(values)
-    console.log('Register Status: ' + JSON.stringify(register));
+    // console.log('Register Status: ' + JSON.stringify(register));
   }
 
   const handleGoogleLogin = () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(googleAuthProvider)
       .then(result => {
-        console.log(result);
+        // console.log(result);
         firebase.auth().currentUser.getIdToken(true)
           .then(idToken => {
             loginUserThirdParty({

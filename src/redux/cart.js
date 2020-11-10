@@ -35,7 +35,7 @@ const Cart = (state = {
                 updatedProducts[foundIndex].quantity = action.payload.quantity;
                 return { ...state, products: updatedProducts };
             } else {
-                console.log('Product not found in the cart\n');
+                // console.log('Product not found in the cart\n');
                 return state;
             }
         case ActionTypes.UPDATE_DELIVERY_COST:

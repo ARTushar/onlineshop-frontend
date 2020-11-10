@@ -64,7 +64,7 @@ export const Products = (
       return {
         ...state, filteredProducts: state.searchProducts.filter((product) =>{ 
           const discountedPrice = product.price - product.price * product.discount * 0.01;
-          console.log(discountedPrice, product.averageRating);
+          // console.log(discountedPrice, product.averageRating);
           return discountedPrice >= min && discountedPrice <= max 
           && product.averageRating >= action.rating
         })

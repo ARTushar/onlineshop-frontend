@@ -159,8 +159,8 @@ function OrderList() {
     rows.push(createData(order._id, order.createdAt, order.products.length, order.subTotalCost + order.deliveryCost, order.status));
   }
 
-  console.log('order : ' + JSON.stringify(rows));
-  console.log(typeof rows)
+  // console.log('order : ' + JSON.stringify(rows));
+  // console.log(typeof rows)
 
 
   const history = useHistory();
