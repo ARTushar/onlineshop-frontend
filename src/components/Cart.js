@@ -48,7 +48,7 @@ function Cart() {
                     title={cartproduct.title}
                     price={cartproduct.price}
                     q={cartproduct.quantity}
-                    maxq={12}
+                    maxq={cartproduct.maxq}
                   />
                 ))}
               </div>
@@ -71,7 +71,7 @@ function Cart() {
                     title={cartproduct.title}
                     price={cartproduct.price}
                     q={cartproduct.quantity}
-                    maxq={12}
+                    maxq={cartproduct.maxq}
                   />
                 ))}
               </Table>

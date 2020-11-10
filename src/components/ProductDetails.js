@@ -96,6 +96,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
         title: selectedProduct.title,
         image: selectedProduct.images[0].image,
         quantity: quantity,
+        maxq 
       })
       dispatch(setAlertMessage('Yay! this product has been added to the cart!', 'success', true))
     } else {
