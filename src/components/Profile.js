@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
   tabPanel: {
     width: "-webkit-fill-available",
     width: "-moz-available"
-  }
+  },
 }));
 
 function Profile() {
@@ -102,7 +102,7 @@ function Profile() {
   const [windowStatus, setWindowStatus] = useState(0)
 
   useEffect(() => {
-    if( width < 576) setWindowStatus(1);
+    if (width < 576) setWindowStatus(1);
     else setWindowStatus(0)
 
   }, [width])
@@ -111,34 +111,35 @@ function Profile() {
     <div className="profile">
       <Container className="profile__container">
         <Row className="profile__row">
-          <div className={windowStatus == 0? classes.root: classes.rootSmall}>
-      <Tabs
-        orientation={windowStatus == 0? "vertical": "horizontal"}
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Profile Tabs"
-        className={classes.tabs}
-        TabIndicatorProps={{ className: classes.indicator }}
-      >
-        <Tab classes={{ wrapper: classes.label, selected: classes.tabSelected }} label="Profile" {...a11yProps(0)} />
-        <Tab classes={{ wrapper: classes.label, selected: classes.tabSelected }} label="Orders" {...a11yProps(1)} />
-        <Tab classes={{ wrapper: classes.label, selected: classes.tabSelected }} label="WishList" {...a11yProps(2)} />
-      </Tabs>
-      <TabPanel className={classes.tabPanel} value={value} index={0}>
-        <UserInformation />
-      </TabPanel>
-      <TabPanel className={classes.tabPanel} value={value} index={1}>
-        <OrderList />
-      </TabPanel>
-      <TabPanel className={classes.tabPanel} value={value} index={2}>
-        <WishList />
-      </TabPanel>
-    </div>
+          <div className={windowStatus == 0 ? classes.root : classes.rootSmall}>
+            <Tabs
+              orientation={windowStatus == 0 ? "vertical" : "horizontal"}
+              variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              aria-label="Profile Tabs"
+              className={classes.tabs}
+              TabIndicatorProps={{ className: classes.indicator }}
+            >
+              <Tab classes={{ wrapper: classes.label, selected: classes.tabSelected }} label="Profile" {...a11yProps(0)} />
+              <Tab classes={{ wrapper: classes.label, selected: classes.tabSelected }} label="Orders" {...a11yProps(1)} />
+              <Tab classes={{ wrapper: classes.label, selected: classes.tabSelected }} label="WishList" {...a11yProps(2)} />
+            </Tabs>
+            <TabPanel className="profile__tabpanel" value={value} index={0}>
+              <UserInformation />
+            </TabPanel>
+            <TabPanel 
+              value={value} index={1}>
+              <OrderList />
+            </TabPanel>
+            <TabPanel  value={value} index={2}>
+              <WishList />
+            </TabPanel>
+          </div>
         </Row>
       </Container>
     </div>
-    
+
   )
 }
 

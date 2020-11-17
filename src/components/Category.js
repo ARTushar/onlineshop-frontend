@@ -28,7 +28,7 @@ function Category({categories}) {
       <span style={{
         fontSize: "small"
       }} onClick={toggleDrawer(true)}>Categories</span>
-      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+      <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <ProSidebar style={{
           zIndex: 100000
         }}>
@@ -41,10 +41,11 @@ function Category({categories}) {
           <SidebarContent>
             <Menu iconShape="square">
               {categories.map(category => (
-                <SubMenu key={category.name} title={category.name}>
+                <SubMenu key={category.name} title={category.name.toUpperCase()}>
+
                   {category.subCategory.map(subcat => (
                     <MenuItem key={subcat} onClick={() => history.push('/category/' + slugify(subcat))}>
-                      {subcat}
+                      {subcat.toUpperCase()}
                     </MenuItem>
                   ))}
                 </SubMenu>

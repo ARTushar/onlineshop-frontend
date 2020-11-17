@@ -14,8 +14,9 @@ import '../assets/css/UserInformation.css';
 import { UserContext } from '../utils/context';
 import ChangePassword from './ChangePassword';
 import Loading from './Loading';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectDistricts } from '../redux/districts';
+import { fetchDistricts } from '../redux/actionCreators';
 
 const required = (val) => val && val.length;
 // const requiredObject = (val) => val.value && val.value.length
@@ -35,10 +36,12 @@ function UserInformation() {
 
   const userContext = React.useContext(UserContext);
   const user = userContext.user.profileInformation;
-  const hasLoaded = userContext.user.hasLoaded;
+  const userHasLoaded = userContext.user.hasLoaded;
 
-  const { districts, isLoading } = useSelector(state => state.districts)
+  const { districts, isLoading, hasLoaded } = useSelector(state => state.districts)
   const districtsSelect = selectDistricts(districts);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -60,8 +63,11 @@ function UserInformation() {
   const [isChangePassword, setIsChangePassword] = useState(false);
 
   useEffect(() => {
-    if (!hasLoaded) {
+    if (!userHasLoaded) {
       userContext.fetchProfile();
+    }
+    if(!isLoading && !hasLoaded){
+      dispatch(fetchDistricts());
     }
   }, [])
 

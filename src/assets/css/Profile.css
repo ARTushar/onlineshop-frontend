@@ -11,3 +11,8 @@
     font-size: small;
     font-weight: 500;
 }
+
+.profile__tabpanel {
+   width: -webkit-fill-available;
+   width: -moz-available
+}

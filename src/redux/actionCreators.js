@@ -954,6 +954,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
       if (response.success) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('refreshToken', response.refreshToken);
+        dispatch(fetchProfile());
         dispatch(receiveLogin(response));
         if (history.location.state) {
           // console.log('location: ' + JSON.stringify(history.location.state.productLocation));
