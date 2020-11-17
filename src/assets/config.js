@@ -1,12 +1,12 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyAZC19xTdMpcf7DJAw3hgXVJkFYG_hy79M",
-  authDomain: "nipuns-gallery.firebaseapp.com",
-  databaseURL: "https://nipuns-gallery.firebaseio.com",
-  projectId: "nipuns-gallery",
-  storageBucket: "nipuns-gallery.appspot.com",
-  messagingSenderId: "949423453757",
-  appId: "1:949423453757:web:e6b555b6c72950953adc54",
-  measurementId: "G-QXS6JQQTL7"
+  apiKey: "AIzaSyBgTGzTCSdezxT8rg3eXk2LObmgSeQtCGs",
+  authDomain: "nipuns-gallery-bd.firebaseapp.com",
+  databaseURL: "https://nipuns-gallery-bd.firebaseio.com",
+  projectId: "nipuns-gallery-bd",
+  storageBucket: "nipuns-gallery-bd.appspot.com",
+  messagingSenderId: "492610035124",
+  appId: "1:492610035124:web:b03546d5010be94a8c66e1",
+  measurementId: "G-31LHKGV849"
 };
 
 export default firebaseConfig;
