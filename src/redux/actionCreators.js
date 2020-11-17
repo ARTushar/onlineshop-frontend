@@ -19,7 +19,7 @@ const handleTokenExpiration = async () => {
   }
 }
 
-const getNewToken = (counter) => {
+const getNewToken = async (counter) => {
   // console.log('getting new token : ' + counter);
   if(!counter) return;
   const bearer = 'Bearer ' + localStorage.getItem('refreshToken');
@@ -46,7 +46,7 @@ const getNewToken = (counter) => {
     })
     .then(response => {
       if (response.success){
-        console.log('successfully refreshed the token');
+        // console.log('successfully refreshed the token');
         localStorage.setItem('token', response.token);
         localStorage.setItem('refreshToken', response.refreshToken);
       }
@@ -321,9 +321,9 @@ export const clearQuestionPosted = () => ({
   type: ActionTypes.CLEAR_QUESTION_POSTED
 })
 
-export const postQuestion = (question, productId) => dispatch => {
+export const postQuestion = (question, productId) => async dispatch => {
 
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   axios({
@@ -420,9 +420,9 @@ const removeFromWishlist = (productId) => ({
 });
 
 
-export const postProductToWishlist = (product) => (dispatch) => {
+export const postProductToWishlist = (product) => async (dispatch) => {
 
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   axios({
@@ -464,9 +464,9 @@ export const postProductToWishlist = (product) => (dispatch) => {
     })
 }
 
-export const removeProductFromWishlist = (productId) => (dispatch) => {
+export const removeProductFromWishlist = (productId) => async (dispatch) => {
 
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   axios({
@@ -543,10 +543,10 @@ export const fetchSelectedOrder = (orders, orderId) => (dispatch) => {
   dispatch(addSelectedOrder(orders.filter(order => order._id == orderId)[0]));
 }
 
-export const fetchOrders = () => (dispatch) => {
+export const fetchOrders = () => async (dispatch) => {
   dispatch(requestOrders())
 
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   return axios({
@@ -579,12 +579,11 @@ export const fetchOrders = () => (dispatch) => {
     })
 }
 
-export const postOrder = (order, fromBuy, history) => (dispatch) => {
+export const postOrder = (order, fromBuy, history) => async (dispatch) => {
   // console.log('Posting an order')
 
   dispatch(requestOrders())
-
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   axios({
@@ -653,9 +652,9 @@ export const clearReviewPosted = () => ({
   type: ActionTypes.CLEAR_REVIEW_POSTED
 })
 
-export const postReview = (review, productId) => dispatch => {
+export const postReview = (review, productId) => async dispatch => {
 
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   axios({
@@ -725,10 +724,10 @@ const setLoad = () => ({
   type: ActionTypes.SET_LOAD
 })
 
-export const fetchProfile = () => (dispatch) => {
+export const fetchProfile = () => async (dispatch) => {
   dispatch(requestProfile())
 
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   return axios({
@@ -768,10 +767,10 @@ export const fetchProfile = () => (dispatch) => {
     })
 }
 
-export const updateProfile = (profile) => (dispatch) => {
+export const updateProfile = (profile) => async (dispatch) => {
   dispatch(requestProfile())
 
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   return axios({
@@ -815,10 +814,10 @@ export const updateProfile = (profile) => (dispatch) => {
     })
 }
 
-export const changePassword = (password) => (dispatch) => {
+export const changePassword = (password) => async (dispatch) => {
   dispatch(requestProfile())
 
-  handleTokenExpiration();
+  await handleTokenExpiration();
   const bearer = 'Bearer ' + localStorage.getItem('token');
 
   return axios({
