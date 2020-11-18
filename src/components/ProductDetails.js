@@ -95,7 +95,8 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
         id: selectedProduct._id,
         price: discountPrice,
         title: selectedProduct.title,
-        image: selectedProduct.images[0].image,
+        image: selectedProduct.images[colorFamilyImageIndex].image,
+        color: selectedProduct.images[colorFamilyImageIndex].color,
         quantity: quantity,
         maxq 
       })
@@ -117,7 +118,8 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
       id: selectedProduct._id,
       price: discountPrice,
       title: selectedProduct.title,
-      image: selectedProduct.images[0].image,
+      image: selectedProduct.images[colorFamilyImageIndex].image,
+      color: selectedProduct.images[colorFamilyImageIndex].color,
       quantity: quantity,
     });
     history.push({

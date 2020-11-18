@@ -60,7 +60,8 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
   if (history.location.state && singleProduct) {
     products = [{
       product: singleProduct.id,
-      quantity: singleProduct.quantity
+      quantity: singleProduct.quantity,
+      color: singleProduct.color
     }];
     totalCost = singleProduct.price * singleProduct.quantity + deliverySelect.deliveryCost;
   }
@@ -69,7 +70,8 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
     for (let i = 0; i < cartProducts.length; i++) {
       products.push({
         product: cartProducts[i].id,
-        quantity: cartProducts[i].quantity
+        quantity: cartProducts[i].quantity,
+        color: cartProducts[i].color
       })
     }
     totalCost = selectTotalPrice(cartProducts, deliverySelect.deliveryCost);
