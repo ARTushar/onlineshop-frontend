@@ -13,7 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 
-function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postReview, orderId, clearReviewPosted, discount }) {
+function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postReview, orderId, clearReviewPosted, discount, orderStatus }) {
   const [reviewButtonState, setReviewButtonState] = useState(false);
 
 	const handleReview = (review) => {
@@ -51,6 +51,7 @@ function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postRevi
 					<span>{q}</span>
 				</td>
 				<td className='orderproduct__reviewButton'>
+					{orderStatus === "delivered"? (
 					<Button
 						onClick={() => {
 							setReviewButtonState(!reviewButtonState);
@@ -68,6 +69,7 @@ function OrderProduct({ id, image, title, price, q, slug, reviewPosted, postRevi
 							<ClearIcon></ClearIcon>
 						)}
 					</Button>
+					): (null)}
 				</td>
 			</tr>
 			<tr>

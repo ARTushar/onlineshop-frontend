@@ -128,10 +128,13 @@ function Profile() {
               <UserInformation />
             </TabPanel>
             <TabPanel 
+              className="profile__tabpanel"
               value={value} index={1}>
               <OrderList />
             </TabPanel>
-            <TabPanel  value={value} index={2}>
+            <TabPanel
+              className="profile__tabpanel"
+              value={value} index={2}>
               <WishList />
             </TabPanel>
           </div>

@@ -14,7 +14,7 @@ function PricacyPolicy() {
     <div className="policy">
       <Container className="policy__container">
         <Row className="policy__row justify-content-center">
-          <h2 className='policy__heading'>NIPUNS GALLERY PRIVACY POLICY</h2>
+          <h2 className='policy__heading'>NIPUN'S GALLERY PRIVACY POLICY</h2>
         </Row>
         <Row className="policy__row">
           <span className='policy__date'>Last Modified: November 1, 2020</span>

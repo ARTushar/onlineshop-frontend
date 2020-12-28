@@ -579,12 +579,15 @@ export const fetchOrders = () => async (dispatch) => {
     })
 }
 
-export const postOrder = (order, fromBuy, history) => async (dispatch) => {
+export const postOrder = (order, fromBuy, history, authenticated) => async (dispatch) => {
   // console.log('Posting an order')
-
-  dispatch(requestOrders())
-  await handleTokenExpiration();
-  const bearer = 'Bearer ' + localStorage.getItem('token');
+  let bearer = "";
+  console.log("authenticated: " + authenticated);
+  if (authenticated) {
+    dispatch(requestOrders())
+    await handleTokenExpiration();
+    bearer = 'Bearer ' + localStorage.getItem('token');
+  } 
 
   axios({
     method: 'POST',
@@ -686,7 +689,7 @@ export const postReview = (review, productId) => async dispatch => {
       }
     })
     .catch(error => {
-        dispatch(setAlertMessage('Alas! your review could not be posted! Please try again', 'error', true));
+      dispatch(setAlertMessage('Alas! your review could not be posted! Please try again', 'error', true));
       if (error.response) console.log(error.response.data)
       else console.log(error.message);
     })
@@ -903,6 +906,7 @@ export const loginUser = (creds, remember, history) => (dispatch) => {
           localStorage.removeItem('creds');
         }
         dispatch(fetchProfile());
+        dispatch(fetchOrders());
         dispatch(receiveLogin(response));
         dispatch(setAlertMessage('Yay! You have successfully logged in!', 'success', true));
         if (history.location.state) {
@@ -954,6 +958,7 @@ export const loginUserThirdParty = (creds, provider, history) => (dispatch) => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('refreshToken', response.refreshToken);
         dispatch(fetchProfile());
+        dispatch(fetchOrders());
         dispatch(receiveLogin(response));
         if (history.location.state) {
           // console.log('location: ' + JSON.stringify(history.location.state.productLocation));

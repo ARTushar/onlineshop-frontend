@@ -6,6 +6,7 @@ import EmailIcon from '@material-ui/icons/Email';
 import FacebookIcon from '@material-ui/icons/Facebook';
 // import YouTubeIcon from '@material-ui/icons/YouTube';
 import { Link } from 'react-router-dom';
+import { HOTLINE, ADDRESS, EMAIL, FACEBOOK_LINK } from '../shared/information';
 
 function Footer() {
     return (
@@ -33,7 +34,7 @@ function Footer() {
                                 <span>Our Social Links</span>
                             </Col>
                             <Col xs={{ size: 12 }} className="footer__left__social__icon">
-                                <a href="https://www.facebook.com/groups/nipunsgallery"><FacebookIcon style={{fontSize: 30, color: "#3b5998",}} /></a>
+                                <a href={FACEBOOK_LINK}><FacebookIcon style={{fontSize: 30, color: "#3b5998",}} /></a>
                                 {/* <a href=""> <YouTubeIcon style={{fontSize: 30, color: "#FF0000"}} /></a> */}
                             </Col>
                         </Row>
@@ -46,9 +47,9 @@ function Footer() {
                         <Row>
                             <Col sm={{ size: 12 }} className="footer__right__address">
                                 <address className="">
-                                    Jatrabari, Dhaka, Bangladesh<br />
-                                    <CallIcon />: +8801974716315<br />
-                                    <EmailIcon />: <a href="mailto:nipunsgallery@gmail.com"> nipunsgallery@gmail.com</a>
+                                    {ADDRESS}<br />
+                                    <CallIcon />: {HOTLINE}<br />
+                                    <EmailIcon />: <a href={"mailto:" + EMAIL}> {EMAIL}</a>
                                 </address>
                             </Col>
                         </Row>
@@ -59,7 +60,9 @@ function Footer() {
                         <span>© Copyright: Nipun's Gallery</span>
                     </Col>
                     <Col md="5" className="">
-                        <span>© Developed by: Abdur Rashid Tushar (CSE, BUET)</span>
+                        <Row>
+                        <span>© Developed by: ARTech (+8801864510094)</span>
+                        </Row>
                     </Col>
                 </Row>
             </Container>

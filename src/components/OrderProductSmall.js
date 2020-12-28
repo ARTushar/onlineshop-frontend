@@ -8,7 +8,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 
-function OrderProductSmall({ id, image, title, price, q, maxq, reviewPosted, postReview, orderId, clearReviewPosted }) {
+function OrderProductSmall({ id, image, title, price, q, maxq, reviewPosted, postReview, orderId, clearReviewPosted, orderStatus }) {
   const [reviewButtonState, setReviewButtonState] = useState(false);
 
 	const handleReview = (review) => {
@@ -78,23 +78,24 @@ function OrderProductSmall({ id, image, title, price, q, maxq, reviewPosted, pos
 				</Col>
 			</Row>
 			<Row>
-				<Button
-					onClick={() => {
-						setReviewButtonState(!reviewButtonState);
-					}}
-					style={{
-						backgroundColor: '#FF7F50',
-						border: 0,
-						fontSize: '12px',
-						minWidth: '90px',
-					}}
-				>
-					{!reviewButtonState ? (
-						<span>Give Review</span>
-					) : (
-						<ClearIcon></ClearIcon>
-					)}
-				</Button>
+				{orderStatus === "delivered" ? (
+					<Button
+						onClick={() => {
+							setReviewButtonState(!reviewButtonState);
+						}}
+						style={{
+							backgroundColor: '#FF7F50',
+							border: 0,
+							fontSize: '12px',
+							minWidth: '90px',
+						}}
+					>
+						{!reviewButtonState ? (
+							<span>Give Review</span>
+						) : (
+								<ClearIcon></ClearIcon>
+							)}
+					</Button>) : (null)}
 				{reviewButtonState && (
 					<LocalForm model='review' onSubmit={(values) => handleReview(values)}>
 						<Row className='form-group'>

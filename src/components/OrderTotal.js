@@ -14,7 +14,18 @@ function OrderTotal({order}) {
     <div className="ordertotal">
       <Container className="ordertotal__container">
         <Row className="ordertotal__heading">
-          <span>Order Summary ({order._id})</span>
+          <span>Order Summary</span>
+        </Row>
+        <hr />
+        <Row className="ordertotal__name">
+          <Col xs={3} lg={4} className="ordertotal__name__heading">
+            <span>Order ID</span>
+          </Col>
+          <Col xs={9} lg={8} className="ordertotal__name__value">
+            <span>
+              {order._id}
+            </span>
+          </Col>
         </Row>
         <hr />
         <Row className="ordertotal__name">
@@ -24,6 +35,17 @@ function OrderTotal({order}) {
           <Col xs={9} lg={8} className="ordertotal__name__value">
             <span>
               {order.shippingAddress.customer}
+            </span>
+          </Col>
+        </Row>
+        <hr />
+        <Row className="ordertotal__name">
+          <Col xs={3} lg={4} className="ordertotal__name__heading">
+            <span>Mobile Number</span>
+          </Col>
+          <Col xs={9} lg={8} className="ordertotal__name__value">
+            <span>
+              {order.shippingAddress.mobile}
             </span>
           </Col>
         </Row>

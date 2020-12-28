@@ -34,6 +34,7 @@ function OrderInvoice({ order_no, orders, reviewPosted, postReview, clearReviewP
                     reviewPosted={reviewPosted}
                     postReview={postReview}
                     clearReviewPosted={clearReviewPosted}
+                    orderStatus={order.status}
                   />
                 ))}
               </div>
@@ -62,6 +63,7 @@ function OrderInvoice({ order_no, orders, reviewPosted, postReview, clearReviewP
                       reviewPosted={reviewPosted}
                       postReview={postReview}
                       clearReviewPosted={clearReviewPosted}
+                      orderStatus={order.status}
                     />
                   ))}
                 </tbody>

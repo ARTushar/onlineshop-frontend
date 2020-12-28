@@ -21,6 +21,7 @@ import { selectTotalPrice } from '../redux/cart';
 import { selectDistricts } from '../redux/districts';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchDistricts } from '../redux/actionCreators';
+import { BKASH_MERCHANT_NUMBER } from '../shared/information';
 
 const required = (val) => val && val.length;
 const requiredObject = (val) => val && val.value && val.value.length
@@ -40,18 +41,17 @@ const RadioButton = (props) => (
   <RadioGroup onChange={val => props.onChange(val)}>
     <FormControlLabel value="bkash" control={<Radio size="small" />} label={<span style={{ fontSize: 'small', fontWeight: "500" }}>Bkash</span>} />
     <FormControlLabel value="cashOnDelivery" control={<Radio size="small" />} label={<span style={{ fontSize: 'small', fontWeight: "500" }}>Cash On Delivery</span>} />
-    <FormControlLabel value="onlinePayment" control={<Radio size="small" />} label={<span style={{ fontSize: 'small', fontWeight: "500" }}>Online Payment</span>} />
+    {/* <FormControlLabel value="onlinePayment" control={<Radio size="small" />} label={<span style={{ fontSize: 'small', fontWeight: "500" }}>Online Payment</span>} /> */}
   </RadioGroup>
 );
 
-function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, singleProduct, removeSingleProduct, updateDeliveryCost }) {
+function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, singleProduct, removeSingleProduct, updateDeliveryCost, authenticated }) {
 
   const {districts, isLoading} = useSelector(state => state.districts)
   const districtsSelect = selectDistricts(districts);
 
   let products;
   let totalCost;
-  const bkashMobileNumber = '01974716315';
 
   const [isShown, setIsShown] = useState(false);
 
@@ -108,7 +108,7 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
         method: values.paymentMethod,
         transactionId 
       }
-    }, fromBuy, history);
+    }, fromBuy, history, authenticated);
     // removeSingleProduct();
   }
 
@@ -471,7 +471,7 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
                           prefix="৳"
                           thousandSeparator={true}
                           className="checkout__total__payment"
-                        /> to <span className="checkout__total__payment">{bkashMobileNumber}</span> and then write the transaction id below</Label>
+                        /> to <span className="checkout__total__payment">{BKASH_MERCHANT_NUMBER}</span> and then write the transaction id below</Label>
                       <Col xs={12}>
                         <Control.text model=".transactionId" id="transactionId" name="transactionId"
                           className="form-control"

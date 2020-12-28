@@ -112,7 +112,7 @@ function ProductDetails({ selectedProduct, addToWishlist }) {
       return;
     }
     if(!cartContext.isAuthenticated){
-      dispatch(setAlertMessage('Please log in!', 'error', true))
+      // dispatch(setAlertMessage('Please log in!', 'error', true))
     }
     cartContext.addSingleProduct({
       id: selectedProduct._id,
