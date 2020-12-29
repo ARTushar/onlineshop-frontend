@@ -37,7 +37,8 @@ function Header({ categories, fetchCategories, categoriesLoaded, setCurrentSearc
     if (!categoriesLoaded) {
       fetchCategories()
     }
-  }, [])
+    console.log("auth: " + auth.isAuthenticated)
+  }, [auth.isAuthenticated])
 
   return (
     <div className='header'>
