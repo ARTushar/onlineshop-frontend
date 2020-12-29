@@ -471,7 +471,7 @@ function Checkout({ cartProducts, deliverySelect, userInformation, postOrder, si
                           prefix="৳"
                           thousandSeparator={true}
                           className="checkout__total__payment"
-                        /> to <span className="checkout__total__payment">{BKASH_MERCHANT_NUMBER}</span> and then write the transaction id below</Label>
+                        /> to <span className="checkout__total__payment">{BKASH_MERCHANT_NUMBER}</span> <b>Merchant </b>number and then write the transaction id below</Label>
                       <Col xs={12}>
                         <Control.text model=".transactionId" id="transactionId" name="transactionId"
                           className="form-control"
